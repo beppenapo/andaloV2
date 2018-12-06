@@ -6,6 +6,11 @@ class General extends Db{
     $sql="select scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path from scheda, foto2, file where foto2.id_scheda = scheda.id and file.id_scheda = scheda.id order by random() limit ".$dati['limit'].";";
     return $this->simple($sql);
   }
+
+  public function geotag(){
+    $sql = "SELECT comune.id, replace(comune.comune,'-','AREA NON DEFINITA') area, count(*) as schede FROM area, aree, aree_scheda, scheda, comune, area_int_poly WHERE aree.nome_area = area.id AND aree.id_comune = comune.id AND aree_scheda.id_area = area.id AND area_int_poly.id_area = area.id and aree_scheda.id_scheda = scheda.id AND area.tipo = 1 and scheda.dgn_tpsch = 7 and scheda.livello = 2 group by comune.id, comune.comune order by 1 asc;";
+    return $this->simple($sql);
+  }
 }
 
 ?>

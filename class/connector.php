@@ -6,6 +6,7 @@ if(isset($funzione) && function_exists($funzione)) {
   $trigger = $funzione($class);
   echo $trigger;
 }
-## user function ##
+## index function ##
 function imgWall($class){return json_encode($class->imgWall($_POST['dati']));}
+function geotag($class){return json_encode($class->geotag());}
 ?>
