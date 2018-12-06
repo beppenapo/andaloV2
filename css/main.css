@@ -12,6 +12,7 @@ a:hover{text-decoration: none;}
 
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
 .imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: cover; background-repeat: no-repeat; background-position: center center; z-index:1000;}
+.imgContent>i{margin-top:30%;}
 .imgTxt{position:absolute;left:0; width:100%; z-index:1001;}
 .imgTxt>p{position:relative;color: #fff; font-size: 20px;padding:10px;}
 
