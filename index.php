@@ -29,6 +29,7 @@
     </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
+    <script src="lib/echo.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>

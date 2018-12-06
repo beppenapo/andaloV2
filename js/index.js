@@ -8,13 +8,17 @@ $(document).ready(function(){
       data.forEach(function(val,idx){
         if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
         d1=$("<div/>",{id:'img'+idx}).addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 border imgDiv').appendTo('.wrapImg');
-        d2=$("<div/>").addClass('imgContent animation').css("background-image","url('foto/"+val.path+"')").appendTo(d1)
+        d2=$("<div/>").addClass('imgContent animation')
+          // .css("background-image","url('foto/"+val.path+"')")
+          .attr("data-echo-background","foto/"+val.path)
+          .appendTo(d1)
         d3=$("<div/>").addClass('animation imgTxt').appendTo(d1)
         $("<p/>").addClass('animation').html(titolo).appendTo(d3)
         wrapImgWidth();
       })
     }
   );
+  echo.init();
 })
 
 //quando un device viene ruotato ricalcolo l'altezza delle immagini
