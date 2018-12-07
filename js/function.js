@@ -2,8 +2,18 @@
 const connector='class/connector.php'
 const type='POST'
 const dataType='json'
+const $root = $('html, body');
 $(document).ready(function(){
-
+  $('.scroll').on('click',function() {
+    var href = $(this).data('id');
+    var top = $("#"+href).offset().top - 300
+    $root.animate({
+        scrollTop: top
+    }, 500, function () {
+        window.location.hash = href;
+    });
+    return false;
+  });
 })
 
 function wrapImgWidth(){ $(".imgDiv").height($("#img0").width()) }
@@ -38,19 +48,19 @@ function geotag(){
       cluster = max / 10;
       data.forEach(function(val,idx){
         switch (true) {
-          case (val.schede <= cluster): size = 12; break;
-          case (val.schede > cluster && val.schede <= (cluster * 2) ): size = 14; break;
-          case (val.schede > (cluster * 2) && val.schede <= (cluster * 3) ): size = 16; break;
-          case (val.schede > (cluster * 3) && val.schede <= (cluster * 4) ): size = 18; break;
-          case (val.schede > (cluster * 4) && val.schede <= (cluster * 5) ): size = 20; break;
-          case (val.schede > (cluster * 5) && val.schede <= (cluster * 6) ): size = 22; break;
-          case (val.schede > (cluster * 6) && val.schede <= (cluster * 7) ): size = 24; break;
-          case (val.schede > (cluster * 7) && val.schede <= (cluster * 8) ): size = 26; break;
-          case (val.schede > (cluster * 8) && val.schede <= (cluster * 9) ): size = 28; break;
-          case (val.schede > (cluster * 9) && val.schede <= max ): size = 30; break;
-          default: size = 10
+          case (val.schede <= cluster): size = 16; break;
+          case (val.schede > cluster && val.schede <= (cluster * 2) ): size = 18; break;
+          case (val.schede > (cluster * 2) && val.schede <= (cluster * 3) ): size = 20; break;
+          case (val.schede > (cluster * 3) && val.schede <= (cluster * 4) ): size = 22; break;
+          case (val.schede > (cluster * 4) && val.schede <= (cluster * 5) ): size = 24; break;
+          case (val.schede > (cluster * 5) && val.schede <= (cluster * 6) ): size = 26; break;
+          case (val.schede > (cluster * 6) && val.schede <= (cluster * 7) ): size = 28; break;
+          case (val.schede > (cluster * 7) && val.schede <= (cluster * 8) ): size = 30; break;
+          case (val.schede > (cluster * 8) && val.schede <= (cluster * 9) ): size = 32; break;
+          case (val.schede > (cluster * 9) && val.schede <= max ): size = 34; break;
+          default: size = 14
         }
-        btn = $("<label/>").addClass('geotag mr-3 animation').css("font-size",size).attr("data-id", val.id).text(val.area).appendTo('.geoTagContent');
+        btn = $("<label/>").addClass('geotag mr-3 animation rounded').css("font-size",size).attr("data-id", val.id).text(val.area).appendTo('.geoTagContent');
         $("<span/>").text(val.schede).appendTo(btn)
       })
     }
