@@ -25,8 +25,8 @@ a:hover{text-decoration: none;}
 .geotag:hover>span{color:#fff; }
 .pointer{cursor:pointer;}
 
-.circleDiv{width:200px;height:200px;}
-.circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;}
+.circleDiv{width:100px;height:100px;}
+.circleDiv>h2{font-size:90%;margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;}
 .cd1{
   background: #28a745;
   background: -moz-radial-gradient(center, ellipse cover, #28a745 0%, #007f43 100%);
@@ -68,6 +68,8 @@ a:hover{text-decoration: none;}
   .mainMenu>li{margin-right: -5px;}
   .mainMenu>li>a{padding:10px;}
   #logo{height: 40px;padding-right: 20px;}
+  .circleDiv{width:150px;height:150px;}
+  .circleDiv>h2{font-size:150%;}
 }
 
 /* // Large devices (desktops, 992px and up) */
@@ -76,6 +78,8 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{padding:10px;}
   #logo{height: 40px;padding-right: 20px;}
   .geoTagContent{width:50%;margin:0 auto;}
+  .circleDiv{width:200px;height:200px;}
+  .circleDiv>h2:hover{transform: scale(1.2);}
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
@@ -84,6 +88,9 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{padding:10px;}
   #logo{height: 40px; padding-right: 20px;}
   .geoTagContent{width:50%;margin:0 auto;}
+  .circleDiv{width:200px;height:200px;}
+  .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;}
+  .circleDiv>h2:hover{transform: scale(1.2);}
 }
 
 @media (any-hover: hover) {
