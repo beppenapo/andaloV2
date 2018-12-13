@@ -1,17 +1,14 @@
-//costanti per funzioni ajax
-const connector='class/connector.php'
-const type='POST'
-const dataType='json'
+// costanti per funzioni ajax
+const connector = 'class/connector.php'
+const type = 'POST'
+const dataType = 'json'
 const $root = $('html, body');
 $(document).ready(function(){
   $('.scroll').on('click',function() {
     var href = $(this).data('id');
-    var top = $("#"+href).offset().top - 300
-    $root.animate({
-        scrollTop: top
-    }, 500, function () {
-        window.location.hash = href;
-    });
+    var t = $("#"+href).offset().top
+    console.log(t);
+    $root.animate({ scrollTop: t }, 500, function () { window.location.hash = href; });
     return false;
   });
 })
@@ -40,7 +37,7 @@ function imgWall(){
   );
 }
 
-function geotag(){
+function geotag () {
   oop={file:'global.class.php',classe:'General',func:'geotag'}
   $.ajax({url: connector, type: type, dataType: dataType, data: {oop:oop}})
     .done(function(data) {

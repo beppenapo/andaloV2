@@ -21,8 +21,7 @@ a:hover{text-decoration: none;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
 .geotag{display:inline-block;padding:3px 10px;cursor:pointer;}
 .geotag>span{color:#f8f9fa;padding-left:10px;}
-.geotag:hover{background:#d39e00; color:#fff; }
-.geotag:hover>span{color:#fff; }
+
 .pointer{cursor:pointer;}
 
 .circleDiv{width:100px;height:100px;}
@@ -79,6 +78,7 @@ a:hover{text-decoration: none;}
   #logo{height: 40px;padding-right: 20px;}
   .geoTagContent{width:50%;margin:0 auto;}
   .circleDiv{width:200px;height:200px;}
+  .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
 }
 
@@ -89,7 +89,7 @@ a:hover{text-decoration: none;}
   #logo{height: 40px; padding-right: 20px;}
   .geoTagContent{width:50%;margin:0 auto;}
   .circleDiv{width:200px;height:200px;}
-  .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;}
+  .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
 }
 
@@ -99,8 +99,12 @@ a:hover{text-decoration: none;}
   .imgDiv:hover .imgContent, .imgDiv:focus .imgContent { -ms-transform: scale(1.2); -moz-transform:scale(1.2); -webkit-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); }
   .imgDiv:hover .imgTxt{background: rgba(0,0,0,.5);}
   .imgDiv:hover .imgTxt>p{display: block;opacity:100;filter: alpha(opacity=100);zoom: 1;}
+  .geotag:hover{background:#d39e00; color:#fff; }
+  .geotag:hover>span{color:#fff; }
 }
 
 @media (any-hover: none) {
   .imgTxt{bottom:0;background: rgba(0,0,0,.5);}
+  .geotag{background:#d39e00; color:#fff; }
+  .geotag>span{color:#fff; }
 }

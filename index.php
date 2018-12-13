@@ -77,11 +77,6 @@
           </h2>
         </div>
       </div>
-      <div class="row mb-2">
-        <div class="col">
-          <h2 class="pb-2 border-bottom">About Us</h2>
-        </div>
-      </div>
     </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
