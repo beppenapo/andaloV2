@@ -10,8 +10,8 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <h1 class="text-light">PROGETTO MEMORIA</h1>
-            <h6 class="text-light">FOTOTECA DOCUMENTARIA DELL'ALTOPIANO DELLA PAGANELLA</h6>
+            <h1 class="text-dark">PROGETTO MEMORIA</h1>
+            <h6 class="text-dark">FOTOTECA DOCUMENTARIA DELL'ALTOPIANO DELLA PAGANELLA</h6>
           </div>
         </div>
       </div>

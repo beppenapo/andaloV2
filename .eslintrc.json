@@ -10,7 +10,6 @@
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-unused-vars": "off",
-    "no-undef": "off",
-    "qualified-headings": "off"
+    "no-undef": "off"
   }
 }
