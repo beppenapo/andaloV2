@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div id="mainSection" class="container">
+    <div id="mainSection" class="container-fluid">
       <div class="row mb-2">
         <div class="col">
           <h2 class="pb-2 border-bottom" id="immagini">
