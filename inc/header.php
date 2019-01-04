@@ -1,5 +1,5 @@
 <div id="header" class="sticky">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-sm-7 col-md-8">
         <ul class="mainMenu d-md-inline-block p-0 py-2 py-md-0 m-0">
