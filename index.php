@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
   <head>
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>

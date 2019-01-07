@@ -4,8 +4,8 @@
       <div class="col-sm-7 col-md-8">
         <ul class="mainMenu d-md-inline-block p-0 py-2 py-md-0 m-0">
           <li> <img src="img/logo.png" alt="" id="logo"> </li>
-          <li><a href="#" class="animation">about us</a></li>
-          <li><a href="#" class="animation">gallery</a></li>
+          <li><a href="index.php" class="animation">about us</a></li>
+          <li><a href="gallery.php" class="animation">gallery</a></li>
           <li><a href="#" class="animation">search</a></li>
           <li><a href="#" class="animation">download</a></li>
         </ul>

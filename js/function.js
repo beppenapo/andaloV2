@@ -23,17 +23,29 @@ function imgWall(){
     .done(function(data) {
       data.forEach(function(val,idx){
         if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
-        d1=$("<div/>",{id:'img'+idx}).addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 imgDiv').appendTo('.wrapImg');
+        d1=$("<div/>",{id:'img'+idx})
+          .attr("data-scheda",val.id)
+          .addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 imgDiv')
+          .appendTo('.wrapImg')
+          .on('click',function(){ linkScheda(val.id) });
         d2=$("<div/>").addClass('imgContent animation text-center')
           .html('<i class="fas fa-circle-notch fa-spin fa-5x"></i>')
           .attr("data-echo-background","foto/"+val.path)
           .appendTo(d1)
-        d3=$("<div/>").addClass('animation imgTxt').appendTo(d1)
+        d3=$("<div/>")
+          .addClass('animation imgTxt')
+          .appendTo(d1)
         $("<p/>").addClass('animation').html(titolo).appendTo(d3)
         wrapImgWidth();
       })
     }
   );
+}
+
+function linkScheda(id){
+  var form = $("<form/>",{action:'scheda.php',method:'post'}).appendTo('body')
+  $('<input/>',{type:'hidden',name:'scheda',value:id}).appendTo(form)
+  form.submit();
 }
 
 function geotag () {
