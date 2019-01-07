@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("class/scheda.class.php");
-$scheda = new Scheda($_POST['scheda']);
+$scheda = new Scheda(intval($_POST['scheda']));
 $getInfo = $scheda->getScheda();
 $info=$getInfo[0];
 if (!$info['sog_titolo'] || $info['sog_titolo'] == '-' || $info['sog_titolo'] == '') {
