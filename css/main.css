@@ -11,7 +11,7 @@ a:hover{text-decoration: none;}
 .mainScope{ margin-top: 50px; background: #fff; padding: 50px 0;}
 
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
-.imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: 180%; background-repeat: no-repeat; background-position: -50px center; z-index:1000;}
+.imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: 180%; background-repeat: no-repeat; background-position: 50% 30%; z-index:1000;}
 .imgContent>i{margin-top:30%;}
 .imgTxt{position:absolute;left:0; width:100%; z-index:1001;}
 .imgTxt>p{position:relative;color: #fff; font-size: 20px;padding:10px;}
