@@ -30,7 +30,7 @@ function imgWall(){
           .on('click',function(){ linkScheda(val.id) });
         d2=$("<div/>").addClass('imgContent animation text-center')
           .html('<i class="fas fa-circle-notch fa-spin fa-5x"></i>')
-          .attr("data-echo-background","thumb_medium/"+val.path)
+          .attr("data-echo-background","foto_medium/"+val.path)
           .appendTo(d1)
         d3=$("<div/>")
           .addClass('animation imgTxt')
