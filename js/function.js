@@ -13,13 +13,17 @@ $(document).ready(function(){
   });
 })
 
+const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
+
 function wrapImgWidth(){ $(".imgDiv").height($("#img0").width()) }
 
-function imgWall(){
-  oop={file:'global.class.php',classe:'General',func:'imgWall'}
-  limit = screen.width < 768 ? 10 : 20
-  dati={limit:limit}
-  $.ajax({url: connector, type: type, dataType: dataType, data: {oop:oop,dati:dati}})
+function imgWall(limit){
+  data={}
+  data['oop']={file:'global.class.php',classe:'General',func:'imgWall'}
+  data['dati']={limit:limit}
+  // oop={file:'global.class.php',classe:'General',func:'imgWall'}
+  // dati={limit:limit}
+  $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {
       data.forEach(function(val,idx){
         if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
@@ -41,6 +45,45 @@ function imgWall(){
     }
   );
 }
+function lazyImg(){
+  data={}
+  data['oop']={file:'global.class.php',classe:'General',func:'lazyLoad'}
+  $.ajax({url: connector, type: type, dataType: dataType, data: data})
+    .done(function(data) {
+      data.forEach(function(val,idx){
+        if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
+        d1=$("<div/>",{id:'img'+idx})
+          .attr("data-scheda",val.id)
+          .addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 imgDiv')
+          .appendTo('.progImg')
+          .on('click',function(){ linkScheda(val.id) });
+      })
+    }
+  );
+}
+
+// function lazyImg(){
+//   data={}
+//   data['oop']={file:'global.class.php',classe:'General',func:'lazyLoad'}
+//   $.ajax({url: connector, type: type, dataType: dataType, data: data})
+//   .done(function(data) {
+//       data.forEach(function(val,idx){
+//           val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
+//           d1=$("<div/>",{id:'img'+idx})
+//           .attr("data-scheda",val.id)
+//           .addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 imgDiv')
+//           .appendTo('.wrapImg')
+//           .on('click',function(){ linkScheda(val.id) });
+//           d2=$("<div/>").addClass('imgContent animation text-center lozad')
+//           .html('<i class="fas fa-circle-notch fa-spin fa-5x"></i>')
+//           .attr("data-background-image","foto_small/"+val.path)
+//           .appendTo(d1)
+//           wrapImgWidth();
+//         })
+//       }
+//     );
+//   }
+// }
 
 function linkScheda(id){
   var form = $("<form/>",{action:'scheda.php',method:'post'}).appendTo('body')

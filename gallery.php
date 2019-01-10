@@ -1,3 +1,9 @@
+<?php
+session_start();
+require("class/global.class.php");
+$list=new General;
+$img = $list->lazyLoad();
+?>
 <!doctype html>
 <html lang="it">
   <head>
@@ -18,28 +24,24 @@
     </div>
 
     <div class="mainScope border-top border-bottom">
-      <div class="container">
-        <div class="row">
+      <div class="container-fluid">
+        <div class="row wrapImg">
           <?php
-          $test = isset($_POST) ? print_r($_POST) : 'no data';
-          echo $test;
+            foreach ($img as $key => $val) {
+              if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
+              echo "<div id='img".$key."' class='col-4 col-md-2 p-0 imgDiv'>";
+                echo "<div class='imgContent animation lozad' data-background-image='foto_medium/".$val['path']."'></div>";
+                echo "<div class='animation imgTxt d-none d-md-block'>";
+                  echo "<p class='animation'>".$titolo."</p>";
+                echo "</div>";
+              echo "</div>";
+            }
           ?>
         </div>
       </div>
     </div>
-    <div id="mainSection" class="container-fluid">
-      <div class="row mb-2">
-        <div class="col">
-          <h2 class="pb-2 border-bottom" id="immagini">
-            <i class="far fa-image pr-2"></i>
-            IMMAGINI
-            <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-          </h2>
-        </div>
-      </div>
-      <div class="row wrapImg px-3 mb-5"></div>
-    </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
+    <script src="js/gallery.js"></script>
   </body>
 </html>

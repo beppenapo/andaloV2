@@ -15,7 +15,6 @@ a:hover{text-decoration: none;}
 .imgContent>i{margin-top:30%;}
 .imgTxt{position:absolute;left:0; width:100%; z-index:1001;}
 .imgTxt>p{position:relative;color: #fff; font-size: 20px;padding:10px;}
-
 .sticky{position: fixed;top: 0;left: 0;width: 100%;background: #fff; border-bottom: 1px solid #dee2e6;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
 .geotag{display:inline-block;padding:3px 10px;cursor:pointer;}

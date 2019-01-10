@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  imgWall()
+  limit = screen.width < 768 ? 10 : 20
+  imgWall(limit)
   geotag()
   echo.init({ callback: function (el, op) { $(el).html(''); } });
 })
