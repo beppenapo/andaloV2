@@ -3,26 +3,28 @@ const connector = 'class/connector.php'
 const type = 'POST'
 const dataType = 'json'
 const $root = $('html, body');
+const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
+
 $(document).ready(function(){
   $('.scroll').on('click',function() {
     var href = $(this).data('id');
     var t = $("#"+href).offset().top
-    console.log(t);
     $root.animate({ scrollTop: t }, 500, function () { window.location.hash = href; });
     return false;
   });
 })
 
-const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
 
-function wrapImgWidth(){ $(".imgDiv").height($("#img0").width()) }
+function wrapImgWidth(){
+  var hTitle = screen.height < 500 ? 350 : screen.height - 300
+  $('.maintitle').css("height",hTitle)
+  $(".imgDiv").height($("#img0").width())
+}
 
 function imgWall(limit){
   data={}
   data['oop']={file:'global.class.php',classe:'General',func:'imgWall'}
   data['dati']={limit:limit}
-  // oop={file:'global.class.php',classe:'General',func:'imgWall'}
-  // dati={limit:limit}
   $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {
       data.forEach(function(val,idx){
