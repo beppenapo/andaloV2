@@ -54,7 +54,9 @@
           </h2>
         </div>
       </div>
+
       <div class="row wrapImg px-3 mb-5"></div>
+
       <div class="row mb-2">
         <div class="col">
           <h2 class="pb-2 border-bottom" id="luoghi">
