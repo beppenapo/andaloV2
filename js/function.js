@@ -16,8 +16,8 @@ $(document).ready(function(){
 
 
 function wrapImgWidth(){
-  var hTitle = screen.height < 500 ? 350 : screen.height - 300
-  $('.maintitle').css("height",hTitle)
+  // var hTitle = screen.height < 500 ? 350 : screen.height - 300
+  // $('.maintitle').css("height",hTitle)
   $(".imgDiv").height($("#img0").width())
 }
 
