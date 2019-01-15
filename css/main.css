@@ -12,7 +12,7 @@ a:hover{text-decoration: none;}
 #logo{vertical-align:middle;}
 
 #mainSection{min-height:800px;margin-top:60px;}
-#mainSection h2{padding-left: 20px;}
+/* #mainSection h2{padding-left: 20px;} */
 .mainScope{background: #fff; padding: 50px 0;}
 
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
@@ -88,7 +88,7 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: 1.665rem;}
   #mainText{line-height: 2.5rem;}
   #logo{height: 40px;padding-right: 20px;}
-  .geoTagContent{width:50%;margin:0 auto;}
+  /* .geoTagContent{width:50%;margin:0 auto;} */
   .circleDiv{width:200px;height:200px;}
   .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
@@ -101,14 +101,14 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{padding:10px;}
   .maintitle h1{font-size: 3.5rem;letter-spacing: 1.88rem;}
   .maintitle h6{font-size: 2rem;}
-  #mainSection h2{padding-left: 140px;}
   #mainText{line-height: 2.5rem;}
   #logo{height: 40px; padding-right: 20px;}
-  .geoTagContent{width:50%;margin:0 auto;}
+  /* .geoTagContent{width:50%;margin:0 auto;} */
   .circleDiv{width:200px;height:200px;}
   .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
   .imgTxt>p{font-size: 20px;}
+  #mainSection h2
 }
 
 @media (any-hover: hover) {

@@ -44,40 +44,50 @@
         </div>
       </div>
     </div>
-    <div id="mainSection" class="container-fluid">
-      <div class="row mb-2">
-        <div class="col">
-          <h2 class="pb-2 border-bottom" id="immagini">
-            <i class="far fa-image pr-2"></i>
-            IMMAGINI
-            <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-          </h2>
+    <div id="mainSection">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col pb-2">
+            <h2 class="" id="immagini">
+              <i class="far fa-image"></i>
+              IMMAGINI
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
         </div>
       </div>
-
-      <div class="row wrapImg px-3 mb-5"></div>
-
-      <div class="row mb-2">
-        <div class="col">
-          <h2 class="pb-2 border-bottom" id="luoghi">
-            <i class="fas fa-map-signs pr-2"></i>
-            LUOGHI
-            <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-          </h2>
+      <hr class="text-dark mt-0">
+      <div class="container-fluid">
+        <div class="row wrapImg px-3 mb-5"></div>
+      </div>
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col">
+            <h2 class="pb-2" id="luoghi">
+              <i class="fas fa-map-signs pr-2"></i>
+              LUOGHI
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
         </div>
       </div>
-      <div class="row mb-5">
-        <div class="col text-center">
-          <form class="form geoTagContent" action="index.php" method="post" name="geoTagForm"></form>
+      <hr class="text-dark mt-0">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col text-center">
+            <form class="form geoTagContent" action="index.php" method="post" name="geoTagForm"></form>
+          </div>
         </div>
       </div>
-      <div class="row mb-2">
-        <div class="col">
-          <h2 class="pb-2 border-bottom" id="parole">
-            <i class="fas fa-hashtag pr-2"></i>
-            PAROLE
-            <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-          </h2>
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col">
+            <h2 class="pb-2" id="parole">
+              <i class="fas fa-hashtag pr-2"></i>
+              PAROLE
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
         </div>
       </div>
     </div>
