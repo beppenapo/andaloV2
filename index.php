@@ -21,26 +21,26 @@
       <div class="container">
         <div class="row">
           <div class="col-4">
-            <div class="rounded border text-center float-right circleDiv cd1">
-              <h2 class="text-light scroll animation" data-id="immagini">
+            <div class="text-center">
+              <h2 class="ancora pointer scroll animation" data-id="immagini">
                 <span class="d-block">IMMAGINI</span>
-                <i class="fas fa-caret-down"></i>
+                <i class="fas fa-caret-down fa-3x"></i>
               </h2>
             </div>
           </div>
           <div class="col-4">
-            <div class="rounded border text-center mx-auto circleDiv cd2">
-              <h2 class="text-light scroll animation" data-id="luoghi">
+            <div class="text-center">
+              <h2 class="ancora pointer scroll animation" data-id="luoghi">
                 <span class="d-block">LUOGHI</span>
-                <i class="fas fa-caret-down"></i>
+                <i class="fas fa-caret-down fa-3x"></i>
               </h2>
             </div>
           </div>
           <div class="col-4">
-            <div class="rounded border text-center float-left circleDiv cd3">
-              <h2 class="text-light scroll animation" data-id="parole">
+            <div class="text-center">
+              <h2 class="ancora pointer scroll animation" data-id="parole">
                 <span class="d-block">PAROLE</span>
-                <i class="fas fa-caret-down"></i>
+                <i class="fas fa-caret-down fa-3x"></i>
               </h2>
             </div>
           </div>
