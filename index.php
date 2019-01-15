@@ -21,18 +21,27 @@
       <div class="container">
         <div class="row">
           <div class="col-4">
-            <div class="rounded-circle border text-center float-right circleDiv cd1">
-              <h2 class="text-light scroll animation" data-id="immagini"><i class="far fa-image fa-2x"></i><br>IMMAGINI</h2>
+            <div class="rounded border text-center float-right circleDiv cd1">
+              <h2 class="text-light scroll animation" data-id="immagini">
+                <span class="d-block">IMMAGINI</span>
+                <i class="fas fa-caret-down"></i>
+              </h2>
             </div>
           </div>
           <div class="col-4">
-            <div class="rounded-circle border text-center mx-auto circleDiv cd2">
-              <h2 class="text-light scroll animation" data-id="luoghi"><i class="fas fa-map-signs fa-2x"></i><br>LUOGHI</h2>
+            <div class="rounded border text-center mx-auto circleDiv cd2">
+              <h2 class="text-light scroll animation" data-id="luoghi">
+                <span class="d-block">LUOGHI</span>
+                <i class="fas fa-caret-down"></i>
+              </h2>
             </div>
           </div>
           <div class="col-4">
-            <div class="rounded-circle border text-center float-left circleDiv cd3">
-              <h2 class="text-light scroll animation" data-id="parole"><i class="fas fa-hashtag fa-2x"></i><br>PAROLE</h2>
+            <div class="rounded border text-center float-left circleDiv cd3">
+              <h2 class="text-light scroll animation" data-id="parole">
+                <span class="d-block">PAROLE</span>
+                <i class="fas fa-caret-down"></i>
+              </h2>
             </div>
           </div>
         </div>
@@ -79,6 +88,7 @@
           </div>
         </div>
       </div>
+      <hr class="text-dark mt-0">
       <div class="container">
         <div class="row mb-2">
           <div class="col">

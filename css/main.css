@@ -27,7 +27,7 @@ a:hover{text-decoration: none;}
 
 .pointer{cursor:pointer;}
 
-.circleDiv{width:100px;height:100px;}
+.circleDiv{width:100px;}
 .circleDiv>h2{font-size:90%;margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;}
 .cd1{
   background: #28a745;
@@ -50,6 +50,13 @@ a:hover{text-decoration: none;}
   background: radial-gradient(ellipse at center, #ffc107 0%,#CC8606 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffc107', endColorstr='#CC8606',GradientType=1 );
 }
+
+/* footer */
+#footer{font-size:.9rem;}
+#footer i{margin-right:10px;}
+#footer, #footer a{color:#f8f9fa;}
+#footer a:hover{text-decoration: underline;}
+#footer li{padding-bottom:5px;}
 @media (max-width: 575px) {
   .maintitle{margin-top:90px;text-align:center;}
   .mainMenu>li>a{font-size: 11px;}
@@ -76,7 +83,7 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: 1.26rem;}
   #mainText{line-height: 2rem;}
   #logo{height: 40px;padding-right: 20px;}
-  .circleDiv{width:150px;height:150px;}
+  .circleDiv{width:150px;}
   .circleDiv>h2{font-size:150%;}
 }
 
@@ -88,8 +95,7 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: 1.665rem;}
   #mainText{line-height: 2.5rem;}
   #logo{height: 40px;padding-right: 20px;}
-  /* .geoTagContent{width:50%;margin:0 auto;} */
-  .circleDiv{width:200px;height:200px;}
+  .circleDiv{width:200px;}
   .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
   .imgTxt>p{font-size: 16px;}
@@ -103,12 +109,10 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: 2rem;}
   #mainText{line-height: 2.5rem;}
   #logo{height: 40px; padding-right: 20px;}
-  /* .geoTagContent{width:50%;margin:0 auto;} */
-  .circleDiv{width:200px;height:200px;}
+  .circleDiv{width:200px;}
   .circleDiv>h2{margin-top:30px;text-shadow: 0 0 10px #fff;cursor:pointer;font-size:30px;}
   .circleDiv>h2:hover{transform: scale(1.2);}
   .imgTxt>p{font-size: 20px;}
-  #mainSection h2
 }
 
 @media (any-hover: hover) {
