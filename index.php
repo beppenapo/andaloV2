@@ -12,12 +12,12 @@
           <div class="col">
             <h1 class="text-dark">PROGETTO MEMORIA</h1>
             <h6 class="text-dark">FOTOTECA DOCUMENTARIA DELL'ALTOPIANO DELLA PAGANELLA</h6>
-            <img src="img/headerBg.jpg" class="img-fluid" alt="Coscritti 1914">
+            <img src="img/headerBg.jpg" class="img-fluid mt-3" alt="Coscritti 1914">
           </div>
         </div>
       </div>
     </div>
-    <div class="mainScope border-top border-bottom">
+    <div class="mainScope pt-5 border-top border-bottom">
       <div class="container">
         <div class="row">
           <div class="col-4">
@@ -47,7 +47,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <p class="pt-5" id="mainText">La fototeca è una piattaforma informatica dove sono progressivamente pubblicate tutte le scansioni digitali delle fotografie storiche dell’Altopiano della Paganella. La raccolta delle fotografie storiche (1870-1970) è iniziata nel 2002 con la realizzazione di un archivio di documenti fotografici raccolti presso privati, famiglie di residenti e turisti, archivi pubblici e privati, istituzioni, musei. Nel mese di febbraio 2016 si è conclusa la raccolta di circa 6.500 pezzi e la pubblicazione di 8 volumi fotografici. L’intento del progetto è duplice: innanzitutto salvare dalla distruzione o dall'oblio tutti i documenti fotografici relativi all'Altopiano ed alla sue persone, in secondo luogo permettere la condivisione di tutto il materiale raccolto in forma digitale con l'intera Comunità secondo i principi etici del creative commons.
+            <p class="pt-2" id="mainText">La fototeca è una piattaforma informatica dove sono progressivamente pubblicate tutte le scansioni digitali delle fotografie storiche dell’Altopiano della Paganella. La raccolta delle fotografie storiche (1870-1970) è iniziata nel 2002 con la realizzazione di un archivio di documenti fotografici raccolti presso privati, famiglie di residenti e turisti, archivi pubblici e privati, istituzioni, musei. Nel mese di febbraio 2016 si è conclusa la raccolta di circa 6.500 pezzi e la pubblicazione di 8 volumi fotografici. L’intento del progetto è duplice: innanzitutto salvare dalla distruzione o dall'oblio tutti i documenti fotografici relativi all'Altopiano ed alla sue persone, in secondo luogo permettere la condivisione di tutto il materiale raccolto in forma digitale con l'intera Comunità secondo i principi etici del creative commons.
             </p>
           </div>
         </div>
@@ -67,7 +67,7 @@
       </div>
       <hr class="text-dark mt-0">
       <div class="container-fluid">
-        <div class="row wrapImg px-3 mb-5"></div>
+        <div class="row wrapImg mb-5"></div>
       </div>
       <div class="container">
         <div class="row mb-2">

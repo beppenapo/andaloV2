@@ -10,8 +10,12 @@ $img = $list->lazyLoad();
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>
   </head>
-  <body class="bg-light">
+  <body class="bg-light" id="top">
     <?php require('inc/header.php'); ?>
+    <div class="topBtn animation">
+      <div class="rounded-circle scroll" data-id="top">
+        <i class="fas fa-angle-double-up fa-3x pointer scroll"></i></div>
+      </div>
     <div class="maintitle" id="home">
       <div class="container">
         <div class="row">
@@ -23,7 +27,7 @@ $img = $list->lazyLoad();
       </div>
     </div>
 
-    <div class="mainScope border-top border-bottom">
+    <div class="mainScope">
       <div class="container-fluid">
         <div class="row wrapImg">
           <?php

@@ -51,10 +51,3 @@
     </div>
   </div>
 </div>
-
-<!-- Biblioteche della Paganella
-
-
-
-logo facebbok con link:
-logo twitter con link:  -->

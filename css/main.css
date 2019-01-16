@@ -13,9 +13,7 @@ a:hover{text-decoration: none;}
 #logo{vertical-align:middle;}
 
 #mainSection{min-height:800px;margin-top:60px;}
-.mainScope{padding: 50px 0;}
-.ancora>i{margin-top:-35px;transform: scaleX(2);}
-
+.mainScope{padding: 0;}
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
 .imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: top center; z-index:1000;}
 .imgContent>i{margin-top:30%;}
@@ -25,9 +23,11 @@ a:hover{text-decoration: none;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
 .geotag{display:inline-block;padding:3px 10px;cursor:pointer;}
 .geotag>span{color:#fff;padding-left:10px;}
-
+.ancora{color:#373d42;}
+.ancora>i{margin-top:-15px;transform: scaleX(2.2);}
 .pointer{cursor:pointer;}
-
+.topBtn{position:fixed;z-index:2200;bottom:-30px;width:100%;margin:0 auto;}
+.topBtn>div{background: #6c757d;color: #fff;width: 65px;height: 65px;margin: 0 auto;text-align: center; padding: 10px 0;}
 /* footer */
 #footer{font-size:.8em;}
 #footer i{margin-right:10px;}
@@ -39,6 +39,7 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{font-size: 11px;}
   #header{background: #fff; border-bottom: 1px solid #dee2e6;}
   #logo{height: 20px;}
+  .ancora{font-size:20px;}
 }
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767px) {
@@ -48,6 +49,7 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: .88rem;}
   #header{background: #fff; border-bottom: 1px solid #dee2e6;}
   #logo{height: 20px;}
+  .ancora{font-size:25px;}
 }
 
 /* // Medium devices (tablets, 768px and up) */
@@ -82,6 +84,7 @@ a:hover{text-decoration: none;}
   #mainText{line-height: 2.5rem;}
   #logo{height: 40px; padding-right: 20px;}
   .imgTxt>p{font-size: 20px;}
+  .ancora>i{margin-top:-25px;}
 }
 
 @media (any-hover: hover) {
@@ -93,6 +96,7 @@ a:hover{text-decoration: none;}
   .geotag:hover{background:#d39e00; color:#fff; }
   .geotag:hover>span{color:#fff; }
   .ancora:hover{transform: scale(1.2);}
+  .topBtn:hover{bottom:-10px;}
 }
 
 @media (any-hover: none) {
