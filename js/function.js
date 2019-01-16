@@ -4,7 +4,7 @@ const type = 'POST'
 const dataType = 'json'
 const $root = $('html, body');
 const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
-
+const page = window.location.pathname.split('/').pop().split('.')[0]
 $(document).ready(function(){
   $('.scroll').on('click',function() {
     var href = $(this).data('id');

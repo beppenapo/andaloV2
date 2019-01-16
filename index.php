@@ -100,6 +100,42 @@
           </div>
         </div>
       </div>
+      <hr class="text-dark mt-0">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col">
+            <h2 class="pb-2" id="aboutus">
+              <i class="fas fa-hashtag pr-2"></i>
+              ABOUT US
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <hr class="text-dark mt-0">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col">
+            <h2 class="pb-2" id="download">
+              <i class="fas fa-hashtag pr-2"></i>
+              DOWNLOAD
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <hr class="text-dark mt-0">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col">
+            <h2 class="pb-2" id="credits">
+              <i class="fas fa-hashtag pr-2"></i>
+              CREDITS
+              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+            </h2>
+          </div>
+        </div>
+      </div>
     </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
