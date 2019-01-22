@@ -160,6 +160,15 @@ $tagList = $tags->tagList();
             </h2>
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <p class="pt-2 mainText">
+              Le immagini qui pubblicate in media risoluzione sono disponibili al download gratuito senza formalità. La biblioteca conserva i files originali ad alta definizione. Gli interessati possono chiederne copia alla Biblioteca che la rilascerà previa dichiarazione di assenza di scopo di lucro. In tutti i casi, qualora l'immagine venisse stampata o comunque riprodotta, va obbligatoriamente dichiarata la proprietà attraverso la formula:
+            </p>
+            <p class="border rounded text-center p-3">Progetto Memoria - Fototeca documentaria dell’Altopiano della Paganella.<br>
+            Proprietà delle BIBLIOTECHE DELLA PAGANELLA - ANDALO (TN).</p>
+          </div>
+        </div>
       </div>
       <hr class="text-dark mt-0">
       <div class="container">
