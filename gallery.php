@@ -3,6 +3,8 @@ session_start();
 require("class/global.class.php");
 $list=new General;
 $img = $list->lazyLoad();
+
+print_r($_POST);
 ?>
 <!doctype html>
 <html lang="it">

@@ -1,3 +1,8 @@
+<?php
+require("class/global.class.php");
+$tags=new General;
+$tagList = $tags->tagList();
+?>
 <!doctype html>
 <html lang="it">
   <head>
@@ -47,7 +52,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <p class="pt-2" id="mainText">La fototeca è una piattaforma informatica dove sono progressivamente pubblicate tutte le scansioni digitali delle fotografie storiche dell’Altopiano della Paganella. La raccolta delle fotografie storiche (1870-1970) è iniziata nel 2002 con la realizzazione di un archivio di documenti fotografici raccolti presso privati, famiglie di residenti e turisti, archivi pubblici e privati, istituzioni, musei. Nel mese di febbraio 2016 si è conclusa la raccolta di circa 6.500 pezzi e la pubblicazione di 8 volumi fotografici. L’intento del progetto è duplice: innanzitutto salvare dalla distruzione o dall'oblio tutti i documenti fotografici relativi all'Altopiano ed alla sue persone, in secondo luogo permettere la condivisione di tutto il materiale raccolto in forma digitale con l'intera Comunità secondo i principi etici del creative commons.
+            <p class="pt-2 mainText">La fototeca è una piattaforma informatica dove sono progressivamente pubblicate tutte le scansioni digitali delle fotografie storiche dell’Altopiano della Paganella. La raccolta delle fotografie storiche (1870-1970) è iniziata nel 2002 con la realizzazione di un archivio di documenti fotografici raccolti presso privati, famiglie di residenti e turisti, archivi pubblici e privati, istituzioni, musei. Nel mese di febbraio 2016 si è conclusa la raccolta di circa 6.500 pezzi e la pubblicazione di 8 volumi fotografici. L’intento del progetto è duplice: innanzitutto salvare dalla distruzione o dall'oblio tutti i documenti fotografici relativi all'Altopiano ed alla sue persone, in secondo luogo permettere la condivisione di tutto il materiale raccolto in forma digitale con l'intera Comunità secondo i principi etici del creative commons.
             </p>
           </div>
         </div>
@@ -84,7 +89,13 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col text-center">
-            <form class="form geoTagContent" action="index.php" method="post" name="geoTagForm"></form>
+            <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
+              <?php
+              foreach ($tagList['geotag'] as $tag) {
+                echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='geotag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
+              }
+              ?>
+            </form>
           </div>
         </div>
       </div>
@@ -102,6 +113,20 @@
       </div>
       <hr class="text-dark mt-0">
       <div class="container">
+        <div class="row mb-5">
+          <div class="col text-center">
+            <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
+              <?php
+              foreach ($tagList['tag'] as $tag) {
+                echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
+              }
+              ?>
+            </form>
+          </div>
+        </div>
+      </div>
+      <hr class="text-dark mt-0">
+      <div class="container">
         <div class="row mb-2">
           <div class="col">
             <h2 class="pb-2" id="aboutus">
@@ -109,6 +134,18 @@
               ABOUT US
               <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
             </h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="pt-2 mainText">
+              Il <strong>Progetto Memoria - Fototeca documentaria dell'Altopiano della Paganella</strong> è un progetto di documentazione storica delle Biblioteche della Paganella. La prima biblioteca sull'altopiano nasce ufficialmente il 4 settembre 1995 con l'entrata in servizio del primo bibliotecario. Dopo meno di quattro mesi viene aperta al pubblico la sede centrale di Andalo. Nel luglio del 1996 vengono aperte le sedi di Molveno e Fai della Paganella. Nel dicembre 1996 viene assunto un secondo bibliotecario, seguito da un terzo collega a tempo pieno nel febbraio 1997. La quarta sede della biblioteca viene aperta a Cavedago nell'aprile 1998, seguita nel 2003 dalla quinta a Spormaggiore: si dà così piena attuazione alla Convenzione istitutiva del Servizio Bibliotecario Intercomunale fra i comuni dell'Altopiano della Paganella. Dal 1° febbraio 2015 la biblioteca è gestita dalla Comunità della Paganella. Alla data attuale dispone di circa 48.500 documenti catalogati, compreso il considerevole patrimonio multimediale (4.700 dvd, 200 audiobook, 1.050 CD musicali, ebook).
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <img src="img/aboutus.jpg" class="img-fluid my-3" alt="">
           </div>
         </div>
       </div>
@@ -133,6 +170,13 @@
               CREDITS
               <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
             </h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="pt-2 mainText">
+              Il <strong>Progetto Memoria - Fototeca documentaria dell'Altopiano della Paganella</strong> è stato reso possibile grazie al finanziamento dalla <strong>Fondazione Cassa di Risparmio di Trento e Rovereto</strong> (bando 2016). La realizzazione della banca dati e dei sistemi informatici di gestione e visualizzazione delle informazioni raccolte è frutto del lavoro della <strong>Cooperativa TeSto</strong> (Alberto Cosner) e di <strong>Arc-Team</strong> (Giuseppe Naponiello). I ricercatori che hanno partecipato al progetto sono stati numerosi: Angelo Longo (Cooperativa TeSto), Alessia Zeni, Anna Beber, Cinzia Perlot, Erika Maines, Filippo Frizzera, Giuliano Mattarelli, Martina Mottes, Jacopo Osti. Vanno inoltre ringraziate la <strong>Fondazione Museo storico del Trentino</strong>, la <strong>Comunità di Primiero e della Alta Valsugana e Bersntol</strong>: parte del codice informatico del database è derivato dal progetto <strong>Fonti per la storia e dall'Archivio iconografico dei paesaggi di Comunità</strong>.
+            </p>
           </div>
         </div>
       </div>
