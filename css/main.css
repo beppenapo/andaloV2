@@ -60,7 +60,7 @@ a:hover{text-decoration: none;}
   .maintitle h6{font-size: 1rem;}
   .maintitle h1{font-size: 3rem;letter-spacing: .6rem;}
   .maintitle h6{font-size: 1.26rem;}
-  #mainText{line-height: 2rem;}
+  .mainText{line-height: 2rem;}
   #logo{height: 40px;padding-right: 20px;}
 }
 
@@ -70,7 +70,7 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{padding:10px;}
   .maintitle h1{font-size: 3rem;letter-spacing: 1.5rem;}
   .maintitle h6{font-size: 1.665rem;}
-  #mainText{line-height: 2.5rem;}
+  .mainText{line-height: 2.5rem;}
   #logo{height: 40px;padding-right: 20px;}
   .imgTxt>p{font-size: 16px;}
 }
@@ -81,7 +81,7 @@ a:hover{text-decoration: none;}
   .mainMenu>li>a{padding:10px;}
   .maintitle h1{font-size: 3.5rem;letter-spacing: 1.88rem;}
   .maintitle h6{font-size: 2rem;}
-  #mainText{line-height: 2.5rem;}
+  .mainText{line-height: 2.5rem;}
   #logo{height: 40px; padding-right: 20px;}
   .imgTxt>p{font-size: 20px;}
   .ancora>i{margin-top:-25px;}
