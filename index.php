@@ -145,7 +145,7 @@ $tagList = $tags->tagList();
         </div>
         <div class="row">
           <div class="col">
-            <img src="img/aboutus.jpg" class="img-fluid my-3" alt="">
+            <img src="img/aboutus.jpg" class="img-fluid my-3 rounded" alt="logo sezione about us">
           </div>
         </div>
       </div>
