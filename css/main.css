@@ -21,7 +21,7 @@ a:hover{text-decoration: none;}
 .imgTxt>p{position:relative;color: #fff; font-size: 12px;padding:10px;}
 .sticky{position: fixed;top: 0;left: 0;width: 100%;background: #fff; border-bottom: 1px solid #dee2e6;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
-.tag{display:inline-block;padding:3px 10px;cursor:pointer;}
+.tag{display:inline-block;padding:3px 10px;cursor:pointer;margin-right: 2px;}
 .tag>span{color:#fff;padding-left:10px;}
 .ancora{color:#373d42;}
 .ancora>i{margin-top:-15px;transform: scaleX(2.2);}

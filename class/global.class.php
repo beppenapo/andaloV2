@@ -1,4 +1,39 @@
 <?php
+/* TODO: SELECT
+  scheda.id AS id_scheda,
+  comune.id AS id_comune,
+  comune.comune,
+  foto2.dgn_numsch2,
+  tags.tags,
+  file.path
+FROM
+  public.aree,
+  public.area,
+  public.aree_scheda,
+  public.comune,
+  public.tags,
+  public.scheda,
+  public.foto2,
+  public.file
+WHERE
+  aree.id_comune = comune.id AND
+  aree.nome_area = area.id AND
+  aree_scheda.id_area = area.id AND
+  aree_scheda.id_scheda = scheda.id AND
+  tags.scheda = foto2.id_scheda AND
+  foto2.id_scheda = scheda.id AND
+  file.id_scheda = foto2.id_scheda AND
+  area.tipo = 1 AND
+  comune.comune != '-' AND
+  scheda.fine = 2
+group by scheda.id,
+  comune.id,
+  comune.comune,
+  foto2.dgn_numsch2,
+  tags.tags,file.path
+order by path asc
+*/
+
 require("db.class.php");
 class General extends Db{
   function __construct(){}
@@ -20,14 +55,13 @@ class General extends Db{
   }
 
   private function geotag(){
-    $sql = "SELECT c.id, c.comune as tag, count(f.id) as schede FROM foto2 f, aree, area, aree_scheda, comune c WHERE aree.nome_area = area.id AND aree.id_comune = c.id AND aree_scheda.id_scheda = f.id_scheda AND area.tipo = 1 and aree_scheda.id_area = area.id and c.comune != '-' group by c.id, c.comune having count(f.id) > 10 order by random()";
+    $sql = "select * from geotag order by random();";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
 
   private function tag(){
-    $sql="with t as (select unnest(tags) tag, count(tags.*) schede from tags group by tag having count(*) > 100)";
-    $sql .= "select tag.id, t.tag,t.schede from tag,t where t.tag=tag.tag order by random();";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from tags group by tag having count(*) > 10 order by random();";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
@@ -41,14 +75,14 @@ class General extends Db{
       switch (true) {
         case ($v['schede'] <= $cluster): $font = 12; break;
         case ($v['schede'] > $cluster && $v['schede'] <= ($cluster * 2) ): $font = 16; break;
-        case ($v['schede'] > ($cluster * 2) && $v['schede'] <= ($cluster * 3) ): $font = 24; break;
-        case ($v['schede'] > ($cluster * 3) && $v['schede'] <= ($cluster * 4) ): $font = 32; break;
-        case ($v['schede'] > ($cluster * 4) && $v['schede'] <= ($cluster * 5) ): $font = 40; break;
-        case ($v['schede'] > ($cluster * 5) && $v['schede'] <= ($cluster * 6) ): $font = 48; break;
-        case ($v['schede'] > ($cluster * 6) && $v['schede'] <= ($cluster * 7) ): $font = 56; break;
-        case ($v['schede'] > ($cluster * 7) && $v['schede'] <= ($cluster * 8) ): $font = 64; break;
-        case ($v['schede'] > ($cluster * 8) && $v['schede'] <= ($cluster * 9) ): $font = 72; break;
-        case ($v['schede'] > ($cluster * 9) && $v['schede'] <= $max ): $font = 80; break;
+        case ($v['schede'] > ($cluster * 2) && $v['schede'] <= ($cluster * 3) ): $font = 18; break;
+        case ($v['schede'] > ($cluster * 3) && $v['schede'] <= ($cluster * 4) ): $font = 20; break;
+        case ($v['schede'] > ($cluster * 4) && $v['schede'] <= ($cluster * 5) ): $font = 22; break;
+        case ($v['schede'] > ($cluster * 5) && $v['schede'] <= ($cluster * 6) ): $font = 24; break;
+        case ($v['schede'] > ($cluster * 6) && $v['schede'] <= ($cluster * 7) ): $font = 26; break;
+        case ($v['schede'] > ($cluster * 7) && $v['schede'] <= ($cluster * 8) ): $font = 28; break;
+        case ($v['schede'] > ($cluster * 8) && $v['schede'] <= ($cluster * 9) ): $font = 30; break;
+        case ($v['schede'] > ($cluster * 9) && $v['schede'] <= $max ): $font = 32; break;
         default: $font = 12;
       }
       $out[$k]['id']=$v['id'];
