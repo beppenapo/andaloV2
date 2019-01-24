@@ -1,66 +1,22 @@
 <?php
-/* TODO: SELECT
-  scheda.id AS id_scheda,
-  comune.id AS id_comune,
-  comune.comune,
-  foto2.dgn_numsch2,
-  tags.tags,
-  file.path
-FROM
-  public.aree,
-  public.area,
-  public.aree_scheda,
-  public.comune,
-  public.tags,
-  public.scheda,
-  public.foto2,
-  public.file
-WHERE
-  aree.id_comune = comune.id AND
-  aree.nome_area = area.id AND
-  aree_scheda.id_area = area.id AND
-  aree_scheda.id_scheda = scheda.id AND
-  tags.scheda = foto2.id_scheda AND
-  foto2.id_scheda = scheda.id AND
-  file.id_scheda = foto2.id_scheda AND
-  area.tipo = 1 AND
-  comune.comune != '-' AND
-  scheda.fine = 2
-group by scheda.id,
-  comune.id,
-  comune.comune,
-  foto2.dgn_numsch2,
-  tags.tags,file.path
-order by path asc
-*/
-
 require("db.class.php");
 class General extends Db{
   function __construct(){}
   public function imgWall($dati){
-    $sql="select scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path from scheda, foto2, file where foto2.id_scheda = scheda.id and file.id_scheda = scheda.id order by random() limit ".$dati['limit'].";";
+    $sql="select * from gallery order by random() limit ".$dati['limit'].";";
     return $this->simple($sql);
   }
 
   public function lazyLoad($tag=null,$val=null){
     if ($tag==null) {$filter = '';}
-    elseif ($tag=='geotag') {
-      $filter = 'and comune.id='.$val;
-    }else {
-      $filter = "and '".$val."' in(select(unnest(tags.tags)))";
+    else{
+      $filter = 'where ';
+      $param=array();
+      if ($tag=='geotag') { $param[] = 'id_comune ='.$val;}
+      if ($tag=='tag') { $param[] = "'".$val."' in(select(unnest(tags)))";}
+      $filter .= implode(" and ",$param);
     }
-    $sql="select comune.comune, scheda.dgn_numsch, scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path
-from scheda
-inner join foto2 on foto2.id_scheda = scheda.id
-inner join file on file.id_scheda = scheda.id
-inner join tags on tags.scheda = foto2.id_scheda
-inner join aree_scheda on aree_scheda.id_scheda = foto2.id_scheda
-inner join area on aree_scheda.id_area = area.id
-inner join aree on aree.nome_area = area.id
-inner join comune on comune.id = aree.id_comune
-where area.tipo = 1 and scheda.fine = 2 ".$filter."
-group by comune.comune,scheda.dgn_numsch,scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path
-order by random();";
+    $sql="select * from gallery ".$filter." order by random();";
     return array("sql"=>$sql,"img"=>$this->simple($sql));
   }
 
@@ -72,13 +28,13 @@ order by random();";
   }
 
   private function geotag(){
-    $sql = "select * from geotag order by random();";
+    $sql = "SELECT id_comune id,comune tag,count(*) schede from gallery where comune != '-' group by id_comune,comune order by random();";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from tags,scheda where tags.scheda = scheda.id and scheda.fine = 2 group by tag having count(*) > 10 order by random();";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from gallery group by tag having count(*) > 10 order by random();";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }

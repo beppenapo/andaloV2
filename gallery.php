@@ -45,6 +45,11 @@ $filterTxt = count($img['img']).$filter;
             <p class="h3 text-center statfilter"><?php echo $filterTxt; ?></p>
           </div>
         </div>
+        <div class="row">
+          <div class="col d-none">
+            <?php echo $img['sql']; ?>
+          </div>
+        </div>
         <div class="row wrapImg mb-3">
           <?php
             foreach ($img['img'] as $key => $val) {
