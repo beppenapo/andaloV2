@@ -13,11 +13,27 @@ class General extends Db{
       $filter = 'where ';
       $param=array();
       if ($tag=='geotag') { $param[] = 'id_comune ='.$val;}
-      if ($tag=='tag') { $param[] = "'".$val."' in(select(unnest(tags)))";}
+      if ($tag=='tag') {
+        $param[] = "'".$val."' in(select(unnest(tags)))";
+        $param[] = "id_comune != 3";
+        $param[] = "comune !='-'";
+      }
       $filter .= implode(" and ",$param);
     }
     $sql="select * from gallery ".$filter." order by random();";
-    return array("sql"=>$sql,"img"=>$this->simple($sql));
+    $data = $this->simple($sql);
+    $imgList=$this->remove_duplicateKeys("path",$data);
+    return array("sql"=>$sql,"img"=>$imgList);
+  }
+
+  private function remove_duplicateKeys($key,$data){
+    $_data = array();
+    foreach ($data as $v) {
+      if (isset($_data[$v[$key]])) { continue; }
+      $_data[$v[$key]] = $v;
+    }
+    $data = array_values($_data);
+    return $data;
   }
 
   public function tagList(){

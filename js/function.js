@@ -23,13 +23,14 @@ function imgWall(limit){
   data['dati']={limit:limit}
   $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {
+      console.log(data);
       data.forEach(function(val,idx){
         if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
         d1=$("<div/>",{id:'img'+idx})
-          .attr("data-scheda",val.id)
+          .attr("data-scheda",val.id_scheda)
           .addClass('col-12 col-sm-6 col-md-4 col-lg-3 p-0 imgDiv')
           .appendTo('.wrapImg')
-          .on('click',function(){ linkScheda(val.id) });
+          .on('click',function(){ linkScheda(val.id_scheda) });
         d2=$("<div/>").addClass('imgContent animation text-center')
           .html('<i class="fas fa-circle-notch fa-spin fa-5x"></i>')
           .attr("data-echo-background","foto_medium/"+val.path)

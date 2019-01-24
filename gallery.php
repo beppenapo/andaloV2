@@ -46,7 +46,7 @@ $filterTxt = count($img['img']).$filter;
           </div>
         </div>
         <div class="row">
-          <div class="col d-none">
+          <div class="col">
             <?php echo $img['sql']; ?>
           </div>
         </div>
