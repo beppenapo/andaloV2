@@ -2,9 +2,18 @@
 session_start();
 require("class/global.class.php");
 $list=new General;
-$img = $list->lazyLoad();
-
 print_r($_POST);
+if (!empty($_POST)) {
+  $tag=$_POST['filtro'];
+  $val = $tag == 'geotag' ? $_POST['val'] : $_POST['tag'];
+  $filter=' immagini che hanno come '.$tag.' "'.$_POST['tag'].'"';
+}else {
+  $tag=null;
+  $val=null;
+  $filter=' immagini totali';
+}
+$img = $list->lazyLoad($tag,$val);
+$filterTxt = count($img['img']).$filter;
 ?>
 <!doctype html>
 <html lang="it">
@@ -31,9 +40,14 @@ print_r($_POST);
 
     <div class="mainScope">
       <div class="container-fluid">
-        <div class="row wrapImg">
+        <div class="row">
+          <div class="col">
+            <p class="h3 text-center statfilter"><?php echo $filterTxt; ?></p>
+          </div>
+        </div>
+        <div class="row wrapImg mb-3">
           <?php
-            foreach ($img as $key => $val) {
+            foreach ($img['img'] as $key => $val) {
               if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
               echo "<div id='img".$key."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
                 echo "<div class='imgContent animation lozad' data-background-image='foto_medium/".$val['path']."'></div>";

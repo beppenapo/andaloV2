@@ -42,9 +42,26 @@ class General extends Db{
     return $this->simple($sql);
   }
 
-  public function lazyLoad(){
-    $sql="select scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path from scheda, foto2, file where foto2.id_scheda = scheda.id and file.id_scheda = scheda.id order by random();";
-    return $this->simple($sql);
+  public function lazyLoad($tag=null,$val=null){
+    if ($tag==null) {$filter = '';}
+    elseif ($tag=='geotag') {
+      $filter = 'and comune.id='.$val;
+    }else {
+      $filter = "and '".$val."' in(select(unnest(tags.tags)))";
+    }
+    $sql="select comune.comune, scheda.dgn_numsch, scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path
+from scheda
+inner join foto2 on foto2.id_scheda = scheda.id
+inner join file on file.id_scheda = scheda.id
+inner join tags on tags.scheda = foto2.id_scheda
+inner join aree_scheda on aree_scheda.id_scheda = foto2.id_scheda
+inner join area on aree_scheda.id_area = area.id
+inner join aree on aree.nome_area = area.id
+inner join comune on comune.id = aree.id_comune
+where area.tipo = 1 and scheda.fine = 2 ".$filter."
+group by comune.comune,scheda.dgn_numsch,scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, file.path
+order by random();";
+    return array("sql"=>$sql,"img"=>$this->simple($sql));
   }
 
   public function tagList(){
@@ -61,7 +78,7 @@ class General extends Db{
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from tags group by tag having count(*) > 10 order by random();";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from tags,scheda where tags.scheda = scheda.id and scheda.fine = 2 group by tag having count(*) > 10 order by random();";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
