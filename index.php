@@ -60,7 +60,7 @@ $tagList = $tags->tagList();
     </div>
     <div id="mainSection">
       <div class="container">
-        <div class="row mb-2">
+        <div class="row my-2">
           <div class="col pb-2">
             <h2 class="" id="immagini">
               <i class="far fa-image"></i>
@@ -70,24 +70,27 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container-fluid">
-        <div class="row wrapImg mb-5"></div>
+
+      <div class="container-fluid mb-5">
+        <div class="row wrapImg"></div>
       </div>
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col">
-            <h2 class="pb-2" id="luoghi">
-              <i class="fas fa-map-signs pr-2"></i>
-              LUOGHI
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-            </h2>
+
+      <div class="my-2 border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="py-2" id="luoghi">
+                <i class="fas fa-map-signs pr-2"></i>
+                LUOGHI
+                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              </h2>
+            </div>
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-5">
+
+      <div class="container mt-2 mb-5">
+        <div class="row">
           <div class="col text-center">
             <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
               <?php
@@ -99,21 +102,23 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col">
-            <h2 class="pb-2" id="parole">
-              <i class="fas fa-hashtag pr-2"></i>
-              PAROLE
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-            </h2>
+
+      <div class="my-2 border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="py-2" id="parole">
+                <i class="fas fa-hashtag pr-2"></i>
+                PAROLE
+                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              </h2>
+            </div>
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-5">
+
+      <div class="container mt-2 mb-5">
+        <div class="row">
           <div class="col text-center">
             <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
               <?php
@@ -125,17 +130,22 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col">
-            <h2 class="pb-2" id="aboutus">
-              <i class="fas fa-hashtag pr-2"></i>
-              ABOUT US
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-            </h2>
+
+      <div class="my-2 border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="py-2" id="luoghi">
+                ABOUT US
+                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              </h2>
+            </div>
           </div>
         </div>
+      </div>
+
+
+      <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col">
             <p class="pt-2 mainText">
@@ -149,43 +159,56 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col">
-            <h2 class="pb-2" id="download">
-              <i class="fas fa-hashtag pr-2"></i>
-              DOWNLOAD
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-            </h2>
+
+      <div class="my-2 border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="py-2" id="luoghi">
+                DOWNLOAD
+                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              </h2>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col">
             <p class="pt-2 mainText">
               Le immagini qui pubblicate in media risoluzione sono disponibili al download gratuito senza formalità. La biblioteca conserva i files originali ad alta definizione. Gli interessati possono chiederne copia alla Biblioteca che la rilascerà previa dichiarazione di assenza di scopo di lucro. In tutti i casi, qualora l'immagine venisse stampata o comunque riprodotta, va obbligatoriamente dichiarata la proprietà attraverso la formula:
             </p>
-            <p class="border rounded text-center p-3">Progetto Memoria - Fototeca documentaria dell’Altopiano della Paganella.<br>
+            <p class="border border-dark bg-light rounded text-center p-3">Progetto Memoria - Fototeca documentaria dell’Altopiano della Paganella.<br>
             Proprietà delle BIBLIOTECHE DELLA PAGANELLA - ANDALO (TN).</p>
           </div>
         </div>
       </div>
-      <hr class="text-dark mt-0">
-      <div class="container">
-        <div class="row mb-2">
-          <div class="col">
-            <h2 class="pb-2" id="credits">
-              <i class="fas fa-hashtag pr-2"></i>
-              CREDITS
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
-            </h2>
+
+      <div class="my-2 border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h2 class="py-2" id="luoghi">
+                CREDITS
+                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              </h2>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col">
             <p class="pt-2 mainText">
               Il <strong>Progetto Memoria - Fototeca documentaria dell'Altopiano della Paganella</strong> è stato reso possibile grazie al finanziamento dalla <strong>Fondazione Cassa di Risparmio di Trento e Rovereto</strong> (bando 2016). La realizzazione della banca dati e dei sistemi informatici di gestione e visualizzazione delle informazioni raccolte è frutto del lavoro della <strong>Cooperativa TeSto</strong> (Alberto Cosner) e di <strong>Arc-Team</strong> (Giuseppe Naponiello). I ricercatori che hanno partecipato al progetto sono stati numerosi: Angelo Longo (Cooperativa TeSto), Alessia Zeni, Anna Beber, Cinzia Perlot, Erika Maines, Filippo Frizzera, Giuliano Mattarelli, Martina Mottes, Jacopo Osti. Vanno inoltre ringraziate la <strong>Fondazione Museo storico del Trentino</strong>, la <strong>Comunità di Primiero e della Alta Valsugana e Bersntol</strong>: parte del codice informatico del database è derivato dal progetto <strong>Fonti per la storia e dall'Archivio iconografico dei paesaggi di Comunità</strong>.
             </p>
+          </div>
+        </div>
+        <div class="row my-5 pb-5">
+          <div class="col text-center">
+            <img src="img/logo_caritro.png" width="300" alt="">
           </div>
         </div>
       </div>
