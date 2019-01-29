@@ -9,7 +9,7 @@ $(document).ready(function(){
   $('.scroll').on('click',function() {
     var href = $(this).data('id');
     var t = $("#"+href).offset().top
-    $root.animate({ scrollTop: t }, 500, function () { window.location.hash = href; });
+    $root.animate({ scrollTop: t - 60 }, 500, function () { window.location.hash = href; });
     return false;
   });
 })

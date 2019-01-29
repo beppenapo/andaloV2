@@ -135,7 +135,7 @@ $tagList = $tags->tagList();
         <div class="container">
           <div class="row">
             <div class="col">
-              <h2 class="py-2" id="luoghi">
+              <h2 class="py-2" id="aboutus">
                 ABOUT US
                 <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
               </h2>
@@ -164,7 +164,7 @@ $tagList = $tags->tagList();
         <div class="container">
           <div class="row">
             <div class="col">
-              <h2 class="py-2" id="luoghi">
+              <h2 class="py-2" id="download">
                 DOWNLOAD
                 <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
               </h2>
@@ -189,7 +189,7 @@ $tagList = $tags->tagList();
         <div class="container">
           <div class="row">
             <div class="col">
-              <h2 class="py-2" id="luoghi">
+              <h2 class="py-2" id="credits">
                 CREDITS
                 <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
               </h2>
