@@ -2,21 +2,12 @@
 session_start();
 require("class/scheda.class.php");
 $scheda = new Scheda(intval($_POST['scheda']));
+// $scheda = new Scheda(intval(327));
 $getInfo = $scheda->getScheda();
-$info=$getInfo['scheda'][0];
-$path = $info['path'];
-$info = array_diff($info, ["-"]);
-$idfoto=$info['id'];
-$idscheda=$info['id_scheda'];
-$del = array('id','id_scheda','foto2_vector','tipo','path');
-foreach ($del as $v) {
-  unset($info[$v]);
-}
-if (!isset($info['sog_titolo'])) {
-  $titolo = substr($path,0,-4);
-} else {
-  $titolo = $info['sog_titolo'];
-}
+$path=$getInfo['list']['path'];
+$idFoto=$getInfo['list']['id_foto'];
+$drop = array('id_foto','path');
+foreach ($drop as $x) { unset($getInfo['list'][$x]); }
 ?>
 <!doctype html>
 <html lang="it">
@@ -34,7 +25,7 @@ if (!isset($info['sog_titolo'])) {
       <div class="container">
         <div class="row">
           <div class="col">
-            <p class="text-dark h1"><?php echo $titolo; ?></p>
+            <p class="text-dark h1"><?php echo $getInfo['list']['titolo']; ?></p>
           </div>
         </div>
       </div>
@@ -53,11 +44,9 @@ if (!isset($info['sog_titolo'])) {
           </div>
           <div class="col col-md-6">
             <ul>
-              <?php
-              foreach (array_filter($info) as $key => $value) {
-                echo "<li><span style='display:inline-block;width:150px;font-weight:bold;'>".$key."</span> <span class='d-inline-block'>".$value."</span></li>";
-              }
-              ?>
+              <?php foreach ($getInfo['list'] as $el) {?>
+                <li class="mb-2"><?php echo $el; ?></li>
+              <?php } ?>
             </ul>
           </div>
         </div>
