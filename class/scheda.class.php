@@ -38,7 +38,7 @@ class Scheda extends Db{
       // }
       $list['note']= $info['alt_note'];
     }
-    return array("sql"=>$sql,"scheda"=>$info,"list"=>$list);
+    return array("sql"=>$sql,"list"=>$list);
   }
 }
 

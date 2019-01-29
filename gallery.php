@@ -2,7 +2,6 @@
 session_start();
 require("class/global.class.php");
 $list=new General;
-print_r($_POST);
 if (!empty($_POST)) {
   $tag=$_POST['filtro'];
   $val = $tag == 'geotag' ? $_POST['val'] : $_POST['tag'];
@@ -47,14 +46,13 @@ $filterTxt = count($img['img']).$filter;
         </div>
         <div class="row">
           <div class="col">
-            <?php echo $img['sql']; ?>
           </div>
         </div>
         <div class="row wrapImg mb-3">
           <?php
             foreach ($img['img'] as $key => $val) {
               if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
-              echo "<div id='img".$key."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
+              echo "<div id='img".$key."' data-id='".$val['id_scheda']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
                 echo "<div class='imgContent animation lozad' data-background-image='foto_medium/".$val['path']."'></div>";
                 echo "<div class='animation imgTxt d-none d-md-block'>";
                   echo "<p class='animation'>".$titolo."</p>";
