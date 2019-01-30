@@ -12,6 +12,16 @@ $(document).ready(function(){
     $root.animate({ scrollTop: t - 60 }, 500, function () { window.location.hash = href; });
     return false;
   });
+
+  $("body").on('click', '.hyperLink', function(event) {
+    event.preventDefault();
+    numsch = $(this).attr('href');
+    data={}
+    data['oop']={file:'global.class.php',classe:'General',func:'getIdByNumsch'}
+    data['dati']={numsch: numsch}
+    $.ajax({url: connector, type: type, dataType: dataType, data: data})
+    .done(function(data) {linkScheda(data[0].id_scheda)});
+  });
 })
 
 

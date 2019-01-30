@@ -81,6 +81,10 @@ class General extends Db{
     }
     return $out;
   }
+
+  public function getIdByNumsch($sk){
+    return $this->simple("select id_scheda from foto2 where dgn_numsch2 = '".$sk['numsch']."';");
+  }
 }
 
 ?>

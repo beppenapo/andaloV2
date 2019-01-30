@@ -16,7 +16,9 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     <?php require('inc/css.php'); ?>
     <style media="screen">
       .imgWrap{position: relative; z-index: 10;}
-      .imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); z-index: 20;}
+      .imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); opacity:0; z-index: 20;text-align: center;font-size: 5em; color: #fff;line-height:5em;}
+      .imgOverlay:hover{opacity: 1;}
+      .titleScheda{font-size: 3.5em;}
     </style>
   </head>
   <body class="bg-light">
@@ -25,24 +27,22 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
       <div class="container">
         <div class="row">
           <div class="col">
-            <p class="text-dark h1"><?php echo $getInfo['list']['titolo']; ?></p>
+            <p class="text-dark titleScheda m-0"><?php echo $getInfo['list']['titolo']; ?></p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="mainScope border-top border-bottom py-3">
+    <div class="mainScope border-top border-bottom py-5">
       <div class="container">
         <div class="row">
-          <div class="col col-md-6">
-            <div class="imgWrap">
+          <div class="col-xs-12 col-md-6">
+            <div class="imgWrap mb-5">
               <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
-              <div class="imgOverlay">
-
-              </div>
+              <div class="imgOverlay animation pointer"><i class="fas fa-expand my-auto"></i></div>
             </div>
           </div>
-          <div class="col col-md-6">
+          <div class="col-xs12 col-md-6">
             <ul>
               <?php foreach ($getInfo['list'] as $el) {?>
                 <li class="mb-2"><?php echo $el; ?></li>

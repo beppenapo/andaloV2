@@ -10,4 +10,5 @@ if(isset($funzione) && function_exists($funzione)) {
 function imgWall($class){return json_encode($class->imgWall($_POST['dati']));}
 function geotag($class){return json_encode($class->geotag());}
 function lazyLoad($class){return json_encode($class->lazyLoad());}
+function getIdByNumsch($class){return json_encode($class->getIdByNumsch($_POST['dati']));}
 ?>
