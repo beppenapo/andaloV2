@@ -4,8 +4,6 @@ class Scheda extends Db{
   public $scheda;
   function __construct($scheda){ $this->scheda = $scheda; }
   public function getScheda(){
-    // $regexp="/FOTOGR*/\-\/[a-zA-Z{1,2,3}]/\-\/\d{4}/?/";
-
     $sql="select * from foto2,file where file.id_scheda=foto2.id_scheda and foto2.id_scheda = ".$this->scheda.";";
     $query=$this->simple($sql);
     $info = array_filter(array_diff($query[0], ["-"]));
@@ -37,7 +35,16 @@ class Scheda extends Db{
       // $pattern="/(FOTO[A-Z]*-I{1,3}-\w{1,4})?/";
       $list['note']= "<span class='txt14'>".$info['alt_note']."</span>";
     }
-    return array("sql"=>$sql,"list"=>$list);
+    $comune=$this->simple("select id_comune from gallery where id_scheda = ".$this->scheda.";");
+    $tag['geo']=$this->geoTag($comune[0]['id_comune']);
+    $tag['tag']=$this->tag();
+    return array("sql"=>$sql,"list"=>$list,"tag"=>$tag);
+  }
+
+  private function geoTag($id){ return $this->simple("select * from gallery where id_comune = ".$id." order by random() limit 12;");}
+
+  private function tag(){ return $this->simple("select unnest(tags) tag from tags where scheda = ".$this->scheda." order by tag asc;");
+
   }
 }
 
