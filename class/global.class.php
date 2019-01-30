@@ -44,13 +44,13 @@ class General extends Db{
   }
 
   private function geotag(){
-    $sql = "SELECT id_comune id,comune tag,count(*) schede from gallery where comune != '-' group by id_comune,comune order by random();";
+    $sql = "SELECT id_comune id,comune tag,count(*) schede from gallery where comune != '-' group by id_comune,comune order by comune asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from gallery group by tag having count(*) > 10 order by random();";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from gallery group by tag having count(*) > 10 order by tag asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
