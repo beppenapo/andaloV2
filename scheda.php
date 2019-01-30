@@ -54,5 +54,13 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.imgOverlay').on('click', function(event) {
+          img = $(this).prev('img').attr('src');
+          window.open(img,'_blank');
+        });
+      });
+    </script>
   </body>
 </html>
