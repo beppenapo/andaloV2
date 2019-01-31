@@ -7,11 +7,17 @@ const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
 const page = window.location.pathname.split('/').pop().split('.')[0]
 $(document).ready(function(){
   $('.scroll').on('click',function() {
-    var href = $(this).data('id');
+    var href = $(this).attr('href').split("#").pop();
     var t = $("#"+href).offset().top
     $root.animate({ scrollTop: t - 60 }, 500, function () { window.location.hash = href; });
     return false;
   });
+  $(".dropdown").on('show.bs.dropdown', function(){
+    $("#navbarDropdownMenuLink").addClass('linkActive');
+  })
+  $(".dropdown").on('hide.bs.dropdown', function(){
+    $("#navbarDropdownMenuLink").removeClass('linkActive');
+  })
 
   $(".tag").on('click',function(){
     id=$(this).data('id')
@@ -44,7 +50,6 @@ function imgWall(limit){
   data['dati']={limit:limit}
   $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {
-      console.log(data);
       data.forEach(function(val,idx){
         if (!val.sog_titolo || val.sog_titolo == '-' || val.sog_titolo == '') {titolo = val.path.slice(0,-4); }else {titolo = val.sog_titolo;}
         d1=$("<div/>",{id:'img'+idx})
