@@ -88,7 +88,7 @@ function lazyImg(){
 }
 
 function linkScheda(id){
-  var form = $("<form/>",{action:'scheda.php',method:'post'}).appendTo('body')
+  var form = $("<form/>",{action:'scheda.php',method:'get'}).appendTo('body')
   $('<input/>',{type:'hidden',name:'scheda',value:id}).appendTo(form)
   form.submit();
 }

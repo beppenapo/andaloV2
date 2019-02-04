@@ -1,7 +1,7 @@
 <?php
 session_start();
 require("class/scheda.class.php");
-$scheda = new Scheda(intval($_POST['scheda']));
+$scheda = new Scheda(intval($_GET['scheda']));
 // $scheda = new Scheda(intval(327));
 $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
