@@ -4,14 +4,39 @@ class Scheda extends Db{
   public $scheda;
   function __construct($scheda){ $this->scheda = $scheda; }
   public function getScheda(){
-    $sql="select * from foto2,file where file.id_scheda=foto2.id_scheda and foto2.id_scheda = ".$this->scheda.";";
+    $sql="select
+    f1.id,
+    f1.dgn_dnogg,
+    c.cro_spec,
+    f2.dgn_numsch2,
+    f2.sog_titolo,
+    f2.dtc_icol,
+    f2.dtc_mattec,
+    f2.dtc_ffile,
+    f2.dtc_misfd,
+    f2.sog_sogg,
+    f2.sog_autore,
+    f2.sog_note,
+    f2.sog_notestor,
+    f2.alt_note,
+    f.path
+    from scheda f1
+    inner join foto2 f2 on f2.id_scheda = f1.id
+    left join file f on f.id_scheda = f1.id
+    left join  cronologia c on c.id_scheda = f1.id
+    where f1.id = ".$this->scheda.";";
     $query=$this->simple($sql);
     $info = array_filter(array_diff($query[0], ["-"]));
     $list['dgn_numsch']="<strong>".$info['dgn_numsch2']."</strong>";
     $list['path']=$info['path'];
-    $list['id_foto']=$info['id'];
-    // $list['id_scheda']=$info['id_scheda'];
-    $list['titolo']=(!isset($info['sog_titolo'])) ? substr($path,0,-4) : $info['sog_titolo'];
+    if (isset($info['dgn_dnogg'])) {
+      $list['titolo']=$info['dgn_dnogg'];
+    }elseif (!isset($info['dgn_dnogg']) && isset($info['sog_titolo'])) {
+      $list['titolo']=$info['sog_titolo'];
+    }else {
+      $list['titolo']=substr($info['path'],0,-4);
+    }
+    // $list['titolo']=(!isset($info['sog_titolo'])) ? substr($path,0,-4) : $info['sog_titolo'];
     $dtc=array();
     if(isset($info['dtc_icol'])){
       switch ($info['dtc_icol']) {
@@ -26,6 +51,7 @@ class Scheda extends Db{
     if(isset($info['dtc_misfd'])){$dtc[2]=strtolower($info['dtc_misfd']);}
     $dtc = implode(", ",$dtc);
     $list['dtc']="<span class='txt12'>".$dtc."</span>";
+    $list['cro_spec']="<span class='txt12'>".$info['cro_spec']."</span>";
     $list['sog_sogg']="<span class='txt14'>".$info['sog_sogg']."</span>";
     if(isset($info['sog_autore'])){$sogg = "autore: ".$info['sog_autore'];}
     if(isset($info['sog_note'])){$sogg .= " (".$info['sog_note'].")";}

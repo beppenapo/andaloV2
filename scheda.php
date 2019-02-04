@@ -8,7 +8,7 @@ $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
 $drop = array('id_foto','path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
-// print_r($getInfo['tag']['geo']);
+// print_r($getInfo['list']);
 ?>
 <!doctype html>
 <html lang="it">
