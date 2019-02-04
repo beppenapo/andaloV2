@@ -52,10 +52,10 @@ class Scheda extends Db{
     $dtc = implode(", ",$dtc);
     $list['dtc']="<span class='txt12'>".$dtc."</span>";
     $list['cro_spec']="<span class='txt12'>".$info['cro_spec']."</span>";
-    $list['sog_sogg']="<span class='txt14'>".$info['sog_sogg']."</span>";
     if(isset($info['sog_autore'])){$sogg = "autore: ".$info['sog_autore'];}
     if(isset($info['sog_note'])){$sogg .= " (".$info['sog_note'].")";}
-    $list['sog_autore'] = $sogg;
+    $list['sog_autore'] = "<span class='txt12'>".$sogg."</span>";
+    $list['sog_sogg']="<span class='txt14'>".$info['sog_sogg']."</span>";
     if(isset($info['sog_notestor'])){$list['notestor']= "<span class='txt14'>Note storiche: ".$info['sog_notestor']."</span>";}
     if(isset($info['alt_note'])){
       // $pattern="/(FOTO[A-Z]*-I{1,3}-\w{1,4})?/";

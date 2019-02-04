@@ -15,11 +15,11 @@ f2.sog_sogg,
 f2.sog_autore,
 f2.sog_note,
 f2.sog_notestor,
-f2.alt_note
-f.path,
+f2.alt_note,
+f.path
 from scheda f1
 inner join foto2 f2 on f2.id_scheda = f1.id
 left join file f on f.id_scheda = f1.id
 left join  cronologia c on c.id_scheda = f1.id
-where f1.id = 824
+where f2.sog_autore is not null and f2.sog_autore != '-'
 ;
