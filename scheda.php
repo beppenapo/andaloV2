@@ -1,8 +1,8 @@
 <?php
 session_start();
 require("class/scheda.class.php");
-// $scheda = new Scheda(intval($_GET['scheda']));
-$scheda = new Scheda(intval(15));
+$scheda = new Scheda(intval($_GET['scheda']));
+// $scheda = new Scheda(intval(15));
 $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
