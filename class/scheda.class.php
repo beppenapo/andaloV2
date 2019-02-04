@@ -36,12 +36,29 @@ class Scheda extends Db{
       $list['note']= "<span class='txt14'>".$info['alt_note']."</span>";
     }
     $comune=$this->simple("select id_comune from gallery where id_scheda = ".$this->scheda.";");
-    $tag['geo']=$this->geoTag($comune[0]['id_comune']);
+    $tag['geo']=$this->geoTag($comune);
     $tag['tag']=$this->tag();
     return array("sql"=>$sql,"list"=>$list,"tag"=>$tag);
   }
 
-  private function geoTag($id){ return $this->simple("select * from gallery where id_comune = ".$id." and comune != '-' order by random() limit 12;");}
+  private function geoTag($id=array()){
+    $comuni = array();
+    foreach($id as $key => $value){
+      foreach ($value as $k => $v) {
+        if ($v !==5) {
+          $comuni[$k]=$v;
+        }
+      }
+    }
+    $sql = "select * from gallery ";
+    if (count($comuni)>0) {
+      $sql .= "where id_comune = ".$comuni['id_comune']." ";
+    }
+    $sql .= "order by random() limit 12;";
+    // return $comuni;
+    return $this->simple($sql);
+    // return $this->simple("select * from gallery where id_comune = ".$id." and comune != '-' order by random() limit 12;");
+  }
 
   private function tag(){ return $this->simple("select unnest(tags) tag from tags where scheda = ".$this->scheda." order by tag asc;");
 

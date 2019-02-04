@@ -8,6 +8,7 @@ $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
 $drop = array('id_foto','path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
+// print_r($getInfo['tag']['geo']);
 ?>
 <!doctype html>
 <html lang="it">
@@ -43,7 +44,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             </div>
             <div>
               <p class="border-bottom py-2"><i class="fas fa-tags"></i> Tag</p>
-              <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
+              <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
               foreach ($getInfo['tag']['tag'] as $k => $val) {
                 echo "<button class='btn btn-info btn-sm mr-1 mb-1 tag' type='button' name='tagBtn' data-filtro='tag' data-id='".$k."' data-tag='".$val['tag']."'>".$val['tag']."</button>";

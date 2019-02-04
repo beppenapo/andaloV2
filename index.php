@@ -89,7 +89,7 @@ $tagList = $tags->tagList();
       <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col text-center">
-            <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
+            <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
               foreach ($tagList['geotag'] as $tag) {
                 echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='geotag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
@@ -119,7 +119,7 @@ $tagList = $tags->tagList();
       <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col text-center">
-            <form class="form geoTagContent" action="gallery.php" method="post" name="geoTagForm">
+            <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
               foreach ($tagList['tag'] as $tag) {
                 echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";

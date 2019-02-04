@@ -2,10 +2,10 @@
 session_start();
 require("class/global.class.php");
 $list=new General;
-if (!empty($_POST)) {
-  $tag=$_POST['filtro'];
-  $val = $tag == 'geotag' ? $_POST['val'] : $_POST['tag'];
-  $filter=' immagini che hanno come '.$tag.' "'.$_POST['tag'].'"';
+if (!empty($_GET)) {
+  $tag=$_GET['filtro'];
+  $val = $tag == 'geotag' ? $_GET['val'] : $_GET['tag'];
+  $filter=' immagini che hanno come '.$tag.' "'.$_GET['tag'].'"';
 }else {
   $tag=null;
   $val=null;
