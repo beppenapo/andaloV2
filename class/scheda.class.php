@@ -41,7 +41,7 @@ class Scheda extends Db{
     return array("sql"=>$sql,"list"=>$list,"tag"=>$tag);
   }
 
-  private function geoTag($id){ return $this->simple("select * from gallery where id_comune = ".$id." order by random() limit 12;");}
+  private function geoTag($id){ return $this->simple("select * from gallery where id_comune = ".$id." and comune != '-' order by random() limit 12;");}
 
   private function tag(){ return $this->simple("select unnest(tags) tag from tags where scheda = ".$this->scheda." order by tag asc;");
 

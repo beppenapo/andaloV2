@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-7 col-md-8">
-        <ul class="mainMenu d-md-inline-block py-2 py-md-0 m-0">
+        <ul class="mainMenu d-md-inline-block p-0 m-0">
           <li>
             <div class="dropdown">
               <a class="nav-link dropdown-toggle animation" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-home fa-fw"></i> HOME</a>

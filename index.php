@@ -58,7 +58,9 @@ $tagList = $tags->tagList();
             <h2 class="" id="immagini">
               <i class="far fa-image"></i>
               IMMAGINI
-              <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+              <a href="#home" class="text-dark float-right scroll" data-id="home">
+                <i class="fas fa-angle-double-up"></i>
+              </a>
             </h2>
           </div>
         </div>
@@ -75,7 +77,9 @@ $tagList = $tags->tagList();
               <h2 class="py-2" id="luoghi">
                 <i class="fas fa-map-signs pr-2"></i>
                 LUOGHI
-                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+                <a href="#home" class="text-dark float-right scroll" data-id="home">
+                  <i class="fas fa-angle-double-up"></i>
+                </a>
               </h2>
             </div>
           </div>
@@ -103,7 +107,9 @@ $tagList = $tags->tagList();
               <h2 class="py-2" id="parole">
                 <i class="fas fa-hashtag pr-2"></i>
                 PAROLE
-                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+                <a href="#home" class="text-dark float-right scroll" data-id="home">
+                  <i class="fas fa-angle-double-up"></i>
+                </a>
               </h2>
             </div>
           </div>
@@ -130,7 +136,9 @@ $tagList = $tags->tagList();
             <div class="col">
               <h2 class="py-2" id="aboutus">
                 ABOUT US
-                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+                <a href="#home" class="text-dark float-right scroll" data-id="home">
+                  <i class="fas fa-angle-double-up"></i>
+                </a>
               </h2>
             </div>
           </div>
@@ -159,7 +167,9 @@ $tagList = $tags->tagList();
             <div class="col">
               <h2 class="py-2" id="download">
                 DOWNLOAD
-                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+                <a href="#home" class="text-dark float-right scroll" data-id="home">
+                  <i class="fas fa-angle-double-up"></i>
+                </a>
               </h2>
             </div>
           </div>
@@ -184,7 +194,9 @@ $tagList = $tags->tagList();
             <div class="col">
               <h2 class="py-2" id="credits">
                 CREDITS
-                <i class="fas fa-angle-double-up float-right pointer scroll" data-id="home"></i>
+                <a href="#home" class="text-dark float-right scroll" data-id="home">
+                  <i class="fas fa-angle-double-up"></i>
+                </a>
               </h2>
             </div>
           </div>

@@ -36,7 +36,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     <div class="mainScope border-top border-bottom py-5">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-md-6 mb-5">
+          <div class="col-xs-12 col-md-8 mb-5">
             <div class="imgWrap mb-2">
               <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
@@ -52,7 +52,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
               </form>
             </div>
           </div>
-          <div class="col-xs12 col-md-6">
+          <div class="col-xs12 col-md-4">
             <ul>
               <?php foreach ($getInfo['list'] as $el) {?>
                 <li class="mb-2"><?php echo $el; ?></li>
