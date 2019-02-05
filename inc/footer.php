@@ -5,10 +5,10 @@
         <address class="">
           <ul>
             <li><strong>Gestione associata del servizio bibliotecario della Paganella</strong></li>
-            <li><i class="fas fa-map-marker-alt fa-fw"></i>Piazzale Paganella, 3 38010 Andalo</li>
-            <li><i class="fas fa-phone-volume fa-fw"></i>tel. 0461/585275</li>
+            <li><a href="https://goo.gl/maps/6MBna15XQ2C2" title="visualizza in Google Maps [link esterno]"><i class="fas fa-map-marker-alt fa-fw"></i>Piazzale Paganella, 3 38010 Andalo</a></li>
+            <li><a href="tel:+390461589627"><i class="fas fa-phone-volume fa-fw"></i>tel. 0461/585275</a></li>
             <li><i class="fas fa-fax fa-fw"></i>fax 0461/589627</li>
-            <li><i class="fas fa-at fa-fw"></i>andalo@bibli.infotn.it</li>
+            <li><a href="mailto:andalo@biblio.infotn.it?subject=feedback" title="scrivici una mail"><i class="fas fa-at fa-fw"></i> andalo@biblio.infotn.it</a></li>
             <li><a href="http://www.bibliopaganella.it" title="home page sito istituzionale [link esterno]" target="_blank"><i class="fas fa-link fa-fw"></i>www.bibliopaganella.it</a></li>
             <li><a href="https://www.facebook.com/Bibliopaganella" target="_blank" title="facebook page [link esterno]"><i class="fab fa-facebook-square fa-fw"></i>facebook</a></li>
             <li><a href="https://twitter.com/bibliopaganella" target="_blank" title="twitter page [link esterno]"><i class="fab fa-twitter-square fa-fw"></i>twitter</a></li>
@@ -31,17 +31,12 @@
         </div>
       </div>
       <div class="col-md-2 offset-md-2">
-        <ul class="">
-          <li><a href="index.php" class="animation">ABOUT US</a></li>
+        <ul class="menuFooter">
+          <!-- <li><a href="index.php" class="animation">ABOUT US</a></li>
           <li><a href="gallery.php" class="animation">GALLERY</a></li>
           <li><a href="#" class="animation">DOWNLOAD</a></li>
-          <li><a href="#" class="animation">CREDITS</a></li>
+          <li><a href="#" class="animation">CREDITS</a></li> -->
         </ul>
-        <div class="">
-          <ul>
-
-          </ul>
-        </div>
       </div>
     </div>
     <div class="row">

@@ -8,16 +8,13 @@ const page = window.location.pathname.split('/').pop().split('.')[0]
 $(document).ready(function(){
   $('.scroll').on('click',function() {
     var href = $(this).attr('href').split("#").pop();
-    var t = $("#"+href).offset().top
-    $root.animate({ scrollTop: t - 60 }, 500, function () { window.location.hash = href; });
-    return false;
+    var $target = $($("#"+href));
+    $root.animate({ scrollTop: $target.offset().top }, 500, function () {window.location.hash = href; });
+    //return false;
   });
-  $(".dropdown").on('show.bs.dropdown', function(){
-    $("#navbarDropdownMenuLink").addClass('linkActive');
-  })
-  $(".dropdown").on('hide.bs.dropdown', function(){
-    $("#navbarDropdownMenuLink").removeClass('linkActive');
-  })
+
+  $(".dropdown").on('show.bs.dropdown', function(){ $("#navbarDropdownMenuLink").addClass('linkActive'); })
+  $(".dropdown").on('hide.bs.dropdown', function(){ $("#navbarDropdownMenuLink").removeClass('linkActive'); })
 
   $(".tag").on('click',function(){
     id=$(this).data('id')
@@ -39,6 +36,7 @@ $(document).ready(function(){
     $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {linkScheda(data[0].id_scheda)});
   });
+  menuFooter();
 })
 
 
@@ -91,4 +89,11 @@ function linkScheda(id){
   var form = $("<form/>",{action:'scheda.php',method:'get'}).appendTo('body')
   $('<input/>',{type:'hidden',name:'scheda',value:id}).appendTo(form)
   form.submit();
+}
+
+function menuFooter(){
+  $('.mainMenu .mf').each(function(){
+    li=$("<li/>").appendTo('.menuFooter');
+    $("<a/>",{class:"scroll animation", href:$(this).attr('href')}).text($(this).text()).appendTo(li);
+  });
 }

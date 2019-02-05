@@ -40,6 +40,7 @@ a:hover{text-decoration: none;}
 #footer, #footer a{color:#f8f9fa;}
 #footer a:hover{text-decoration: underline;}
 #footer li{padding-bottom:5px;}
+
 @media (max-width: 575px) {
   .maintitle{margin-top:90px;text-align:center;}
   .mainMenu>li>a{font-size: 11px;}
