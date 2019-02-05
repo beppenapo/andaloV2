@@ -2,7 +2,6 @@
 session_start();
 require("class/scheda.class.php");
 $scheda = new Scheda(intval($_GET['scheda']));
-// $scheda = new Scheda(intval(15));
 $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
@@ -79,14 +78,27 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         </div>
       </div>
     </div>
+
+    <div class="imageModal">
+      <div class="imageWrap">
+        <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
+        <div class="d-block text-right mt-1">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="foto/<?php echo $path; ?>" class="btn btn-secondary" title="salva immagine" download><i class="fas fa-download"></i></a>
+            <a href="#" class="btn btn-secondary modalFadeOut" title="chiudi finestra"><i class="fas fa-compress-arrows-alt"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
     <script src="js/gallery.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        $('.imgOverlay').on('click', function(event) {
-          img = $(this).prev('img').attr('src');
-          window.open(img,'_blank');
+        $('.imgOverlay').on('click', function() { $(".imageModal").fadeIn(500); });
+        $('.modalFadeOut').on('click', function(e) {
+          e.preventDefault();
+          $(".imageModal").fadeOut(500);
         });
       });
     </script>

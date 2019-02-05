@@ -45,7 +45,13 @@ a:hover{text-decoration: none;}
 .textag{display: none;}
 /************************/
 
+/* scheda image modal */
+.imageModal{position: fixed;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.9); display: flex; justify-content: center; align-items: center; z-index:2001;}
+.imageWrap{position:relative;height:auto;max-height: 80%;}
+/**********************/
+
 @media (max-width: 575px) {
+  .mainMenuWrap{text-align: center;}
   .maintitle{margin-top:90px;text-align:center;}
   .mainMenu>li>a{font-size: 11px;}
   #header{background: #fff; border-bottom: 1px solid #dee2e6;}
