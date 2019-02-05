@@ -132,8 +132,8 @@ $tagList = $tags->tagList();
               }
               ?>
             </form>
-            <div class="">
-              <button type="button" class="btn btn-primary mx-auto" name="loadMore">show more <i class="fas fa-angle-double-down"></i></button>
+            <div class="pt-3">
+              <button type="button" class="btn btn-warning mx-auto" name="loadMore">show more <i class="fas fa-angle-double-down"></i></button>
             </div>
           </div>
         </div>

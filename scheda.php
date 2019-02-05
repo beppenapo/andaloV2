@@ -81,13 +81,13 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
 
     <div class="imageModal">
       <div class="imageWrap">
-        <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
-        <div class="d-block text-right mt-1">
-          <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="mb-1 clearfix">
+          <div class="btn-group float-right" role="group" aria-label="Basic example">
             <a href="foto/<?php echo $path; ?>" class="btn btn-secondary" title="salva immagine" download><i class="fas fa-download"></i></a>
             <a href="#" class="btn btn-secondary modalFadeOut" title="chiudi finestra"><i class="fas fa-compress-arrows-alt"></i></a>
           </div>
         </div>
+        <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
       </div>
     </div>
     <?php require('inc/footer.php'); ?>
