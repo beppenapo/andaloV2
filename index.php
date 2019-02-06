@@ -7,7 +7,6 @@ foreach ($tagList['tag'] as $item) {
     $firstLetter = substr(strtoupper($item['tag']), 0, 1);
     $parole[$firstLetter][] = $item;
 }
-// print_r($result);
 ?>
 <!doctype html>
 <html lang="it">
@@ -142,7 +141,7 @@ foreach ($tagList['tag'] as $item) {
               ?>
             </form>
             <div class="pt-3">
-              <button type="button" class="btn btn-warning mx-auto" name="loadMore">show more <i class="fas fa-angle-double-down"></i></button>
+              <button type="button" class="mx-auto w-50 p-2 animation rounded pointer border-0" name="loadMore">show more <i class="fas fa-angle-double-down"></i></button>
             </div>
           </div>
         </div>

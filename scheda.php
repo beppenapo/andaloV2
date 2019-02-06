@@ -3,6 +3,7 @@ session_start();
 require("class/scheda.class.php");
 $scheda = new Scheda(intval($_GET['scheda']));
 $getInfo = $scheda->getScheda();
+// print_r($getInfo);
 $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
 $drop = array('id_foto','path');
@@ -69,7 +70,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             <?php
               foreach ($getInfo['tag']['geo'] as $key => $val) {
                 if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
-                echo "<div id='img".$key."' data-id='".$val['id_scheda']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
+                echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
                   echo "<div class='imgContent animation lozad' data-background-image='foto_small/".$val['path']."'></div>";
                   echo "<div class='animation imgTxt d-none'>";
                     echo "<p class='animation'>".$titolo."</p>";
@@ -88,7 +89,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         <div class="btnWrap text-center clearfix">
           <div class="btn-group btn-group-sm" role="group" aria-label="modalBtn">
             <button type="button" name="dgnNumschBtn" class="btn btn-outline-light" disabled><?php echo preg_replace('/<strong[^>]*?>([\\s\\S]*?)<\/strong>/','\\1', $getInfo['list']['dgn_numsch']); ?></button>
-            <button type="button" name="dtcBtn" class="btn btn-outline-light" disabled><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></button>
+            <button type="button" name="dtcBtn" class="btn btn-outline-light d-none d-lg-inline-block" disabled><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></button>
             <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="salva immagine" download><i class="fas fa-download"></i></a>
             <button type="button" class="btn btn-light" name="closeModal"><i class="fas fa-compress-arrows-alt"></i></button>
           </div>

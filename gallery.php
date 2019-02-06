@@ -12,7 +12,7 @@ if (!empty($_GET)) {
   $filter=' immagini totali';
 }
 $img = $list->lazyLoad($tag,$val);
-$filterTxt = count($img['img']).$filter;
+$filterTxt = count($img).$filter;
 ?>
 <!doctype html>
 <html lang="it">
@@ -50,9 +50,15 @@ $filterTxt = count($img['img']).$filter;
         </div>
         <div class="row wrapImg mb-3">
           <?php
-            foreach ($img['img'] as $key => $val) {
-              if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
-              echo "<div id='img".$key."' data-id='".$val['id_scheda']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
+            foreach ($img as $key => $val) {
+              if (isset($val['dgn_dnogg'])) {
+                $titolo=$val['dgn_dnogg'];
+              }elseif (!isset($val['dgn_dnogg']) && isset($val['sog_titolo'])) {
+                $titolo=$val['sog_titolo'];
+              }else {
+                $titolo=substr($val['path'],0,-4);
+              }
+              echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
                 echo "<div class='imgContent animation lozad' data-background-image='foto_medium/".$val['path']."'></div>";
                 echo "<div class='animation imgTxt d-none d-md-block'>";
                   echo "<p class='animation'>".$titolo."</p>";

@@ -61,7 +61,7 @@ class Scheda extends Db{
       // $pattern="/(FOTO[A-Z]*-I{1,3}-\w{1,4})?/";
       $list['note']= "<span class='txt14'>".$info['alt_note']."</span>";
     }
-    $comune=$this->simple("select id_comune from gallery where id_scheda = ".$this->scheda.";");
+    $comune=$this->simple("select id_comune from gallery where id = ".$this->scheda.";");
     $tag['geo']=$this->geoTag($comune);
     $tag['tag']=$this->tag();
     return array("sql"=>$sql,"list"=>$list,"tag"=>$tag);
@@ -73,7 +73,7 @@ class Scheda extends Db{
       foreach ($value as $k => $v) { if ($v !==5) { $comuni[$k]=$v; } }
     }
     $sql = "select * from gallery ";
-    if (count($comuni)>0) { $sql .= "where id_comune = ".$comuni['id_comune']." and id_scheda <> ".$this->scheda." "; }
+    if (count($comuni)>0) { $sql .= "where id_comune = ".$comuni['id_comune']." and id <> ".$this->scheda." "; }
     $sql .= "order by random() limit 12;";
     return $this->simple($sql);
   }

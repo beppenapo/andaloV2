@@ -2,28 +2,24 @@
 require("db.class.php");
 class General extends Db{
   function __construct(){}
-  public function imgWall($dati){
-    $sql="select * from gallery order by random() limit ".$dati['limit'].";";
+
+  ###NOTE: FUNZIONI PER LISTE IMMAGINI
+  public function imgWall($limit=array(), $filter=null){
+    $sql="select * from imgwall ".$filter." order by random() ";
+    if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
     return $this->simple($sql);
   }
 
+
   public function lazyLoad($tag=null,$val=null){
-    if ($tag==null) {$filter = '';}
-    else{
-      $filter = 'where ';
-      $param=array();
-      if ($tag=='geotag') { $param[] = 'id_comune ='.$val;}
-      if ($tag=='tag') {
-        $param[] = "'".$val."' in(select(unnest(tags)))";
-        $param[] = "id_comune != 3";
-        $param[] = "comune !='-'";
-      }
-      $filter .= implode(" and ",$param);
+    if ($tag==null) {
+      return $this->imgWall();
+    }elseif ($tag=='tag') {
+      $filter = "where '".$val."' in(select(unnest(tags))) ";
+      return $this->imgWall(array(),$filter);
+    }else {
+      return $this->simple("select * from gallery where id_comune = ".$val." order by random();");
     }
-    $sql="select * from gallery ".$filter." order by random();";
-    $data = $this->simple($sql);
-    $imgList=$this->remove_duplicateKeys("path",$data);
-    return array("sql"=>$sql,"img"=>$imgList);
   }
 
   private function remove_duplicateKeys($key,$data){
@@ -36,6 +32,8 @@ class General extends Db{
     return $data;
   }
 
+
+  ###NOTE: FUNZIONI PER LISTE TAGS
   public function tagList(){
     $out = array();
     $out['geotag']=$this->geotag();
@@ -50,7 +48,7 @@ class General extends Db{
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from gallery group by tag having count(*) > 10 order by tag asc;";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from imgwall group by tag having count(*) > 10 order by tag asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
