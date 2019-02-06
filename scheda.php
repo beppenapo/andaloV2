@@ -3,12 +3,10 @@ session_start();
 require("class/scheda.class.php");
 $scheda = new Scheda(intval($_GET['scheda']));
 $getInfo = $scheda->getScheda();
-// print_r($getInfo);
 $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
 $drop = array('id_foto','path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
-// echo count($getInfo['tag']['geo']);
 ?>
 <!doctype html>
 <html lang="it">
