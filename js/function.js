@@ -39,10 +39,11 @@ $(document).ready(function(){
   menuFooter();
 
   $(function () {
-    $(".textag").slice(0, 50).show();
+    $(".textag").slice(0, 75).show();
     $("[name=loadMore]").on('click', function (e) {
         e.preventDefault();
-        $(".textag:hidden").slice(0, 50).slideDown('fast');
+        $(".textag:hidden").slice(0, 75).slideDown('fast');
+        $('.firstLetter:visible').addClass('d-inline-block')
         if ($(".textag:hidden").length == 0) {
             $("[name=loadMore]").fadeOut('slow');
         }
@@ -50,6 +51,7 @@ $(document).ready(function(){
             scrollTop: $(this).offset().top - 500 + "px"
         }, 500);
     });
+    $('.firstLetter:visible').addClass('d-inline-block')
   });
 })
 

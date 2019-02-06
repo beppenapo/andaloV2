@@ -7,7 +7,7 @@ $path=$getInfo['list']['path'];
 $idFoto=$getInfo['list']['id_foto'];
 $drop = array('id_foto','path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
-// print_r($getInfo['list']);
+// echo count($getInfo['tag']['geo']);
 ?>
 <!doctype html>
 <html lang="it">
@@ -37,7 +37,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-md-7 mb-5">
-            <div class="imgWrap mb-2">
+            <div class="imgWrap text-center mb-2">
               <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
             </div>
@@ -62,7 +62,10 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         </div>
         <div class="row">
           <div class="col">
-            <p class="border-bottom py-2">Altre foto di <?php echo $getInfo['tag']['geo'][0]['comune']; ?> che potrebbero interessarti</p>
+            <?php if(!empty($getInfo['tag']['geo'])){?>
+            <p class="border-bottom py-2">
+              Altre foto di <?php echo $getInfo['tag']['geo'][0]['comune']; ?> che potrebbero interessarti
+            </p>
             <?php
               foreach ($getInfo['tag']['geo'] as $key => $val) {
                 if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
@@ -73,21 +76,22 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
                   echo "</div>";
                 echo "</div>";
               }
+            }//if
             ?>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="imageModal">
-      <div class="imageWrap">
-        <div class="mb-1 clearfix">
-          <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <a href="foto/<?php echo $path; ?>" class="btn btn-secondary" title="salva immagine" download><i class="fas fa-download"></i></a>
-            <a href="#" class="btn btn-secondary modalFadeOut" title="chiudi finestra"><i class="fas fa-compress-arrows-alt"></i></a>
+    <div class="modal fade imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-footer border-0 p-0 btn-group float-right mb-1" role="group" aria-label="modalBtn">
+            <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="salva immagine" download><i class="fas fa-download"></i></a>
+            <button type="button" class="btn btn-light" name="closeModal" data-dismiss="modal"><i class="fas fa-compress-arrows-alt"></i></button>
           </div>
-        </div>
-        <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
+          <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
+          </div>
       </div>
     </div>
     <?php require('inc/footer.php'); ?>
@@ -95,10 +99,8 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     <script src="js/gallery.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        $('.imgOverlay').on('click', function() { $(".imageModal").fadeIn(500); });
-        $('.modalFadeOut').on('click', function(e) {
-          e.preventDefault();
-          $(".imageModal").fadeOut(500);
+        $('.imgOverlay').on('click', function() {
+          $('.imgModal').modal()
         });
       });
     </script>

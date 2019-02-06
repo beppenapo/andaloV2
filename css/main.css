@@ -8,7 +8,7 @@ a:hover{text-decoration: none;}
 .txt14{font-size: 14px;}
 .txt16{font-size: 16px;}
 
-#header,.sticky{z-index: 2000;}
+#header,.sticky{z-index: 1001;}
 .mainMenu{width:100%;}
 .mainMenu>li{display: inline-block;text-align:center;}
 .mainMenu a{display: block; color:#d39e00;}
@@ -22,9 +22,9 @@ a:hover{text-decoration: none;}
 #mainSection{min-height:800px;margin-top:60px;}
 .mainScope{padding: 0;}
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
-.imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: top center; z-index:1000;}
+.imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: top center; z-index:999;}
 .imgContent>i{margin-top:30%;}
-.imgTxt{position:absolute;left:0; width:100%; z-index:1001;}
+.imgTxt{position:absolute;left:0; width:100%; z-index:1000;}
 .imgTxt>p{position:relative;color: #fff; font-size: 12px;padding:10px;}
 .sticky{position: fixed;top: 0;left: 0;width: 100%;background: #fff; border-bottom: 1px solid #dee2e6;}
 .animation{-webkit-transition: all .5s ease; -moz-transition: all .5s ease; -ms-transition: all .5s ease; -o-transition: all .5s ease; transition: all .5s ease;}
@@ -32,7 +32,7 @@ a:hover{text-decoration: none;}
 .tag>span{color:#fff;padding-left:10px;}
 .ancora{color:#373d42;}
 .pointer{cursor:pointer;}
-.topBtn{position:fixed;z-index:2200;bottom:-30px;width:100%;margin:0 auto;}
+.topBtn{position:fixed;z-index:1002;bottom:-30px;width:100%;margin:0 auto;}
 .topBtn>div{background: #6c757d;color: #fff;width: 65px;height: 65px;margin: 0 auto;text-align: center; padding: 10px 0;}
 /* footer */
 #footer{font-size:.8em;}
@@ -42,12 +42,24 @@ a:hover{text-decoration: none;}
 #footer li{padding-bottom:5px;}
 
 /* load more button css */
+.firstLetter{
+  font-size: 2.5em;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  border-radius: 50%;
+  background: #dda0dd;
+  vertical-align: middle;
+  color: white;
+  margin:5px;
+}
 .textag{display: none;}
 /************************/
 
 /* scheda image modal */
-.imageModal{position: fixed;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.9); display: flex; justify-content: center; align-items: center; z-index:2001;}
-.imageWrap{position:relative;height:auto;max-height: 80%;}
+.imgWrap>img{max-height: 500px;}
+.modal-content{background:none;border:none;}
 /**********************/
 
 @media (max-width: 575px) {

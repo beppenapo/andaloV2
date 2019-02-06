@@ -73,7 +73,7 @@ class Scheda extends Db{
       foreach ($value as $k => $v) { if ($v !==5) { $comuni[$k]=$v; } }
     }
     $sql = "select * from gallery ";
-    if (count($comuni)>0) { $sql .= "where id_comune = ".$comuni['id_comune']." "; }
+    if (count($comuni)>0) { $sql .= "where id_comune = ".$comuni['id_comune']." and id_scheda <> ".$this->scheda." "; }
     $sql .= "order by random() limit 12;";
     return $this->simple($sql);
   }
