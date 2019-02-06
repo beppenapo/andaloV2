@@ -135,13 +135,10 @@ foreach ($tagList['tag'] as $item) {
               <?php
               foreach ($parole as $key => $value) {
                 echo "<span class='firstLetter h1 textag'>".$key."</span>";
-                foreach ($value as $k => $tag) {
+                foreach ($value as $tag) {
                   echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
                 }
               }
-              // foreach ($tagList['tag'] as $tag) {
-              //   echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
-              // }
               ?>
             </form>
             <div class="pt-3">

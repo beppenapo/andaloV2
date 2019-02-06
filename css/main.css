@@ -49,17 +49,43 @@ a:hover{text-decoration: none;}
   line-height: 1.5em;
   text-align: center;
   border-radius: 50%;
-  background: #dda0dd;
   vertical-align: middle;
-  color: white;
+  border:1px solid #6c757d;
   margin:5px;
 }
+
 .textag{display: none;}
 /************************/
 
 /* scheda image modal */
-.imgWrap>img{max-height: 500px;}
-.modal-content{background:none;border:none;}
+/* .imgWrap>img{max-height: 500px;}
+.modal-content{background:none;border:none;} */
+.imgModal{
+  display: none;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background: rgba(0,0,0,.9);
+  z-index:2000 !important;
+}
+.modalWrap{
+  position:absolute;
+  top:5%;
+  left:5%;
+  width:90%;
+  height: 90%;
+}
+.imgModalDiv{
+  position:relative;
+  margin-top:5px;
+  width:100%;
+  height:calc(100% - 5px);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 /**********************/
 
 @media (max-width: 575px) {
@@ -127,6 +153,7 @@ a:hover{text-decoration: none;}
   .imgDiv:hover .imgTxt>p{display: block;opacity:100;filter: alpha(opacity=100);zoom: 1;}
   .geotag:hover{background:#d39e00; color:#fff;}
   .textag:hover{background:#17a2b8; color:#fff;}
+  .firstLetter:hover{background:none; color:#6c757d;}
   .ancora:hover{transform: scale(1.2);}
   .topBtn:hover{bottom:-10px;}
 }

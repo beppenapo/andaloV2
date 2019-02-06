@@ -83,15 +83,17 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
       </div>
     </div>
 
-    <div class="modal fade imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-footer border-0 p-0 btn-group float-right mb-1" role="group" aria-label="modalBtn">
+    <div class="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
+      <div class="modalWrap">
+        <div class="btnWrap text-center clearfix">
+          <div class="btn-group btn-group-sm" role="group" aria-label="modalBtn">
+            <button type="button" name="dgnNumschBtn" class="btn btn-outline-light" disabled><?php echo preg_replace('/<strong[^>]*?>([\\s\\S]*?)<\/strong>/','\\1', $getInfo['list']['dgn_numsch']); ?></button>
+            <button type="button" name="dtcBtn" class="btn btn-outline-light" disabled><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></button>
             <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="salva immagine" download><i class="fas fa-download"></i></a>
-            <button type="button" class="btn btn-light" name="closeModal" data-dismiss="modal"><i class="fas fa-compress-arrows-alt"></i></button>
+            <button type="button" class="btn btn-light" name="closeModal"><i class="fas fa-compress-arrows-alt"></i></button>
           </div>
-          <img src="foto/<?php echo $path; ?>" class="img-fluid clearfix" alt="">
-          </div>
+        </div>
+        <div class="imgModalDiv" style="background-image:url('foto/<?php echo $path; ?>')"></div>
       </div>
     </div>
     <?php require('inc/footer.php'); ?>
@@ -100,7 +102,14 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     <script type="text/javascript">
       $(document).ready(function() {
         $('.imgOverlay').on('click', function() {
-          $('.imgModal').modal()
+          $('.imgModal').fadeIn('fast',function(){
+            $('body').addClass('modal-open');
+          });
+        });
+        $('[name=closeModal]').on('click', function() {
+          $('.imgModal').fadeOut('fast',function(){
+            $('body').removeClass('modal-open');
+          });
         });
       });
     </script>

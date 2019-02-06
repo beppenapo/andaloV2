@@ -52,6 +52,7 @@ $(document).ready(function(){
         }, 500);
     });
     $('.firstLetter:visible').addClass('d-inline-block')
+    $('.firstLetter').eq(0).remove();
   });
 })
 
