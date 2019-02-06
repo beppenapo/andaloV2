@@ -4,8 +4,7 @@ require("class/scheda.class.php");
 $scheda = new Scheda(intval($_GET['scheda']));
 $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
-$idFoto=$getInfo['list']['id_foto'];
-$drop = array('id_foto','path');
+$drop = array('path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
 ?>
 <!doctype html>
