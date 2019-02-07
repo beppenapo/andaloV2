@@ -11,9 +11,7 @@ $(document).ready(function(){
     if (get) {
       g1 = get.slice(1).split('&')[0];
       g2 = get.slice(1).split('&')[1];
-      console.log(g2);
-    }else {
-      console.log('no query');
+      if (g1.split('=')[1]=='titolo') { $("#txtSearch").val(g2.split('=')[1].replace(/\+/g,' '))}
     }
   }
   $('.scroll').on('click',function() {
@@ -39,12 +37,12 @@ $(document).ready(function(){
 
   $("body").on('click', '.hyperLink', function(event) {
     event.preventDefault();
-    numsch = $(this).attr('href');
+    numsch = $(this).attr('href').slice(1);
     data={}
     data['oop']={file:'global.class.php',classe:'General',func:'getIdByNumsch'}
     data['dati']={numsch: numsch}
     $.ajax({url: connector, type: type, dataType: dataType, data: data})
-    .done(function(data) {linkScheda(data[0].id_scheda)});
+    .done(function(data) { linkScheda(data[0].id) });
   });
   menuFooter();
 

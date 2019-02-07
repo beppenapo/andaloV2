@@ -101,7 +101,7 @@ foreach ($tagList['tag'] as $item) {
             <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
               foreach ($tagList['geotag'] as $tag) {
-                echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='geotag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
+                echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='geotag' data-tag='".$tag['tag']."'>".$tag['tag']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
               }
               ?>
             </form>
@@ -135,7 +135,7 @@ foreach ($tagList['tag'] as $item) {
               foreach ($parole as $key => $value) {
                 echo "<span class='firstLetter h1 textag'>".$key."</span>";
                 foreach ($value as $tag) {
-                  echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span>".$tag['schede']."</span></label>";
+                  echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
                 }
               }
               ?>

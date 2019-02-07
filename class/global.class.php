@@ -5,7 +5,7 @@ class General extends Db{
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
   public function imgWall($limit=array(), $filter=null){
-    $sql="select * from imgwall ".$filter." order by random() ";
+    $sql="select * from viewscheda ".$filter." order by random() ";
     if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
     return $this->simple($sql);
   }
@@ -26,7 +26,7 @@ class General extends Db{
       break;
       case 'titolo':
         $keywords = str_replace(' ', ' & ', $tag);
-        $filter = "WHERE to_tsvector(dgn_dnogg||' '||sog_titolo) @@ to_tsquery('".$keywords."') ";
+        $filter = "WHERE to_tsvector(dgn_dnogg||' '||sog_titolo||' '||cro_spec||' '||sog_sogg||' '||sog_note||' '||sog_notestor||' '||alt_note) @@ to_tsquery('".$keywords."') ";
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'che contengono le parole "'.$tag.'"';
       break;
@@ -104,7 +104,7 @@ class General extends Db{
   }
 
   public function getIdByNumsch($sk){
-    return $this->simple("select id_scheda from foto2 where dgn_numsch2 = '".$sk['numsch']."';");
+    return $this->simple("select id from viewscheda where dgn_numsch = '".$sk['numsch']."';");
   }
 }
 

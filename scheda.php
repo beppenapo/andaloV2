@@ -51,7 +51,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             </div>
           </div>
           <div class="col-xs12 col-md-5">
-            <ul>
+            <ul id="testregex">
               <?php foreach ($getInfo['list'] as $el) {?>
                 <li class="mb-2"><?php echo $el; ?></li>
               <?php } ?>

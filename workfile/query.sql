@@ -1,35 +1,24 @@
--- select
--- f1.id,
--- f1.dgn_dnogg,
--- f2.sog_titolo,
--- t.tags,
--- f.path
--- from scheda f1
--- inner join foto2 f2 on f2.id_scheda = f1.id
--- inner join tags t on t.scheda = f1.id
--- inner join file f on f.id_scheda = f1.id
--- where f1.fine = 2;
--- order by random() limit 5;
--- drop view if exists gallery;
--- create view gallery as
--- SELECT comune.id AS id_comune,
---     comune.comune,
---     scheda.id,
---     scheda.dgn_dnogg,
---     scheda.dgn_numsch,
---     foto2.sog_titolo,
---     foto2.sog_autore,
---     foto2.sog_sogg,
---     tags.tags,
---     file.path
---    FROM scheda
---      JOIN foto2 ON foto2.id_scheda = scheda.id
---      JOIN file ON file.id_scheda = scheda.id
---      JOIN tags ON tags.scheda = foto2.id_scheda
---      JOIN aree_scheda ON aree_scheda.id_scheda = foto2.id_scheda
---      JOIN area ON aree_scheda.id_area = area.id
---      JOIN aree ON aree.nome_area = area.id
---      JOIN comune ON comune.id = aree.id_comune
---   WHERE area.tipo = 1 AND scheda.fine = 2
---   GROUP BY comune.id, comune.comune, scheda.dgn_numsch, scheda.id, foto2.sog_titolo, foto2.sog_autore, foto2.sog_sogg, tags.tags, file.path
---   ORDER BY comune.id, scheda.id;
+drop view if exists viewscheda;
+create view viewscheda as
+select
+f1.id,
+f1.dgn_dnogg,
+c.cro_spec,
+f1.dgn_numsch,
+f2.sog_titolo,
+f2.dtc_icol,
+f2.dtc_mattec,
+f2.dtc_ffile,
+f2.dtc_misfd,
+f2.sog_sogg,
+f2.sog_autore,
+f2.sog_note,
+f2.sog_notestor,
+f2.alt_note,
+f.path,
+t.tags
+from scheda f1
+inner join foto2 f2 on f2.id_scheda = f1.id
+inner join tags t on t.scheda = f1.id
+left join file f on f.id_scheda = f1.id
+left join  cronologia c on c.id_scheda = f1.id
