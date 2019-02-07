@@ -9,7 +9,9 @@ $(document).ready(function(){
   if (page=='gallery') {
     get=window.location.search;
     if (get) {
-      g1 = get.slice(1).split('&'));
+      g1 = get.slice(1).split('&')[0];
+      g2 = get.slice(1).split('&')[1];
+      console.log(g2);
     }else {
       console.log('no query');
     }
