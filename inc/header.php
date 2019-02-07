@@ -26,12 +26,15 @@
 
       </div>
       <div class="col-sm-7 col-md-6 col-lg-4 pt-0 pb-2 pt-sm-2" id="headerSearch" >
-        <div class="input-group input-group-sm">
-          <input type="search" class="form-control" placeholder="cerca nei titoli e nelle descrizioni" aria-label="cerca" aria-describedby="cercaBtnHeader">
-          <div class="input-group-append">
-            <button class="btn btn-secondary" type="button" id="cercaBtnHeader"><i class="fas fa-search"></i></button>
+        <form class="form" action="gallery.php" method="get">
+          <div class="input-group input-group-sm">
+            <input type="hidden" name="filtro" value="titolo">
+            <input type="search" class="form-control" name="tag" id="txtSearch" placeholder="cerca nei titoli e nelle descrizioni" aria-label="cerca" aria-describedby="cercaBtnHeader" title="inserisci una o più parole separate da spazi" required>
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="submit" id="cercaBtnHeader"><i class="fas fa-search"></i></button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

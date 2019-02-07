@@ -11,15 +11,38 @@ class General extends Db{
   }
 
 
-  public function lazyLoad($tag=null,$val=null){
-    if ($tag==null) {
-      return $this->imgWall();
-    }elseif ($tag=='tag') {
-      $filter = "where '".$val."' in(select(unnest(tags))) ";
-      return $this->imgWall(array(),$filter);
-    }else {
-      return $this->simple("select * from gallery where id_comune = ".$val." order by random();");
+  public function lazyLoad($filtro=null,$tag=null,$val=null){
+    $out=array();
+    switch ($filtro) {
+      case 'tag':
+        $filter = "where '".$tag."' in(select(unnest(tags))) ";
+        $out['img'] = $this->imgWall(array(),$filter);
+        $txt2 = 'a cui è associata la tag "'.$tag.'"';
+      break;
+      case 'geotag':
+        $sql="select * from gallery where id_comune = ".$val." order by random();";
+        $out['img'] = $this->simple($sql);
+        $txt2 = 'scattata nel Comune di "'.$tag.'"';
+      break;
+      case 'titolo':
+        $keywords = str_replace(' ', ' & ', $tag);
+        $filter = "WHERE to_tsvector(dgn_dnogg||' '||sog_titolo) @@ to_tsquery('".$keywords."') ";
+        $out['img'] = $this->imgWall(array(),$filter);
+        $txt2 = 'che contengono le parole "'.$tag.'"';
+      break;
+      case null:
+        $out['img'] =  $this->imgWall();
+        $txt2 = 'totali';
+        break;
     }
+    $tot = count($out['img']);
+    if ($tot == 0) {
+      $out['title'] = 'Nessuna immagine corrispondente al tuo criterio di ricerca!';
+    }else {
+      $txt1 = $tot == 1 ? ' immagine ' : ' immagini ';
+      $out['title'] = $tot.$txt1.$txt2;
+    }
+    return $out;
   }
 
   private function remove_duplicateKeys($key,$data){

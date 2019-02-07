@@ -6,12 +6,20 @@ const $root = $('html, body');
 const observer = lozad('.lozad', { rootMargin: '10px 0px', threshold: 0.1 });
 const page = window.location.pathname.split('/').pop().split('.')[0]
 $(document).ready(function(){
+  if (page=='gallery') {
+    get=window.location.search;
+    if (get) {
+      g1 = get.slice(1).split('&'));
+    }else {
+      console.log('no query');
+    }
+  }
   $('.scroll').on('click',function() {
     var href = $(this).attr('href').split("#").pop();
     var $target = $($("#"+href));
     $root.animate({ scrollTop: $target.offset().top }, 500, function () {window.location.hash = href; });
-    //return false;
   });
+  $("#txtSearch").tooltip({trigger:'focus',placement: "left"})
 
   $(".dropdown").on('show.bs.dropdown', function(){ $("#navbarDropdownMenuLink").addClass('linkActive'); })
   $(".dropdown").on('hide.bs.dropdown', function(){ $("#navbarDropdownMenuLink").removeClass('linkActive'); })

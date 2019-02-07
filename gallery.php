@@ -2,17 +2,17 @@
 session_start();
 require("class/global.class.php");
 $list=new General;
-if (!empty($_GET)) {
-  $tag=$_GET['filtro'];
-  $val = $tag == 'geotag' ? $_GET['val'] : $_GET['tag'];
-  $filter=' immagini che hanno come '.$tag.' "'.$_GET['tag'].'"';
-}else {
-  $tag=null;
-  $val=null;
-  $filter=' immagini totali';
-}
-$img = $list->lazyLoad($tag,$val);
-$filterTxt = count($img).$filter;
+// if (!empty($_GET)) {
+//   $tag=$_GET['filtro'];
+//   $val = $tag == 'geotag' ? $_GET['val'] : $_GET['tag'];
+//   $filter=' immagini che hanno come '.$_GET['filtro'].' "'.$_GET['tag'].'"';
+// }else {
+//   $tag=null;
+//   $val=null;
+//   $filter=' immagini totali';
+// }
+$img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
+// $filterTxt = count($img).$filter;
 ?>
 <!doctype html>
 <html lang="it">
@@ -41,7 +41,7 @@ $filterTxt = count($img).$filter;
       <div class="container-fluid">
         <div class="row">
           <div class="col">
-            <p class="h3 text-center statfilter"><?php echo $filterTxt; ?></p>
+            <p class="h3 text-center statfilter"><?php echo $img['title']; ?></p>
           </div>
         </div>
         <div class="row">
@@ -50,7 +50,7 @@ $filterTxt = count($img).$filter;
         </div>
         <div class="row wrapImg mb-3">
           <?php
-            foreach ($img as $key => $val) {
+            foreach ($img['img'] as $key => $val) {
               if (isset($val['dgn_dnogg'])) {
                 $titolo=$val['dgn_dnogg'];
               }elseif (!isset($val['dgn_dnogg']) && isset($val['sog_titolo'])) {
