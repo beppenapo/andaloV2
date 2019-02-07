@@ -8,7 +8,7 @@ class Scheda extends Db{
     f1.id,
     f1.dgn_dnogg,
     c.cro_spec,
-    f2.dgn_numsch2,
+    f1.dgn_numsch,
     f2.sog_titolo,
     f2.dtc_icol,
     f2.dtc_mattec,
@@ -27,7 +27,7 @@ class Scheda extends Db{
     where f1.id = ".$this->scheda.";";
     $query=$this->simple($sql);
     $info = array_filter(array_diff($query[0], ["-"]));
-    $list['dgn_numsch']="<strong>".$info['dgn_numsch2']."</strong>";
+    $list['dgn_numsch']="<strong>".$info['dgn_numsch']."</strong>";
     $list['path']=$info['path'];
     if (isset($info['dgn_dnogg'])) {
       $list['titolo']=$info['dgn_dnogg'];
