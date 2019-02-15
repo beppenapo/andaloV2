@@ -71,7 +71,7 @@ class General extends Db{
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from imgwall group by tag having count(*) > 10 order by tag asc;";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from viewscheda group by tag having count(*) > 10 order by tag asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
