@@ -78,17 +78,63 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             ?>
           </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <p class="border-bottom py-2 mt-5 font-weight-bold">Ci piacerebbe sapere cosa ne pensi di questa foto</p>
+            <p>Utilizza il form per comunicarci eventuali errori che hai riscontrato nei dati inerenti la foto visualizzata, per aggiungere nuove informazioni in tuo possesso, o semplicemente per darci il tuo parere.<br>Se deciderai di aiutarci a migliorare il nostro database te ne saremo grati e ti assicuriamo che i tuoi dati non saranno resi pubblici né saranno ceduti a servizi esterni<br>
+              Per saperne di più leggi la nostra <a href="privacy.php" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></p>
+            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:biblioteche.paganella@gmail.com">biblioteche.paganella@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <form class="form" name="feedbackForm">
+              <input type="hidden" name="scheda" class="form-control" value="<?php echo $_GET['scheda']; ?>">
+              <small>Tutti i campi sono obbligatori</small>
+              <div class="form-row">
+                <div class="col-6">
+                  <input type="text" name="nome" value="" class="form-control form-control-sm" placeholder="Nome" required>
+                </div>
+                <div class="col-6">
+                  <input type="email" name="email" value="" class="form-control form-control-sm" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-row mt-2">
+                <div class="col">
+                  <textarea name="commento" rows="8" cols="40" class="form-control form-control-sm" placeholder="Messaggio" value="" required></textarea>
+                </div>
+              </div>
+              <div class="form-row mt-2">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="privacy" value="1" required>
+                    <label class="form-check-label" for="privacy"><small>Ok! Ho letto l'<a href="privacy.php" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></small></label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row mt-2">
+                <div class="col-xs-12 col-md-4 mb-3">
+                  <button type="submit" class="btn btn-primary btn-sm w-100" id="sendFeedback">Invia</button>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                  <div class="feedbackMsg alert alert-success py-1"><small>Il tuo commento è stato inviato, grazie per la tua collaborazione!</small></div>
+                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail a biblioteche.paganella@gmail.com</small></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
       <div class="modalWrap">
         <div class="btnWrap text-center clearfix">
-          <div class="btn-group btn-group-sm" role="group" aria-label="modalBtn">
-            <button type="button" name="dgnNumschBtn" class="btn btn-outline-light" disabled><?php echo preg_replace('/<strong[^>]*?>([\\s\\S]*?)<\/strong>/','\\1', $getInfo['list']['dgn_numsch']); ?></button>
-            <button type="button" name="dtcBtn" class="btn btn-outline-light d-none d-lg-inline-block" disabled><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></button>
-            <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="salva immagine" download><i class="fas fa-download"></i></a>
-            <button type="button" class="btn btn-light" name="closeModal"><i class="fas fa-compress-arrows-alt"></i></button>
+          <div class="btn-group btn-group-sm px-2" role="group" aria-label="modalBtn">
+            <button type="button" name="dgnNumschBtn" class="btn btn-dark" disabled><strong><?php echo preg_replace('/<strong[^>]*?>([\\s\\S]*?)<\/strong>/','\\1', $getInfo['list']['dgn_numsch']); ?></strong></button>
+            <button type="button" name="dtcBtn" class="btn btn-dark d-none d-lg-inline-block" disabled><strong><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></strong></button>
+            <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="scarica immagine" download><i class="fas fa-download"></i> scarica</a>
+            <button type="button" class="btn btn-light" name="closeModal" title="chiudi immagine"><i class="fas fa-times"></i> chiudi</button>
           </div>
         </div>
         <div class="imgModalDiv" style="background-image:url('foto/<?php echo $path; ?>')"></div>
@@ -99,6 +145,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
     <script src="js/gallery.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
+        $(".feedbackMsg").hide()
         $('.imgOverlay').on('click', function() {
           $('.imgModal').fadeIn('fast',function(){
             $('body').addClass('modal-open');
@@ -109,7 +156,32 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             $('body').removeClass('modal-open');
           });
         });
+        $("#sendFeedback").on('click',function(e){
+          form = $("[name=feedbackForm]");
+          isvalidate = form[0].checkValidity();
+          if (isvalidate) {
+            e.preventDefault()
+            data={}
+            dati={}
+            data['oop']={file:'global.class.php',classe:'General',func:'feedback'}
+            campi = form.find(".form-control")
+            $.each(campi,function(i,v){ dati[v.name]=v.value })
+            data['dati']=dati
+            $.ajax({ url: connector, type: type, dataType: dataType, data:data})
+            .done(function(data) {
+              console.log(data);
+              $(".feedbackMsg.alert-success").fadeIn(500,fadeout(".feedbackMsg.alert-success"))
+            })
+            .fail(function(error) {
+              console.log(error);
+              $(".feedbackMsg.alert-danger").fadeIn(500,fadeout(".feedbackMsg.alert-danger"))
+            })
+            .always(function() { console.log("complete"); });
+          }
+        })
       });
+
+      function fadeout(el){ setInterval(function(){ $(el).fadeOut(500) },3000); }
     </script>
   </body>
 </html>

@@ -1,5 +1,9 @@
 <?php
 require("db.class.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require ('mailer/autoload.php');
+
 class General extends Db{
   function __construct(){}
 
@@ -105,6 +109,60 @@ class General extends Db{
 
   public function getIdByNumsch($sk){
     return $this->simple("select id from viewscheda where dgn_numsch = '".$sk['numsch']."';");
+  }
+
+
+  public function feedback($dati=array()){
+    $campi=[];
+    foreach ($dati as $key => $value) { $campi[]=":".$key; }
+    $sql = "insert into feedback(".str_replace(":","",implode(",",$campi)).") values(".implode(",",$campi).");";
+    $pdo = $this->pdo();
+    $exec = $pdo->prepare($sql);
+    try {
+      $exec->execute($dati);
+      $this->sendMail($dati);
+      return true;
+    } catch (Exception $e) {
+      return $e->getMessage();
+    }
+  }
+
+  ### sendMail function
+  protected function sendMail($dati=array()){
+    $bodyTxt = "<p>Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:</p>";
+    $bodyTxt .= "<p>".$dati['commento']."</p>";
+    $bodyTxt .= "<br><a href='http://78.46.230.205/andaloV2/scheda.php?scheda".$dati['scheda']."' target='_blank'>apri la scheda</a> ";
+    $bodyTxt .= "<p>Per rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email']."</p>";
+
+    $altBodyTxt = "Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:\n";
+    $altBodyTxt .= $dati['commento'];
+    $altBodyTxt .= "\nlink alla scheda: 78.46.230.205/andaloV2/scheda.php?scheda".$dati['scheda'];
+    $altBodyTxt .= "\nPer rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email'];
+    $mail = new PHPMailer(true);
+    try {
+      $mail->SMTPDebug = 1;
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'biblioteche.paganella@gmail.com';
+      $mail->Password = 'b18710Pagan3lLa';
+      $mail->SMTPSecure = 'tls';
+      $mail->Port = 587;
+      //Recipients
+      $mail->setFrom('biblioteche.paganella@gmail.com', 'Progetto Memoria');
+      $mail->addAddress('beppenapo@gmail.com');
+      // $mail->addBCC(getenv('ARCTEAMGMAIL'));
+      $mail->addReplyTo($dati['email'], $dati['nome']);
+      //Content
+      $mail->isHTML(true);
+      $mail->Subject = 'Progetto Memoria - nuovo feedback';
+      $mail->Body    = $bodyTxt;
+      $mail->AltBody = $altBodyTxt;
+      $mail->send();
+      return true;
+    } catch (Exception $e) {
+      return "Errore nell&apos;invio della mail!<br/>Se di seguito visualizzi un messaggio di errore, copialo ed invialo all&apos;amministratore di sistema - beppenapo@arc-team.com<br/>: ".$mail->ErrorInfo;
+    }
   }
 }
 

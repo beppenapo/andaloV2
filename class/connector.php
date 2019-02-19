@@ -11,4 +11,5 @@ function imgWall($class){return json_encode($class->imgWall($_POST['dati']));}
 function geotag($class){return json_encode($class->geotag());}
 function lazyLoad($class){return json_encode($class->lazyLoad());}
 function getIdByNumsch($class){return json_encode($class->getIdByNumsch($_POST['dati']));}
+function feedback($class){return json_encode($class->feedback($_POST['dati']));}
 ?>
