@@ -17,6 +17,10 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
       .imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); opacity:0; z-index: 20;font-size: 5em; color: #fff;}
       .imgOverlay:hover{opacity: 1;}
       .imgOverlay>i{position: absolute; top: 50%; left: 50%;transform: translate(-50%, -50%);}
+      .feedBackLink{color:#d39e00;}
+      .feedBackLink:hover{color:#987200;}
+      .sendFeedback{font-weight: bold; background: #d39e00; color: #fff; box-shadow: 0 5px 10px rgba(0,0,0,.6);}
+      .sendFeedback:hover{box-shadow: none;color: #fff;}
     </style>
   </head>
   <body class="bg-light">
@@ -56,6 +60,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
                 <li class="mb-2"><?php echo $el; ?></li>
               <?php } ?>
             </ul>
+            <small><a href="#feedback" class="p-2 animation rounded pointer border-0 sendFeedback">inviaci un commento su questa foto</a></small>
           </div>
         </div>
         <div class="row">
@@ -78,12 +83,12 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             ?>
           </div>
         </div>
-        <div class="row">
+        <div class="row" id="feedback">
           <div class="col">
             <p class="border-bottom py-2 mt-5 font-weight-bold">Ci piacerebbe sapere cosa ne pensi di questa foto</p>
             <p>Utilizza il form per comunicarci eventuali errori che hai riscontrato nei dati inerenti la foto visualizzata, per aggiungere nuove informazioni in tuo possesso, o semplicemente per darci il tuo parere.<br>Se deciderai di aiutarci a migliorare il nostro database te ne saremo grati e ti assicuriamo che i tuoi dati non saranno resi pubblici né saranno ceduti a servizi esterni<br>
-              Per saperne di più leggi la nostra <a href="privacy.php" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></p>
-            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:biblioteche.paganella@gmail.com">biblioteche.paganella@gmail.com</a></p>
+            Per saperne di più leggi la nostra <a href="privacy.php" class="feedBackLink animation" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></p>
+            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:biblioteche.paganella@gmail.com" class="feedBackLink animation">biblioteche.paganella@gmail.com</a></p>
           </div>
         </div>
         <div class="row">
@@ -108,13 +113,13 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
                 <div class="col">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="privacy" value="1" required>
-                    <label class="form-check-label" for="privacy"><small>Ok! Ho letto l'<a href="privacy.php" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></small></label>
+                    <label class="form-check-label" for="privacy"><small>Ok! Ho letto l'<a href="privacy.php" class="feedBackLink animation" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></small></label>
                   </div>
                 </div>
               </div>
               <div class="form-row mt-2">
                 <div class="col-xs-12 col-md-4 mb-3">
-                  <button type="submit" class="btn btn-primary btn-sm w-100" id="sendFeedback">Invia</button>
+                  <button type="submit" class="btn-sm w-100 p-2 animation rounded pointer border-0 sendFeedback">Invia</button>
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <div class="feedbackMsg alert alert-success py-1"><small>Il tuo commento è stato inviato, grazie per la tua collaborazione!</small></div>

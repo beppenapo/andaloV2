@@ -30,7 +30,7 @@ class General extends Db{
       break;
       case 'titolo':
         $keywords = str_replace(' ', ' & ', $tag);
-        $filter = "WHERE to_tsvector(dgn_dnogg||' '||sog_titolo||' '||cro_spec||' '||sog_sogg||' '||sog_note||' '||sog_notestor||' '||alt_note) @@ to_tsquery('".$keywords."') ";
+        $filter = "WHERE to_tsvector(dgn_dnogg||sog_titolo||cro_spec||sog_sogg||sog_note||sog_notestor||alt_note) @@ to_tsquery('".$keywords."') ";
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'che contengono le parole "'.$tag.'"';
       break;
