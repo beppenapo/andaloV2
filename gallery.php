@@ -50,7 +50,6 @@ $img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
         </div>
         <div class="row wrapImg mb-3">
           <?php
-            echo count($img['img']);
             foreach ($img['img'] as $key => $val) {
               if (isset($val['dgn_dnogg'])) {
                 $titolo=$val['dgn_dnogg'];
