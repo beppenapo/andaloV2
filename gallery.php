@@ -23,8 +23,8 @@ $img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
   <body class="bg-light" id="top">
     <?php require('inc/header.php'); ?>
     <div class="topBtn animation">
-      <div class="rounded-circle scroll" data-id="top">
-        <i class="fas fa-angle-double-up fa-3x pointer scroll"></i></div>
+      <div class="rounded-circle scroll-gallery" data-id="top">
+        <i class="fas fa-angle-double-up fa-3x pointer"></i></div>
       </div>
     <div class="maintitle" id="home">
       <div class="container">
