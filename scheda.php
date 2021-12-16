@@ -161,7 +161,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             $('body').removeClass('modal-open');
           });
         });
-        $("#sendFeedback").on('click',function(e){
+        $("button.sendFeedback").on('click',function(e){
           form = $("[name=feedbackForm]");
           isvalidate = form[0].checkValidity();
           if (isvalidate) {

@@ -136,23 +136,24 @@ class General extends Db{
 
     $altBodyTxt = "Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:\n";
     $altBodyTxt .= $dati['commento'];
-    $altBodyTxt .= "\nlink alla scheda: https://www.bibliopaganella.org/scheda.php?scheda".$dati['scheda'];
+    $altBodyTxt .= "\nlink alla scheda: https://www.bibliopaganella.org/scheda.php?scheda=".$dati['scheda'];
     $altBodyTxt .= "\nPer rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email'];
     $mail = new PHPMailer(true);
     try {
       $mail->SMTPDebug = 1;
       $mail->isSMTP();
       $mail->Host = 'smtp.gmail.com';
-      $mail->SMTPAuth = true;
-      $mail->Username = 'biblioteche.paganella@gmail.com';
-      $mail->Password = 'b18710Pagan3lLa';
-      $mail->SMTPSecure = 'tls';
       $mail->Port = 587;
+      //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+      $mail->SMTPSecure = 'tls';
+      $mail->SMTPAuth = true;
+      $mail->Username = getenv('PDCGMAIL');
+      $mail->Password = getenv('PDCGMAILPWD');
       //Recipients
       $mail->setFrom('biblioteche.paganella@gmail.com', 'Progetto Memoria');
       $mail->addAddress('andalo@biblio.tn.it');
       $mail->addAddress('alb.cosner@gmail.com');
-      // $mail->addBCC(getenv('ARCTEAMGMAIL'));
+      $mail->addBCC('beppenapo@gmail.com');
       $mail->addReplyTo($dati['email'], $dati['nome']);
       //Content
       $mail->isHTML(true);
