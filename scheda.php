@@ -88,7 +88,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             <p class="border-bottom py-2 mt-5 font-weight-bold">Ci piacerebbe sapere cosa ne pensi di questa foto</p>
             <p>Utilizza il form per comunicarci eventuali errori che hai riscontrato nei dati inerenti la foto visualizzata, per aggiungere nuove informazioni in tuo possesso, o semplicemente per darci il tuo parere.<br>Se deciderai di aiutarci a migliorare il nostro database te ne saremo grati e ti assicuriamo che i tuoi dati non saranno resi pubblici né saranno ceduti a servizi esterni<br>
             Per saperne di più leggi la nostra <a href="privacy.php" class="feedBackLink animation" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></p>
-            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:biblioteche.paganella@gmail.com" class="feedBackLink animation">biblioteche.paganella@gmail.com</a></p>
+            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:bibliopaganella@gmail.com" class="feedBackLink animation">bibliopaganella@gmail.com</a></p>
           </div>
         </div>
         <div class="row">
@@ -123,7 +123,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <div class="feedbackMsg alert alert-success py-1"><small>Il tuo commento è stato inviato, grazie per la tua collaborazione!</small></div>
-                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail a biblioteche.paganella@gmail.com</small></div>
+                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail a bibliopaganella@gmail.com</small></div>
                 </div>
               </div>
             </form>

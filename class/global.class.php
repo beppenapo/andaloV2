@@ -131,12 +131,12 @@ class General extends Db{
   protected function sendMail($dati=array()){
     $bodyTxt = "<p>Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:</p>";
     $bodyTxt .= "<p>".$dati['commento']."</p>";
-    $bodyTxt .= "<br><a href='http://78.46.230.205/andaloV2/scheda.php?scheda".$dati['scheda']."' target='_blank'>apri la scheda</a> ";
+    $bodyTxt .= "<br><a href='https://www.bibliopaganella.org/scheda.php?scheda".$dati['scheda']."' target='_blank'>apri la scheda</a> ";
     $bodyTxt .= "<p>Per rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email']."</p>";
 
     $altBodyTxt = "Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:\n";
     $altBodyTxt .= $dati['commento'];
-    $altBodyTxt .= "\nlink alla scheda: 78.46.230.205/andaloV2/scheda.php?scheda".$dati['scheda'];
+    $altBodyTxt .= "\nlink alla scheda: https://www.bibliopaganella.org/scheda.php?scheda".$dati['scheda'];
     $altBodyTxt .= "\nPer rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email'];
     $mail = new PHPMailer(true);
     try {
@@ -150,7 +150,8 @@ class General extends Db{
       $mail->Port = 587;
       //Recipients
       $mail->setFrom('biblioteche.paganella@gmail.com', 'Progetto Memoria');
-      $mail->addAddress('beppenapo@gmail.com');
+      $mail->addAddress('andalo@biblio.tn.it');
+      $mail->addAddress('alb.cosner@gmail.com');
       // $mail->addBCC(getenv('ARCTEAMGMAIL'));
       $mail->addReplyTo($dati['email'], $dati['nome']);
       //Content

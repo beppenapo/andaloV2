@@ -10,12 +10,12 @@ class Conn{
 
     public function __construct(){}
     protected function connect(){
-        $this->dbhost = getenv('ANDALOHOST');
-        $this->dbport = getenv('ANDALOPORT');
+        $this->dbhost = getenv('HOST');
+        $this->dbport = getenv('PORT');
         $this->dbuser = getenv('ANDALOUSER');
         $this->dbpwd = getenv('ANDALOPWD');
         $this->dbname = getenv('ANDALODB');
-        $this->dsn = "pgsql:host=".$this->dbhost." user=".$this->dbuser." password=".$this->dbpwd." dbname=".$this->dbname;
+        $this->dsn = "pgsql:host=".$this->dbhost." port=".$this->dbport."  user=".$this->dbuser." password=".$this->dbpwd." dbname=".$this->dbname;
         $this->conn = new PDO($this->dsn);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }

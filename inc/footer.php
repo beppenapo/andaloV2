@@ -8,7 +8,7 @@
             <li><a href="https://goo.gl/maps/6MBna15XQ2C2" title="visualizza in Google Maps [link esterno]"><i class="fas fa-map-marker-alt fa-fw"></i>Piazzale Paganella, 3 38010 Andalo</a></li>
             <li><a href="tel:+390461589627"><i class="fas fa-phone-volume fa-fw"></i>tel. 0461/585275</a></li>
             <li><i class="fas fa-fax fa-fw"></i>fax 0461/589627</li>
-            <li><a href="mailto:andalo@biblio.infotn.it?subject=feedback" title="scrivici una mail"><i class="fas fa-at fa-fw"></i> andalo@biblio.infotn.it</a></li>
+            <li><a href="mailto:andalo@biblio.tn.it?subject=feedback" title="scrivici una mail"><i class="fas fa-at fa-fw"></i> andalo@biblio.tn.it</a></li>
             <li><a href="http://www.bibliopaganella.it" title="home page sito istituzionale [link esterno]" target="_blank"><i class="fas fa-link fa-fw"></i>www.bibliopaganella.it</a></li>
             <li><a href="https://www.facebook.com/Bibliopaganella" target="_blank" title="facebook page [link esterno]"><i class="fab fa-facebook-square fa-fw"></i>facebook</a></li>
             <li><a href="https://twitter.com/bibliopaganella" target="_blank" title="twitter page [link esterno]"><i class="fab fa-twitter-square fa-fw"></i>twitter</a></li>
