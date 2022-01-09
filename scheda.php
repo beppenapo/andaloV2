@@ -88,7 +88,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             <p class="border-bottom py-2 mt-5 font-weight-bold">Ci piacerebbe sapere cosa ne pensi di questa foto</p>
             <p>Utilizza il form per comunicarci eventuali errori che hai riscontrato nei dati inerenti la foto visualizzata, per aggiungere nuove informazioni in tuo possesso, o semplicemente per darci il tuo parere.<br>Se deciderai di aiutarci a migliorare il nostro database te ne saremo grati e ti assicuriamo che i tuoi dati non saranno resi pubblici né saranno ceduti a servizi esterni<br>
             Per saperne di più leggi la nostra <a href="privacy.php" class="feedBackLink animation" target="_blank" title="pagina in cui vengono descritti i termini di servizio dei dati condivisi">informativa sulla privacy</a></p>
-            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:bibliopaganella@gmail.com" class="feedBackLink animation">bibliopaganella@gmail.com</a></p>
+            <p>Se vuoi mandarci una foto o altro materiale che ritieni possa arricchire l'archivio, scrivi a <a href="mailto:andalo@biblio.tn.it" class="feedBackLink animation">andalo@biblio.tn.it</a></p>
           </div>
         </div>
         <div class="row">

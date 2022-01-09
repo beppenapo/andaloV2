@@ -140,9 +140,6 @@ foreach ($tagList['tag'] as $item) {
               }
               ?>
             </form>
-            <div class="pt-3">
-              <button type="button" class="mx-auto w-50 p-2 animation rounded pointer border-0" name="loadMore">show more <i class="fas fa-angle-double-down"></i></button>
-            </div>
           </div>
         </div>
       </div>
