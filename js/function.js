@@ -72,7 +72,6 @@ function imgWall(limit){
   data['dati']={limit:limit}
   $.ajax({url: connector, type: type, dataType: dataType, data: data})
     .done(function(data) {
-      console.log(data);
       data.forEach(function(val,idx){
         if (val.dgn_dnogg && val.dgn_dnogg !== '-' && val.dgn_dnogg !== '') {
           titolo = val.dgn_dnogg;

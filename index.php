@@ -2,11 +2,6 @@
 require("class/global.class.php");
 $tags=new General;
 $tagList = $tags->tagList();
-$parole = array();
-foreach ($tagList['tag'] as $item) {
-    $firstLetter = substr(strtoupper($item['tag']), 0, 1);
-    $parole[$firstLetter][] = $item;
-}
 ?>
 <!doctype html>
 <html lang="it">
@@ -132,12 +127,9 @@ foreach ($tagList['tag'] as $item) {
           <div class="col text-center">
             <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
-              foreach ($parole as $key => $value) {
-                echo "<span class='firstLetter h1 textag'>".$key."</span>";
-                foreach ($value as $tag) {
+                foreach ($tagList['tag'] as $tag) {
                   echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
                 }
-              }
               ?>
             </form>
           </div>

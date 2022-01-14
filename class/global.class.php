@@ -140,7 +140,7 @@ class General extends Db{
     $altBodyTxt .= "\nPer rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email'];
     $mail = new PHPMailer(true);
     try {
-      $mail->SMTPDebug = 1;
+      // $mail->SMTPDebug = 1;
       $mail->isSMTP();
       $mail->Host = 'smtp.gmail.com';
       $mail->Port = 587;
@@ -154,6 +154,7 @@ class General extends Db{
       $mail->addAddress('andalo@biblio.tn.it');
       $mail->addAddress('alb.cosner@gmail.com');
       $mail->addBCC('beppenapo@gmail.com');
+      // $mail->addAddress('beppenapo@gmail.com');
       $mail->addReplyTo($dati['email'], $dati['nome']);
       //Content
       $mail->isHTML(true);
