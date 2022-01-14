@@ -10,8 +10,8 @@ class Conn{
 
     public function __construct(){}
     protected function connect(){
-        $this->dbhost = getenv('HOST');
-        $this->dbport = getenv('PORT');
+        $this->dbhost = getenv('ANDALOHOST');
+        $this->dbport = getenv('ANDALOPORT');
         $this->dbuser = getenv('ANDALOUSER');
         $this->dbpwd = getenv('ANDALOPWD');
         $this->dbname = getenv('ANDALODB');

@@ -131,7 +131,7 @@ class General extends Db{
   protected function sendMail($dati=array()){
     $bodyTxt = "<p>Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:</p>";
     $bodyTxt .= "<p>".$dati['commento']."</p>";
-    $bodyTxt .= "<br><a href='https://www.bibliopaganella.org/scheda.php?scheda".$dati['scheda']."' target='_blank'>apri la scheda</a> ";
+    $bodyTxt .= "<br><a href='https://www.bibliopaganella.org/scheda.php?scheda=".$dati['scheda']."' target='_blank'>apri la scheda</a> ";
     $bodyTxt .= "<p>Per rispondere utilizza la seguente mail fornita dall'utente: ".$dati['email']."</p>";
 
     $altBodyTxt = "Il giorno ".date('d m Y')." ".$dati['nome']." ha scritto:\n";

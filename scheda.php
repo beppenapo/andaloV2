@@ -123,7 +123,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
                 </div>
                 <div class="col-xs-12 col-md-8">
                   <div class="feedbackMsg alert alert-success py-1"><small>Il tuo commento è stato inviato, grazie per la tua collaborazione!</small></div>
-                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail a bibliopaganella@gmail.com</small></div>
+                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail ad andalo@biblio.tn.it</small></div>
                 </div>
               </div>
             </form>
