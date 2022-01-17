@@ -43,7 +43,8 @@ class Scheda extends Db{
     $comune=$this->simple("select id_comune from gallery where id = ".$this->scheda.";");
     $tag['geo']=$this->geoTag($comune);
     $tag['tag']=$this->tag();
-    return array("sql"=>$sql,"list"=>$list,"tag"=>$tag);
+    $marker=$this->marker();
+    return array("sql"=>$sql, "list"=>$list, "tag"=>$tag, "marker"=>$marker);
   }
 
   private function geoTag($id=array()){
@@ -57,7 +58,37 @@ class Scheda extends Db{
     return $this->simple($sql);
   }
 
-  private function tag(){ return $this->simple("select unnest(tags) tag from tags where scheda = ".$this->scheda." order by tag asc;");
+  private function tag(){ return $this->simple("select unnest(tags) tag from tags where scheda = ".$this->scheda." order by tag asc;"); }
+
+  private function marker(){
+    $sql ="
+    SELECT row_to_json(json.*) AS geometrie
+      FROM (
+        SELECT 'FeatureCollection'::text AS type, array_to_json(array_agg(features.*)) AS features
+        FROM (
+          SELECT 'Feature'::text AS type, st_asgeojson(st_transform(ST_SetSRID(area_int_poly.the_geom, 3857), 4326))::json AS geometry, row_to_json(prop.*) AS properties
+          FROM area_int_poly
+          JOIN (
+            SELECT
+              area.id AS id_area,
+              area.nome as area,
+              area_int_poly.id as id_geom,
+              area_int_poly.the_geom
+              FROM
+                area_int_poly,
+                area,
+                aree_scheda,
+                scheda
+              WHERE
+                scheda.id = ".$this->scheda." AND
+                area_int_poly.id_area = area.id AND
+                aree_scheda.id_area = area.id AND
+                aree_scheda.id_scheda = scheda.id
+          ) prop ON area_int_poly.id = prop.id_geom
+        ) features
+      ) json;";
+    $res = $this->simple($sql);
+    return $res[0]['geometrie'];
   }
 
   private function regexp($txt){

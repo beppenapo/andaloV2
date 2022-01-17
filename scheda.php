@@ -12,6 +12,8 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
   <head>
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
     <style media="screen">
       .imgWrap{position: relative; z-index: 10;}
       .imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); opacity:0; z-index: 20;font-size: 5em; color: #fff;}
@@ -21,6 +23,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
       .feedBackLink:hover{color:#987200;}
       .sendFeedback{font-weight: bold; background: #d39e00; color: #fff; box-shadow: 0 5px 10px rgba(0,0,0,.6);}
       .sendFeedback:hover{box-shadow: none;color: #fff;}
+      #smallMap {width: 100%; height: 350px; background: #fff;}
     </style>
   </head>
   <body class="bg-light">
@@ -43,6 +46,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
               <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
             </div>
+            <div id="smallMap"></div>
             <div>
               <p class="border-bottom py-2"><i class="fas fa-tags"></i> Tag</p>
               <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
@@ -54,7 +58,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
               </form>
             </div>
           </div>
-          <div class="col-xs12 col-md-5">
+          <div class="col-xs-12 col-md-5">
             <ul id="testregex">
               <?php foreach ($getInfo['list'] as $el) {?>
                 <li class="mb-2"><?php echo $el; ?></li>
@@ -145,8 +149,13 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         <div class="imgModalDiv" style="background-image:url('foto/<?php echo $path; ?>')"></div>
       </div>
     </div>
+    <input type="text" name="item" value="<?php echo $_GET['scheda']; ?>">
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
+    <script src="js/leaflet-bing-layer.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/scheda.js"></script>
   </body>
