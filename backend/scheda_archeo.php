@@ -10,7 +10,7 @@ $idUsr = $_SESSION['id_user'];
 $schedeUsr = $_SESSION['schede'];
 $idMappa = $id;
 $nd = 'Dato non presente';
-$q1 =  "SELECT scheda.id, scheda.livello,scheda.dgn_numsch as numsch, scheda.dgn_dnogg, scheda.dgn_tpsch, lista_dgn_tpsch.definizione AS tipo_scheda, scheda.dgn_livind, lista_dgn_livind.definizione AS individuazione, scheda.dgn_note, scheda.scn_note, scheda.note, scheda.ana_note, scheda.noteai, scheda.noteubi, cronologia.cro_spec, cronologia.cro_iniz, cronologia.cro_fin, scheda.fine FROM scheda, lista_dgn_tpsch, lista_dgn_livind, cronologia WHERE scheda.dgn_tpsch = lista_dgn_tpsch.id AND  scheda.dgn_livind = lista_dgn_livind.id AND cronologia.id_scheda = scheda.id AND  scheda.id = $id;";
+$q1 =  "SELECT scheda.id, scheda.livello,scheda.dgn_numsch as numsch, scheda.dgn_dnogg, scheda.dgn_tpsch, lista_dgn_tpsch.definizione AS tipo_scheda, scheda.dgn_livind, lista_dgn_livind.definizione AS individuazione, scheda.dgn_note, scheda.scn_note, scheda.note, scheda.ana_note, scheda.noteai, scheda.noteubi, cronologia.cro_spec, cronologia.cro_iniz, cronologia.cro_fin, scheda.fine, scheda.pubblica FROM scheda, lista_dgn_tpsch, lista_dgn_livind, cronologia WHERE scheda.dgn_tpsch = lista_dgn_tpsch.id AND  scheda.dgn_livind = lista_dgn_livind.id AND cronologia.id_scheda = scheda.id AND  scheda.id = $id;";
 $r = pg_query($connection, $q1);
 $a = pg_fetch_array($r, 0, PGSQL_ASSOC);
 $rC = pg_num_rows($r);
@@ -20,6 +20,7 @@ $tpsch = $a['dgn_tpsch'];
 $tipologiaScheda = $a['tipo_scheda'];
 $livind = $a['dgn_livind'];
 $fine = $a['fine'];
+$pubblica = $a['pubblica'];
 
 if($tpsch==1){
     $upload = "uploaded_audio.php";
@@ -40,6 +41,8 @@ if($tpsch==1){
 
 $statoScheda=($fine == 1)?'APERTA':'CHIUSA';
 $upStatoScheda=($fine == 1)?'upVal=2':'upVal=1';
+$pubblicaScheda= $pubblica=='t' ?'PUBBLICATA':'NON PUBBLICATA';
+$upPubblicaScheda=($pubblica == 't')?'upPub=false':'upPub=true';
 if($a['cro_spec'] == '0') {$cro_spec = 'Cronologia assente';}
 elseif($a['cro_spec']==''||!$a['cro_spec']){$cro_spec = $a['cro_iniz']." - ".$a['cro_fin'];}
 else{$cro_spec = stripslashes($a['cro_spec']);}
@@ -1128,10 +1131,11 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
 
     <?php if ($_SESSION['username']!='guest'){  ?>
       <div id="fine">
-       <label style="display:block;text-align:center;">La scheda risulta <?php echo($statoScheda); ?>.
-       <?php if($tipoUsr != 3) {?><span class="noPrint">Utilizza il pulsante in basso per cambiare lo stato della scheda.</span></label>
+       <label style="display:block;text-align:center;">La scheda risulta <?php echo $statoScheda." e ".$pubblicaScheda; ?>.
+       <?php if($tipoUsr != 3) {?><span class="noPrint">Utilizza i pulsanti in basso per cambiare lo stato della scheda e la sua visibilità.</span></label>
        <br/>
-       <label style="display:block;text-align:center;" class="update" id="upStatoScheda" <?php echo($upStatoScheda);?>>modifica stato</label>
+       <label style="display:inline-block;text-align:center;" class="update" id="upStatoScheda" <?php echo($upStatoScheda);?>>modifica stato | </label>
+       <label style="display:inline-block;text-align:center;" class="update" id="upPubblicaScheda" <?php echo($upPubblicaScheda);?>>modifica visibilità</label>
       </div>
      <?php }} ?>
    </div>
@@ -1255,6 +1259,19 @@ $(document).ready(function() {
       url: 'inc/updateStatoScheda.php',
       type: 'POST',
       data: {id:id, upStato:upStato},
+      success: function(data){
+        $(data).dialog().delay(2500).fadeOut(function(){
+          window.location.href = 'scheda_archeo.php?id='+id;
+        });
+      }
+    });//ajax
+  });
+  $('#upPubblicaScheda').click(function(){
+    var up = $(this).attr('upPub');
+    $.ajax({
+      url: 'inc/updatePubblicaScheda.php',
+      type: 'POST',
+      data: {id:id, up:up},
       success: function(data){
         $(data).dialog().delay(2500).fadeOut(function(){
           window.location.href = 'scheda_archeo.php?id='+id;
