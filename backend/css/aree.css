@@ -1,0 +1,44 @@
+.btn-fps{color:rgb(57, 49, 17)!important; background: rgba(207, 196, 177,.5);border:.05rem solid rgb(57, 49, 17);}
+.btn-fps:hover{background: rgba(207, 196, 177,1);}
+
+
+#containerWrap{position:relative; width:90vw; height:auto; margin:90px auto 20px; border: 1px solid #C1FEAE; background-color: rgba(255,255,255,.95); padding-bottom:20px;}
+#containerList{ position: relative; border: 1px solid #FFBF96; width:100%; min-height:40vh; margin-top:20px;}
+.titlePage{position: absolute; top:-40px; left:0; width:100%; margin:0 auto; text-align: center;}
+.titlePage h6{width: auto; max-width: 80%; display: inline-block; padding: 5px 10px; background-color: rgba(236,236,236,1) !important; color: #907F73 !important; border: 1px solid #FFBF96; font-size:.8rem;}
+.list-group{font-size: .8rem}
+#firstRow>li{background-color: #F8F8F6; color: #907F73; border-top: 1px solid #FFBF96; border-bottom: 1px solid #FFBF96;}
+.riga > span{vertical-align: top;padding:2px;}
+.riga > span:nth-child(1){display: inline-block; width:5%;}
+.riga > span:nth-child(2){display: inline-block; width:10%;}
+.riga > span:nth-child(3){display: inline-block; width:20%;}
+.riga > span:nth-child(4){display: inline-block; width:45%;}
+.riga > span:nth-child(5){display: inline-block; width:10%; text-align:center;}
+.riga > span:nth-child(6){display: inline-block; width:10%; text-align:center;}
+#listContainer{position: relative; min-height:10vh; height:auto; max-height:70vh; overflow:auto;z-index:2;}
+#listContainer > li:hover{background-color: #d1e7dd;}
+.scroller{-ms-overflow-style: none; scrollbar-width: none;}
+.scroller::-webkit-scrollbar, #newAreaLoading,.tipoForm{ display: none;}
+.loading{position:absolute;top:50px; left:0; width: 100%; height: 30vh; display:flex; justify-content: center; align-items: center; flex-direction: column; z-index:1;}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  .titlePage{top:-15px;}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #containerWrap{width:70vw;}
+  .titlePage{top:-15px;}
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #containerWrap{width:70vw;}
+  .titlePage{top:-15px;}
+}

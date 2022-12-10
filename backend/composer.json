@@ -1,0 +1,23 @@
+{
+    "name": "beppe/andalo",
+    "description": "Fototeca documentaria dell'Altopiano della Paganella",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "dev-master"
+    },
+    "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
+    "authors": [
+        {
+            "name": "Giuseppe Naponiello",
+            "email": "beppenapo@arc-team.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+      "psr-4": {
+        "Andalo\\":"src/"
+      }
+    }
+
+}

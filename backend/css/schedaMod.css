@@ -1,0 +1,97 @@
+#containerWrap{
+  position:relative;
+  width:90vw;
+  min-height:70vh;
+  margin:90px auto 20px;
+  border: 1px solid #C1FEAE;
+  background-color: rgba(255,255,255,.95);
+}
+
+.titlePage{
+  position: absolute;
+  top:-40px;
+  left:0;
+  width:100%;
+  margin:0 auto;
+  text-align: center;
+}
+.titlePage h6{
+  width: auto;
+  max-width: 80%;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: rgba(236,236,236,.3);
+  color: rgba(144, 127, 115, .3);
+  border: 1px solid #FFBF96;
+  font-size:.8rem;
+}
+.titlePage h6.active{
+  background-color: rgba(236,236,236,1);
+  color: rgba(144, 127, 115, 1);
+}
+
+form#modScheda{
+  border: 1px solid #FFBF96;
+  min-height:40vh;
+  margin:20px;
+  /* padding-bottom:20px; */
+}
+#campi_obbligatori > small{margin-left:20px;}
+#campi_obbligatori > h6{
+  background-color: #CFC4B1;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #96867B;
+  padding: 0.2rem 1.25rem;
+  margin:0;
+}
+form#modScheda label{text-transform: uppercase;font-size: .8rem;}
+form#modScheda label > i{cursor: pointer;}
+form#modScheda .row{padding:0 20px;}
+div.mainData{padding:20px;}
+div.mainData div{display:inline-block;}
+.form-div, .tag-div{margin:5px 5px 5px 0px;}
+div.mainData label{display:block;}
+
+.tag-div{
+  background-color: #CFC4B1;
+  border: 1px solid #96867B;
+  font-weight:bold;
+  border-radius: 3px;
+  text-align: center;
+  font-size: .8rem;
+  padding:0;
+}
+.tag-div:hover{background-color: #96867B;}
+.tag-div > span{ display: inline-block;}
+.tag-div > span:first-child{padding:3px; border-radius:3px 0 0 3px;}
+.tag-div > span:last-child{padding:3px 5px; border-radius:0 3px 3px 0;}
+.tip-text{color:#907F73; font-weight: bold; margin:0;}
+
+#switchWrap{position:relative;}
+#imgDiv, #map{position:absolute; top:0; left: 0; height:285px;width:100%;}
+#imgDiv{ z-index: 2000;}
+#imgDiv > div{position:absolute; top:10px; left: 10px;}
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  .titlePage{top:-15px;}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #navH nav{position:relative;}
+  #containerWrap{width:70vw;}
+  .titlePage{top:-15px;}
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  #navH nav{position:relative;}
+  #containerWrap{width:70vw;}
+  .titlePage{top:-15px;}
+}
