@@ -24,6 +24,10 @@ class Scheda extends Conn{
     return $this->simple($sql);
   }
 
+  function getListaUtenti(){
+    return $this->simple("select id_user, concat(cognome,' ',nome) compilatore from usr order by 2 asc;");
+  }
+
   function getListeGeneriche(){
     $list=['lista_dgn_livind', 'lista_cro_motiv', 'lista_ai_motiv', 'anagrafica', 'lista_cre_servizi', 'lista_stato_conserv'];
     $out=[];

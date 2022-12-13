@@ -6,6 +6,7 @@ use \Andalo\Scheda;
 $obj = new Scheda;
 $tipo = $_GET["tpsch"]==10 ? 3 : 1;
 $liste = $obj->getListeGeneriche();
+$liste['utenti'] = $obj->getListaUtenti();
 $liste['ricerca'] = $obj->getListaRicerche();
 $liste['aree'] = $obj->getListaAree($tipo);
 $liste['ubi'] = $obj->getListaAree(2);
@@ -83,10 +84,16 @@ $liste['ubi'] = $obj->getListaAree(2);
               </div>
             </div>
             <div class="row mb-5">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <label>compilatore</label>
-                <input type="text" name="" value="<?php echo $_SESSION['nome']. ' '.$_SESSION['cognome']; ?>" class="form-control"  disabled>
-                <input type="hidden" name="compilatore" value="<?php echo $_SESSION['id_user']; ?>" data-table="scheda">
+                <select id="compilatore" name="compilatore" data-table="scheda" class="form-select" required>
+                  <?php
+                  foreach ($liste['utenti'] as $i) {
+                    $selected = $i['id_user'] == $_SESSION['id_user'] ? 'selected' : '';
+                    echo "<option value='".$i['id_user']."' ".$selected.">".$i['compilatore']."</option>";
+                  }
+                  ?>
+                </select>
               </div>
               <div class="col-md-3">
                 <label>data compilazione</label>

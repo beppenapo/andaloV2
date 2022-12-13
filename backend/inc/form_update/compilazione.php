@@ -24,7 +24,21 @@
   </select>
   <!-- tabella compilazione -->
   <label>COMPILATORE</label>
-  <textarea disabled="disabled" id="compilatore_update" class="form"><?php echo($compilatore); ?></textarea>
+  <!-- <textarea disabled="disabled" id="compilatore_update" class="form"><?php echo($compilatore); ?></textarea> -->
+  <select class="form" id="compilatore_update">
+    <?php
+    $query =  "SELECT id_user, concat(cognome,' ',nome) compilatore FROM usr order by 2 asc;";
+    $result = pg_query($connection, $query);
+    $righe = pg_num_rows($result);
+    $i=0;
+    for ($i = 0; $i < $righe; $i++){
+      $id = pg_result($result, $i, "id_user");
+      $compilatore = pg_result($result, $i, "compilatore");
+      $selected = $id == $id_compilatore ? 'selected' : '';
+      echo "<option value='".$id."' ".$selected.">".$compilatore."</option>";
+    }
+    ?>
+  </select>
 
   <!-- tabella compilazione -->
   <label>DATA</label>

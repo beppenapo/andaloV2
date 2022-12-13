@@ -1151,13 +1151,13 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
  <h2>Hai scelto di eliminare la scheda <b><?php echo ($numsch); ?></b></h2>
  <p>Il record potrebbe avere diversi elementi collegati, eliminadolo cancellerai definitivamente tutti i dati.</p>
  <p>Sei sicuro di voler eliminare il record?</p>
- <div id="no" class="login2" style="margin-top:20px;" id="compilazione_update">NO, non eliminare</div>
+ <div id="no" class="login2" style="margin-top:20px;">NO, non eliminare</div>
  <div id="si" class="login2">SI, procedi con l'eliminazione</div>
 </div>
 
 <div id="delFotoDialog" style="display:none; text-align:center;">
  <h2>Sei proprio sicuro di voler eliminare definitivmente la foto?</h2>
- <div id="noFoto" class="login2" style="margin-top:20px;" id="compilazione_update">NO, non eliminare</div>
+ <div id="noFoto" class="login2" style="margin-top:20px;">NO, non eliminare</div>
  <div id="siFoto" class="login2">SI, procedi con l'eliminazione</div>
 </div>
 
@@ -1175,7 +1175,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
 
 <script type="text/javascript" >
 var hub = '<?php echo($hub); ?>'
-var id = '<?php echo($id); ?>';
+var id = '<?php echo($_GET['id']); ?>';
 var tiposch = '<?php echo($tpsch); ?>';
 var pag = '<?php echo($pag); ?>';
 var livello = '<?php echo($livello); ?>';

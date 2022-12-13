@@ -46,21 +46,24 @@ $(document).ready(function () {
 
  $('#compilazione_update').click(function(){
  	var denric_update      = $('#denric_update').val();
- 	//var compilatore_update = $('#compilatore_update').val();
+ 	var compilatore_update = $('#compilatore_update').val();
    //var datacmp_update     = $('#datacmp_update').val();
    //var enresp_update      = $('#enteresp_update').val();
    //var respric_update     = $('#respric_update').val();
    var notecmp_update     = $('#notecmp_update').val();
-
+   let data = {id:id, denric_update:denric_update,compilatore:compilatore_update,notecmp_update:notecmp_update};
+   console.log(data);
+   // return false;
    //var check = id+'\n'+ denric_update+'\n'+compilatore_update+'\n'+datacmp_update+'\n'+enresp_update+'\n'+respric_update+'\n'+notecmp_update;
    //alert(check);return false;
 
    $.ajax({
     url: 'inc/update_compilazione_script.php',
     type: 'POST',
-    data: {id:id, denric_update:denric_update,notecmp_update:notecmp_update},
+    data: data,
     success: function(data){
-      $('<div style="text-align:center;"><h2>Risultato query</h2><p>'+data+'</p></div>').dialog()
+      $('<div style="text-align:center;"><h2>Risultato query</h2><p>'+data+'</p></div>')
+      .dialog()
       .delay(2500)
       .fadeOut(function(){ $(this).dialog("close");window.location.href = 'scheda_archeo.php?id='+id; })
       ;
