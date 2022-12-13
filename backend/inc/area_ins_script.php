@@ -5,7 +5,7 @@ $id =$_POST['id'];
 $areeList=$_POST['areeList'];
 $q = "begin;";
 foreach($areeList as $a) {
-    $q .= "INSERT INTO aree_scheda(id_scheda, id_area, id_motivazione, tipo) values ($id, ".$a['area'].", ".$a['motiv'].", 1);";
+    $q .= "INSERT INTO aree_scheda(id_scheda, id_area, id_motivazione) values ($id, ".$a['area'].", ".$a['motiv'].");";
 }
 $q .= "commit;";
 $result = pg_query($connection, $q);

@@ -22,7 +22,7 @@ $liste['ubi'] = $obj->getListaAree(2);
     <?php require('assets/header.php'); ?>
     <?php require('assets/menu.php'); ?>
     <div id="tip">
-      <div class="alert alert-dismissible fade" role="alert">
+      <div class="alert alert-dismissible" role="alert">
         <div class="alert-body mb-5">
           <i class="fa-solid fa-lightbulb"></i> <span></span>
         </div>

@@ -39,8 +39,7 @@ function addArea(){
     alert("Attenzione! Devi selezionare un'area!");
     return false;
   }
-  let tipo = $("[name=dgn_tpsch]").val() == 10 ? 3 : 1;
-  let a = [area,motivo,tipo];
+  let a = [area,motivo];
   let testArr = areeArr.filter(function(item){ return item[0] == area && item[1] == motivo })
   if(testArr.length > 0){
     alert("Attenzione! La coppia area/motivazione scelta è gia presente nella lista delle aree aggiunte alla scheda");

@@ -99,7 +99,6 @@ class Scheda extends Conn{
             $arr = [];
             $arr['id_area'] = $val[0];
             $arr['id_motivazione'] = $val[1];
-            $arr['tipo'] = $val[2];
             $this->addSection('aree_scheda',$schedaId['field'],$arr);
           }
         }
@@ -107,7 +106,6 @@ class Scheda extends Conn{
           $arr = [];
           $arr['id_area'] = $dati['aree_scheda']['id_area'];
           $arr['id_motivazione'] = $dati['aree_scheda']['id_motivazione'];
-          $arr['tipo'] = 2;
           $this->addSection('aree_scheda',$schedaId['field'],$arr);
         }
       }
