@@ -1,30 +1,30 @@
 <?php
 $nd = 'Dato non presente';
 $qbiblio2 = ("
-SELECT 
-  scheda.id AS id_scheda, 
+SELECT
+  scheda.id AS id_scheda,
   biblio2.id_biblio2,
-  biblio2.bib_titolo as titolo, 
-  biblio2.bib_sogg as soggetto, 
-  biblio2.bib_nome as autore, 
-  biblio2.bib_notenome as notenome, 
-  biblio2.bib_contenuto as contenuto, 
-  biblio2.bib_livbib as livbib_id, 
+  biblio2.bib_titolo as titolo,
+  biblio2.bib_sogg as soggetto,
+  biblio2.bib_nome as autore,
+  biblio2.bib_notenome as notenome,
+  biblio2.bib_contenuto as contenuto,
+  biblio2.bib_livbib as livbib_id,
   lista_bib_livbib.definizione as livbib,
-  biblio2.bib_tipodoc as tipo, 
-  biblio2.bib_ediz as edizione, 
-  biblio2.bib_period as periodi, 
-  biblio2.bib_descfis as descrizione, 
-  biblio2.bib_lingua as lingua, 
+  biblio2.bib_tipodoc as tipo,
+  biblio2.bib_ediz as edizione,
+  biblio2.bib_period as periodi,
+  biblio2.bib_descfis as descrizione,
+  biblio2.bib_lingua as lingua,
   biblio2.bib_notestor as note
-FROM  
-  public.biblio2, 
+FROM
+  public.biblio2,
   public.scheda,
   public.lista_bib_livbib
-WHERE 
+WHERE
   biblio2.dgn_numsch2 = scheda.dgn_numsch AND
   biblio2.bib_livbib = lista_bib_livbib.id and
-  scheda.id = $id;");
+  scheda.id = $_GET['id'];");
 $rq2 = pg_query($connection, $qbiblio2);
 $aq2 = pg_fetch_array($rq2, 0, PGSQL_ASSOC);
 $rowqbiblio2 = pg_num_rows($rq2);
@@ -48,7 +48,7 @@ $note= stripslashes($aq2['note']); if($note == '') {$note=$nd;}
 
    <div class="inner">
       <h2 class="h2aperto">DESCRIZIONE FONTE BIBLIOGRAFICA</h2>
-      
+
       <table class="mainData" style="width:98% !important;">
        <tr>
         <td width="50%;">
@@ -88,7 +88,7 @@ $note= stripslashes($aq2['note']); if($note == '') {$note=$nd;}
          <br/>
          <label>NOTE STORICHE</label>
          <div class="valori"><?php echo($note); ?></div>
-         
+
         </td>
         </tr>
 <?php if($_SESSION['username']!='guest') {?>

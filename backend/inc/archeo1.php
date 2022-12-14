@@ -1,33 +1,33 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT 
-  archeo.id_archeo, 
-  archeo.id_scheda, 
-  archeo.ind_data, 
-  archeo.ind_rifper, 
-  lista_ind_met.definizione AS metodo, 
-  archeo.ind_rifsito, 
-  archeo.ind_descr, 
-  archeo.ind_codsca, 
+$q2 =  ("SELECT
+  archeo.id_archeo,
+  archeo.id_scheda,
+  archeo.ind_data,
+  archeo.ind_rifper,
+  lista_ind_met.definizione AS metodo,
+  archeo.ind_rifsito,
+  archeo.ind_descr,
+  archeo.ind_codsca,
   archeo.ind_met,
   archeo.ind_note,
-  lista_ain_tipo.id as id_tipo, 
-  lista_ain_tipo.definizione as tipo, 
-  archeo.ain_data, 
+  lista_ain_tipo.id as id_tipo,
+  lista_ain_tipo.definizione as tipo,
+  archeo.ain_data,
   archeo.ain_enresp as id_enresp,
-  anagrafica.nome as enresp, 
-  archeo.ain_descr as descr, 
+  anagrafica.nome as enresp,
+  archeo.ain_descr as descr,
   archeo.ain_note as note1
-FROM 
-  public.archeo, 
+FROM
+  public.archeo,
   public.lista_ind_met,
-  public.lista_ain_tipo, 
+  public.lista_ain_tipo,
   public.anagrafica
-WHERE 
+WHERE
   archeo.ind_met = lista_ind_met.id AND
   archeo.ain_tipo = lista_ain_tipo.id AND
   archeo.ain_enresp = anagrafica.id AND
-  archeo.id_scheda = $id;");
+  archeo.id_scheda = $_GET['id'];");
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);
@@ -51,7 +51,7 @@ $note1= stripslashes($a2['note1']); if($note1 == '') {$note1=$nd;}
 ?>
    <div class="inner">
       <h2 class="h2aperto">DESCRIZIONE INDAGINE</h2>
-      
+
       <table class="mainData" style="width:98% !important;">
        <tr>
         <td width="50%;">
@@ -97,7 +97,7 @@ $note1= stripslashes($a2['note1']); if($note1 == '') {$note1=$nd;}
       <div class="updateContent" style="display:none">
         <?php require("inc/form_update/descr_indagine.php"); ?>
       </div>
-          
+
       <div class="toggle">
         <div class="sezioni"><h2>ALTRE INDAGINI</h2></div>
         <div class="slide">
@@ -114,7 +114,7 @@ $note1= stripslashes($a2['note1']); if($note1 == '') {$note1=$nd;}
                <div class="valori"><?php echo($enresp); ?></div>
                <br/>
                <label>DESCRIZIONE</label>
-               <div class="valori"><?php echo($descr2); ?></div> 
+               <div class="valori"><?php echo($descr2); ?></div>
              </td>
              <td>
               <label>NOTE</label>

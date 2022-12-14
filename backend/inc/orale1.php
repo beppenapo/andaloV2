@@ -18,7 +18,7 @@ FROM
   public.fonti_orali1
 WHERE
   fonti_orali1.dgn_numsch1 = scheda.dgn_numsch AND
-  scheda.id = $id;");
+  scheda.id = $_GET['id'];");
 
 
 $r2 = pg_query($connection, $q2);

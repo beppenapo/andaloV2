@@ -1,36 +1,36 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT 
-  scheda.id AS id_scheda, 
-  materiali2.id,  
-  materiali2.dtp_morf AS morf_id, 
-  materiali2.dtp_cta AS cta_id, 
-  materiali2.dtp_uso AS uso_id, 
-  materiali2.dtp_crntipo AS crntipo_id, 
-  materiali2.dog_catgen AS catgen_id, 
+$q2 =  ("SELECT
+  scheda.id AS id_scheda,
+  materiali2.id,
+  materiali2.dtp_morf AS morf_id,
+  materiali2.dtp_cta AS cta_id,
+  materiali2.dtp_uso AS uso_id,
+  materiali2.dtp_crntipo AS crntipo_id,
+  materiali2.dog_catgen AS catgen_id,
   materiali2.dog_catspec AS catspec_id,
-  lista_dog_catgen.definizione AS catgen, 
-  lista_dog_catspec.definizione AS catspec, 
-  lista_dtp_morf.definizione AS morf, 
-  lista_dtp_cta.definizione AS cta, 
-  lista_dtp_uso.definizione AS uso, 
-  lista_dtp_crntipo.definizione AS crntipo, 
-  materiali2.dtp_morfnote AS morfonote, 
-  materiali2.dtp_usonote AS usonote, 
-  materiali2.dtp_ctanote AS ctanote, 
-  materiali2.dtp_crntiponote AS crntiponote, 
-  materiali2.dtp_num AS num, 
+  lista_dog_catgen.definizione AS catgen,
+  lista_dog_catspec.definizione AS catspec,
+  lista_dtp_morf.definizione AS morf,
+  lista_dtp_cta.definizione AS cta,
+  lista_dtp_uso.definizione AS uso,
+  lista_dtp_crntipo.definizione AS crntipo,
+  materiali2.dtp_morfnote AS morfonote,
+  materiali2.dtp_usonote AS usonote,
+  materiali2.dtp_ctanote AS ctanote,
+  materiali2.dtp_crntiponote AS crntiponote,
+  materiali2.dtp_num AS num,
   materiali2.dtp_note as note1
-FROM 
-  public.materiali2, 
-  public.scheda, 
-  public.lista_dog_catgen, 
-  public.lista_dog_catspec, 
-  public.lista_dtp_morf, 
-  public.lista_dtp_cta, 
-  public.lista_dtp_uso, 
+FROM
+  public.materiali2,
+  public.scheda,
+  public.lista_dog_catgen,
+  public.lista_dog_catspec,
+  public.lista_dtp_morf,
+  public.lista_dtp_cta,
+  public.lista_dtp_uso,
   public.lista_dtp_crntipo
-WHERE 
+WHERE
   materiali2.dgn_numsch2 = scheda.dgn_numsch AND
   materiali2.dog_catgen = lista_dog_catgen.id AND
   materiali2.dog_catspec = lista_dog_catspec.id AND
@@ -38,7 +38,7 @@ WHERE
   materiali2.dtp_cta = lista_dtp_cta.id AND
   materiali2.dtp_uso = lista_dtp_uso.id AND
   materiali2.dtp_crntipo = lista_dtp_crntipo.id and
-  scheda.id = $id;");
+  scheda.id = $_GET['id'];");
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);

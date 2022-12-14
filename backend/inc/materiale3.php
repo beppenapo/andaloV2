@@ -1,48 +1,48 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT 
-  scheda.id, 
+$q2 =  ("SELECT
+  scheda.id,
   materiali3.id as id_mater3,
-  materiali3.dgn_numsch3, 
+  materiali3.dgn_numsch3,
   materiali3.dnm_denomin AS denominazione,
   materiali3.dnm_note AS note1,
-  materiali3.mrf_descr3 AS descr, 
-  materiali3.mrf_modcostr3 AS modcostr, 
-  materiali3.mrf_note3 AS note2, 
+  materiali3.mrf_descr3 AS descr,
+  materiali3.mrf_modcostr3 AS modcostr,
+  materiali3.mrf_note3 AS note2,
   materiali3.mrf_matcost3 as matcost,
-  materiali3.uso_descrfunz AS descrfunz, 
-  materiali3.uso_note AS note3, 
-  materiali3.dtc_quote AS quote, 
+  materiali3.uso_descrfunz AS descrfunz,
+  materiali3.uso_note AS note3,
+  materiali3.dtc_quote AS quote,
   materiali3.dtc_note AS note4,
-  materiali3.dgn_numsch3, 
-  materiali3.cst_commnome AS commnome, 
-  materiali3.cst_commdat AS commdat, 
-  materiali3.cst_commfnt AS commfnt_id, 
+  materiali3.dgn_numsch3,
+  materiali3.cst_commnome AS commnome,
+  materiali3.cst_commdat AS commdat,
+  materiali3.cst_commfnt AS commfnt_id,
   lista_cro_motiv.definizione AS commfnt,
-  materiali3.cst_esecnome AS esecnome, 
+  materiali3.cst_esecnome AS esecnome,
   materiali3.cst_note as note5,
-  materiali3.cta_vcoltatt as vcoltatt, 
-  materiali3.cta_vcoltpass as vcoltpass, 
-  materiali3.cta_fscalt3 as fscalt3, 
-  materiali3.cta_veg as veg, 
+  materiali3.cta_vcoltatt as vcoltatt,
+  materiali3.cta_vcoltpass as vcoltpass,
+  materiali3.cta_fscalt3 as fscalt3,
+  materiali3.cta_veg as veg,
   materiali3.cta_note as note6,
-  materiali3.rpp_lega as lega, 
-  materiali3.rpp_taglia as taglia, 
-  materiali3.rpp_tagliato as tagliato, 
-  materiali3.rpp_conduce as conduce, 
-  materiali3.rpp_servita as servita, 
+  materiali3.rpp_lega as lega,
+  materiali3.rpp_taglia as taglia,
+  materiali3.rpp_tagliato as tagliato,
+  materiali3.rpp_conduce as conduce,
+  materiali3.rpp_servita as servita,
   materiali3.rpp_note as note7,
-  materiali3.cll_lgattr3 as lgattr, 
-  materiali3.cll_lgecon3 as lgecon, 
-  materiali3.cll_infcompl3 as infcompl, 
+  materiali3.cll_lgattr3 as lgattr,
+  materiali3.cll_lgecon3 as lgecon,
+  materiali3.cll_infcompl3 as infcompl,
   materiali3.cll_note as note8,
-  materiali3.isc_descont AS descont, 
-  materiali3.isc_trascr AS trascr, 
+  materiali3.isc_descont AS descont,
+  materiali3.isc_trascr AS trascr,
   materiali3.isc_note as note9,
   materiali3.fot_coll as segnatura,
-  materiali3.dog_catgen AS catgen_id, 
+  materiali3.dog_catgen AS catgen_id,
   materiali3.dog_catspec AS catspec_id,
-  lista_dog_catgen.definizione AS catgen, 
+  lista_dog_catgen.definizione AS catgen,
   lista_dog_catspec.definizione AS catspec,
   materiali3.dtc_dim,
   materiali3.rst_tpint,
@@ -50,14 +50,14 @@ $q2 =  ("SELECT
   materiali3.cat_stornap,
   materiali3.cat_storasb,
   materiali3.rst_note
-FROM 
-  scheda, materiali3, lista_dog_catgen, lista_dog_catspec, lista_cro_motiv  
-WHERE 
-  materiali3.dgn_numsch3 = scheda.dgn_numsch AND 
+FROM
+  scheda, materiali3, lista_dog_catgen, lista_dog_catspec, lista_cro_motiv
+WHERE
+  materiali3.dgn_numsch3 = scheda.dgn_numsch AND
   materiali3.dog_catgen = lista_dog_catgen.id AND
   materiali3.dog_catspec = lista_dog_catspec.id AND
   materiali3.cst_commfnt = lista_cro_motiv.id AND
-  scheda.id = $id;");
+  scheda.id = $_GET['id'];");
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);
@@ -223,7 +223,7 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
       </div>
         </div>
    </div>
-     
+
       <div class="toggle">
         <div class="sezioni"><h2>DATI TECNICI</h2></div>
         <div class="slide">
@@ -293,7 +293,7 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
       </div>
         </div>
    </div>
-   
+
    <div class="toggle">
         <div class="sezioni"><h2>RESTAURI/MANUTENZIONI</h2></div>
         <div class="slide">
@@ -367,7 +367,7 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
       </div>
         </div>
    </div>
-   
+
    <div class="toggle">
         <div class="sezioni"><h2 class="sottosez">RAPPORTI TRA INFRASTRUTTURE</h2></div>
         <div class="slide">
@@ -378,17 +378,17 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
                             'rpp_taglia'=>array(2, 'TAGLIA'),
                             'rpp_tagliato'=>array(3, 'TAGLIATO DA'),
                             'rpp_conduce'=>array(4, 'CONDUCE A'),
-                            'rpp_servita'=>array(5, 'SERVITO DA')                           
+                            'rpp_servita'=>array(5, 'SERVITO DA')
               ) as $campofor=>$nomefor){
                 $qrif7 = ("
                    SELECT mater_infrastrutture.id AS id_mater_infr, scheda.id, scheda.dgn_numsch, lista_dgn_tpsch.css
                    FROM mater_infrastrutture, scheda, lista_dgn_tpsch
                    WHERE mater_infrastrutture.collegata = scheda.id AND
                          scheda.dgn_tpsch = lista_dgn_tpsch.id AND
-                         mater_infrastrutture.scheda = $id AND
+                         mater_infrastrutture.scheda = $_GET['id'] AND
                          mater_infrastrutture.rapporto = $nomefor[0];
                 ");
- 
+
                 $rrif7 = pg_query($connection, $qrif7);
                 $rowrif7 = pg_num_rows($rrif7);
                    echo '<tr><td style="width:70% !important;"><label>'.$nomefor[1].'</label><div id="div_'.$campofor.'" class="valori">';
@@ -484,7 +484,7 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
       </div>
         </div>
    </div>
-   
+
    <div class="toggle">
         <div class="sezioni"><h2>CATASTI STORICI</h2></div>
         <div class="slide">

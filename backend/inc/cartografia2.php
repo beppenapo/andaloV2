@@ -3,7 +3,7 @@ $carto = "select c.id, c.collocazione, c.titolo, c.istituto, c.soggetto, c.autor
 from cartografia2 c
 left join lista_dtc_icol col on c.colore = col.id
 left join lista_dsc_supp s on c.supporto = s.id
-where c.id_scheda = ".$id.";";
+where c.id_scheda = ".$_GET['id'].";";
 $cartoExec = pg_query($connection, $carto);
 $cartoArr = pg_fetch_array($cartoExec, 0, PGSQL_ASSOC);
 ?>

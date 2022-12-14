@@ -180,8 +180,8 @@ $('#provenienza_update').click(function(){
        },
        success: function(data){
         $('<div style="text-align:center;"><h2>Risultato query</h2><p>'+data+'</p></div>').dialog()
-        //.delay(2500)
-        //.fadeOut(function(){ $(this).dialog("close");window.location.href = 'scheda_archeo.php?id='+id; })
+        .delay(2500)
+        .fadeOut(function(){ $(this).dialog("close");window.location.href = 'scheda_archeo.php?id='+id; })
         ;
        }//success
      });//ajax

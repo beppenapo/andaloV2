@@ -1,6 +1,6 @@
 <?php
 $nd = '-';
-$q2 =  ("SELECT 
+$q2 = "SELECT
   foto1.id as id_foto1,
   foto1.crc_tipo as tipologia,
   foto1.crc_con as consistenza,
@@ -10,12 +10,12 @@ $q2 =  ("SELECT
   foto1.dsc_critord as ordinamento,
   foto1.dsc_notsto as notesto,
   foto1.dsc_notstooss as notstooss
-FROM 
-  public.foto1, 
+FROM
+  public.foto1,
   public.scheda
-WHERE 
+WHERE
   foto1.dgn_numsch1 = scheda.dgn_numsch AND
-  scheda.id = $id;");
+  scheda.id = ".$_GET['id'].";";
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);
@@ -90,7 +90,7 @@ $notstooss	=stripslashes($a2['notstooss']); if($notstooss == '') {$notstooss=$nd
       </div>
         </div>
    </div>
-     
+
       <div class="toggle">
         <div class="sezioni"><h2>NOTIZIE STORICHE</h2></div>
         <div class="slide">

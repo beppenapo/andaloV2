@@ -8,9 +8,9 @@ $id = $_GET["id"];
 $tipoUsr = $_SESSION['tipo'];
 $idUsr = $_SESSION['id_user'];
 $schedeUsr = $_SESSION['schede'];
-$idMappa = $id;
+$idMappa = $_GET["id"];
 $nd = 'Dato non presente';
-$q1 =  "SELECT scheda.id, scheda.livello,scheda.dgn_numsch as numsch, scheda.dgn_dnogg, scheda.dgn_tpsch, lista_dgn_tpsch.definizione AS tipo_scheda, scheda.dgn_livind, lista_dgn_livind.definizione AS individuazione, scheda.dgn_note, scheda.scn_note, scheda.note, scheda.ana_note, scheda.noteai, scheda.noteubi, cronologia.cro_spec, cronologia.cro_iniz, cronologia.cro_fin, scheda.fine, scheda.pubblica FROM scheda, lista_dgn_tpsch, lista_dgn_livind, cronologia WHERE scheda.dgn_tpsch = lista_dgn_tpsch.id AND  scheda.dgn_livind = lista_dgn_livind.id AND cronologia.id_scheda = scheda.id AND  scheda.id = $id;";
+$q1 =  "SELECT scheda.id, scheda.livello,scheda.dgn_numsch as numsch, scheda.dgn_dnogg, scheda.dgn_tpsch, lista_dgn_tpsch.definizione AS tipo_scheda, scheda.dgn_livind, lista_dgn_livind.definizione AS individuazione, scheda.dgn_note, scheda.scn_note, scheda.note, scheda.ana_note, scheda.noteai, scheda.noteubi, cronologia.cro_spec, cronologia.cro_iniz, cronologia.cro_fin, scheda.fine, scheda.pubblica FROM scheda, lista_dgn_tpsch, lista_dgn_livind, cronologia WHERE scheda.dgn_tpsch = lista_dgn_tpsch.id AND  scheda.dgn_livind = lista_dgn_livind.id AND cronologia.id_scheda = scheda.id AND  scheda.id = ".$_GET['id'].";";
 $r = pg_query($connection, $q1);
 $a = pg_fetch_array($r, 0, PGSQL_ASSOC);
 $rC = pg_num_rows($r);
@@ -100,37 +100,10 @@ switch ($pag) {
 
 /**********************************************************************************/
 
-$qgeom1=("
-  SELECT count(area_int_poly.id) as num_poly
-  FROM area_int_poly,aree,aree_scheda
-  WHERE area_int_poly.id_area = aree.nome_area AND
-        aree_scheda.id_area = aree.nome_area AND
-        aree_scheda.id_scheda = $id;
-  ");
-
-$qgeom2=("
-  SELECT count(area_int_line.id) as num_line
-  FROM area_int_line,aree,aree_scheda
-  WHERE area_int_line.id_area = aree.nome_area AND
-        aree_scheda.id_area = aree.nome_area AND
-        aree_scheda.id_scheda = $id;
-  ");
-
-$qgeom3=("
-select st_extent(area_int_poly.the_geom) as extent
-  FROM area_int_poly, aree,aree_scheda
-  WHERE area_int_poly.id_area = aree.nome_area AND
-        aree_scheda.id_area = aree.nome_area AND
-        aree_scheda.id_scheda = $id;
-");
-$qgeom4=("
-select st_extent(area_int_line.the_geom) as extent2
-  FROM area_int_line, aree,aree_scheda
-  WHERE area_int_line.id_area = aree.nome_area AND
-        aree_scheda.id_area = aree.nome_area AND
-        aree_scheda.id_scheda = $id;
-");
-
+$qgeom1="SELECT count(area_int_poly.id) as num_poly FROM area_int_poly,aree,aree_scheda WHERE area_int_poly.id_area = aree.nome_area AND  aree_scheda.id_area = aree.nome_area AND aree_scheda.id_scheda = ".$_GET['id'].";";
+$qgeom2="SELECT count(area_int_line.id) as num_line FROM area_int_line,aree,aree_scheda WHERE area_int_line.id_area = aree.nome_area AND aree_scheda.id_area = aree.nome_area AND aree_scheda.id_scheda = ".$_GET['id'].";";
+$qgeom3="select st_extent(area_int_poly.the_geom) as extent FROM area_int_poly, aree,aree_scheda WHERE area_int_poly.id_area = aree.nome_area AND aree_scheda.id_area = aree.nome_area AND aree_scheda.id_scheda = ".$_GET['id'].";";
+$qgeom4="select st_extent(area_int_line.the_geom) as extent2 FROM area_int_line, aree,aree_scheda WHERE area_int_line.id_area = aree.nome_area AND aree_scheda.id_area = aree.nome_area AND aree_scheda.id_scheda = ".$_GET['id'].";";
 $qgeom1Res = pg_query($connection, $qgeom1);
 $qgeom2Res = pg_query($connection, $qgeom2);
 $qgeom3Res = pg_query($connection, $qgeom3);
@@ -289,7 +262,7 @@ $extent2 = str_replace(' ', ',', $extent2);
                         <label class="update" id="dati_principali">modifica sezione</label>
                     </td>
                     <td>
-                        <label class="update" id="elimina_scheda" scheda="<?php echo ($id);?>">elimina scheda</label>
+                        <label class="update" id="elimina_scheda" scheda="<?php echo $_GET['id'];?>">elimina scheda</label>
                     </td>
                 </tr>
                 <?php } ?>
@@ -333,7 +306,7 @@ $extent2 = str_replace(' ', ',', $extent2);
            <!--  ############  FINE MAPPA PICCOLA ############## -->
        <?php }
         if(($pag==12)||($pag==13)||($pag==21)||($pag==23)||($pag==63)||($pag==72)||($pag==73)||($pag==92)||($pag==102)) {
-             $imgq = ("select path from file where id_scheda = $id;");
+             $imgq = "select path from file where id_scheda = ".$_GET['id'].";";
              $imgexec = pg_query($connection, $imgq);
              $imgrow = pg_num_rows($imgexec);
              $imgres = pg_fetch_array($imgexec, 0, PGSQL_ASSOC);
@@ -347,8 +320,8 @@ $extent2 = str_replace(' ', ',', $extent2);
                         if($tpsch!=1){
                             echo "<img id='imgSmall' src='".$folder.$img."' />";
                             echo "<div class='panel panelFoto noPrint'>";
-                                echo "<label id='ingrFoto' scheda='$id'>ingrandisci</label>&nbsp;&nbsp;";
-                                if($idUsr) {echo"<label class='delFile' data-scheda='$id' data-img='$img' data-tipo='foto'>elimina</label>";}
+                                echo "<label id='ingrFoto' scheda='".$_GET['id']."'>ingrandisci</label>&nbsp;&nbsp;";
+                                if($idUsr) {echo"<label class='delFile' data-scheda='".$_GET['id']."' data-img='$img' data-tipo='foto'>elimina</label>";}
                             echo "</div>";
                         }else{
                             echo "<audio  class='noPrint' preload='none' controls>";
@@ -357,7 +330,7 @@ $extent2 = str_replace(' ', ',', $extent2);
                             echo "</audio>";
                             if($idUsr){
                                 echo "<div class='panel panelAudio noPrint'>";
-                                    echo"<label class='delFile' data-scheda='$id' data-img='$img' data-tipo='audio'>elimina</label>";
+                                    echo"<label class='delFile' data-scheda='".$_GET['id']."' data-img='$img' data-tipo='audio'>elimina</label>";
                                 echo "</div>";
                             }
                         }
@@ -366,7 +339,7 @@ $extent2 = str_replace(' ', ',', $extent2);
                         if($idUsr) {
                 ?>
                     <form class="noPrint" action="inc/<?php echo $upload; ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="schedaFoto" value="<?php echo($id);?>" />
+                        <input type="hidden" name="schedaFoto" value="<?php echo $_GET['id'];?>" />
                         <input type="file" name="file" id="file"><br>
                         <input type="submit" name="submit" id="submitFile" value="Carica file selezionato">
                     </form>
@@ -377,9 +350,7 @@ $extent2 = str_replace(' ', ',', $extent2);
         </div> <!-- mapImgWrap -->
         <div style="clear:both"></div>
        <?php
-         $qcro =  ("SELECT c.cro_iniz, c.cro_fin, c.cro_spec, c.cro_motiv as cro_id, l.definizione AS cro_motiv, c.cro_note
-                    FROM public.cronologia as c, public.scheda as s, public.lista_cro_motiv as l
-                    WHERE c.cro_motiv = l.id AND c.id_scheda = s.id AND s.id = $id;");
+         $qcro = "SELECT c.cro_iniz, c.cro_fin, c.cro_spec, c.cro_motiv as cro_id, l.definizione AS cro_motiv, c.cro_note FROM public.cronologia as c, public.scheda as s, public.lista_cro_motiv as l  WHERE c.cro_motiv = l.id AND c.id_scheda = s.id AND s.id = ".$_GET['id'].";";
          $rcro = pg_query($connection, $qcro);
          $acro = pg_fetch_array($rcro, 0, PGSQL_ASSOC);
          $rowcro = pg_num_rows($rcro);
@@ -429,14 +400,8 @@ $extent2 = str_replace(' ', ',', $extent2);
         </div>
        </div>
        <?php } ?>
-
        <?php
-
-         $qcmp =  ("
-         SELECT r.id, r.denric, r.enresp, r.respric, s.compilatore, s.data_compilazione, s.cmp_note, u.nome, u.cognome
-         FROM ricerca as r, scheda as s, usr as u
-         WHERE s.compilatore = u.id_user and s.cmp_id = r.id and s.id = $id;
-         ");
+       $qcmp = "SELECT r.id, r.denric, r.enresp, r.respric, s.compilatore, s.data_compilazione, s.cmp_note, u.nome, u.cognome FROM ricerca as r, scheda as s, usr as u WHERE s.compilatore = u.id_user and s.cmp_id = r.id and s.id = ".$_GET['id'].";";
 
          $rcmp = pg_query($connection, $qcmp);
          $acmp = pg_fetch_array($rcmp, 0, PGSQL_ASSOC);
@@ -498,11 +463,7 @@ $extent2 = str_replace(' ', ',', $extent2);
        </div>
        <?php } ?>
        <?php
-         $qprv =  ("
-           SELECT scheda.prv_note, ricerca.id, ricerca.denric, ricerca.enresp, ricerca.respric, ricerca.data, scheda.prv_note, ricerca.redattore
-           FROM public.ricerca, public.scheda
-           WHERE scheda.prv_id = ricerca.id and scheda.id = $id;
-         ");
+         $qprv =  "SELECT scheda.prv_note, ricerca.id, ricerca.denric, ricerca.enresp, ricerca.respric, ricerca.data, scheda.prv_note, ricerca.redattore FROM public.ricerca, public.scheda WHERE scheda.prv_id = ricerca.id and scheda.id = ".$_GET['id'].";";
          $rprv = pg_query($connection, $qprv);
          $aprv = pg_fetch_array($rprv, 0, PGSQL_ASSOC);
          $rowprv = pg_num_rows($rprv);
@@ -561,23 +522,11 @@ $extent2 = str_replace(' ', ',', $extent2);
         </div>
        </div>
        <?php
-
-$qai =  ("
-select aree_scheda.id as id_as, area.id as filtro, area.nome,lista_ai_motiv.definizione as motiv, localita.localita, comune.comune, provincia.provincia, stato.stato
-from area
-inner join aree on aree.nome_area = area.id
-inner join aree_scheda on aree_scheda.id_area = area.id
-inner join lista_ai_motiv on aree_scheda.id_motivazione = lista_ai_motiv.id
-left join localita on aree.id_localita = localita.id
-left join comune on aree.id_comune = comune.id
-left join provincia on comune.provincia = provincia.id
-left join stato on comune.stato=stato.id
-where aree_scheda.id_scheda = $id and area.tipo <> 2 order by comune asc, localita asc;
-");
-$rai = pg_query($connection, $qai);
-$rowai = pg_num_rows($rai);
-$param = '';
-?>
+       $qai = "select aree_scheda.id as id_as, area.id as filtro, area.nome,lista_ai_motiv.definizione as motiv, localita.localita, comune.comune, provincia.provincia, stato.stato from area inner join aree on aree.nome_area = area.id inner join aree_scheda on aree_scheda.id_area = area.id inner join lista_ai_motiv on aree_scheda.id_motivazione = lista_ai_motiv.id left join localita on aree.id_localita = localita.id left join comune on aree.id_comune = comune.id left join provincia on comune.provincia = provincia.id left join stato on comune.stato=stato.id where aree_scheda.id_scheda = ".$_GET['id']." and area.tipo <> 2 order by comune asc, localita asc;";
+       $rai = pg_query($connection, $qai);
+       $rowai = pg_num_rows($rai);
+       $param = '';
+       ?>
        <div class="toggle check bassa">
         <div class="sezioni"><h2>AREA DI INTERESSE</h2></div>
         <div class="slide">
@@ -643,21 +592,7 @@ $param = '';
        </div>
 
        <?php
-         $qubi =  ("
-         SELECT aree_scheda.id as id_as, area.id as area_id, area.nome as area, comune.comune, localita.localita, indirizzo.indirizzo, indirizzo.cap, anagrafica.nome, anagrafica.tel, anagrafica.cell, anagrafica.fax, anagrafica.mail, anagrafica.web, provincia.provincia,
-         stato.stato, lista_ai_motiv.id as id_motiv_ubi, lista_ai_motiv.definizione as motiv
-         FROM aree_scheda
-        LEFT JOIN area ON aree_scheda.id_area = area.id
-LEFT JOIN aree ON aree.nome_area = area.id
-LEFT JOIN comune ON aree.id_comune = comune.id
-LEFT JOIN localita ON aree.id_localita = localita.id
-LEFT JOIN indirizzo ON aree.id_indirizzo = indirizzo.id
-LEFT JOIN anagrafica ON aree.id_rubrica = anagrafica.id
-LEFT JOIN provincia ON comune.provincia = provincia.id
-LEFT JOIN stato ON provincia.stato = stato.id
-LEFT JOIN lista_ai_motiv ON aree_scheda.id_motivazione = lista_ai_motiv.id
-WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
-");
+         $qubi = "SELECT aree_scheda.id as id_as, area.id as area_id, area.nome as area, comune.comune, localita.localita, indirizzo.indirizzo, indirizzo.cap, anagrafica.nome, anagrafica.tel, anagrafica.cell, anagrafica.fax, anagrafica.mail, anagrafica.web, provincia.provincia,  stato.stato, lista_ai_motiv.id as id_motiv_ubi, lista_ai_motiv.definizione as motiv FROM aree_scheda LEFT JOIN area ON aree_scheda.id_area = area.id LEFT JOIN aree ON aree.nome_area = area.id LEFT JOIN comune ON aree.id_comune = comune.id LEFT JOIN localita ON aree.id_localita = localita.id LEFT JOIN indirizzo ON aree.id_indirizzo = indirizzo.id LEFT JOIN anagrafica ON aree.id_rubrica = anagrafica.id LEFT JOIN provincia ON comune.provincia = provincia.id LEFT JOIN stato ON provincia.stato = stato.id LEFT JOIN lista_ai_motiv ON aree_scheda.id_motivazione = lista_ai_motiv.id WHERE aree_scheda.id_scheda = ".$_GET['id']." AND area.tipo = 2;";
          $rubi = pg_query($connection, $qubi);
          $aubi = pg_fetch_array($rubi, 0, PGSQL_ASSOC);
          $rowubi = pg_num_rows($rubi);
@@ -713,10 +648,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
        </div>
 
       <?php
-         $qana =  ("SELECT scheda.id AS id_scheda, anagrafica.id as ana_id, anagrafica.nome,  comune.id AS id_comune,  comune.comune,  indirizzo.id AS id_indirizzo,  indirizzo.indirizzo,  localita.id AS id_localita,  localita.localita, anagrafica.tel,  anagrafica.cell,  anagrafica.fax,  anagrafica.mail,  anagrafica.web,  anagrafica.note
-         FROM anagrafica, comune, indirizzo, localita, scheda
-         WHERE anagrafica.comune = comune.id AND  anagrafica.indirizzo = indirizzo.id AND  anagrafica.localita = localita.id AND  scheda.ana_id = anagrafica.id AND  scheda.id = $id
-         order by id_scheda asc; ");
+         $qana = "SELECT scheda.id AS id_scheda, anagrafica.id as ana_id, anagrafica.nome,  comune.id AS id_comune,  comune.comune,  indirizzo.id AS id_indirizzo, indirizzo.indirizzo,  localita.id AS id_localita,  localita.localita, anagrafica.tel,  anagrafica.cell,  anagrafica.fax,  anagrafica.mail,  anagrafica.web, anagrafica.note FROM anagrafica, comune, indirizzo, localita, scheda WHERE anagrafica.comune = comune.id AND  anagrafica.indirizzo = indirizzo.id AND anagrafica.localita = localita.id AND  scheda.ana_id = anagrafica.id AND  scheda.id = ".$_GET['id']." order by id_scheda asc;";
          $rana = pg_query($connection, $qana);
          $aana = pg_fetch_array($rana, 0, PGSQL_ASSOC);
          $rowana = pg_num_rows($rana);
@@ -771,9 +703,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
        </div>
 
        <?php
-         $qcre =  ("SELECT c.consultabilita, c.orario, c.servizi
-                    FROM consultabilita c, scheda s
-                    WHERE c.id_scheda = s.id AND s.id =  $id;");
+         $qcre = "SELECT c.consultabilita, c.orario, c.servizi FROM consultabilita c, scheda s WHERE c.id_scheda = s.id AND s.id =  ".$_GET['id'].";";
          $rcre = pg_query($connection, $qcre);
          $acre = pg_fetch_array($rcre, 0, PGSQL_ASSOC);
          $rowcre = pg_num_rows($rcre);
@@ -816,9 +746,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
        </div>
 
        <?php
-         $qscn =  ("SELECT l.id as scn_id, l.definizione AS scn, s.scn_note
-                    FROM scheda s, lista_stato_conserv l
-                    WHERE s.scn_id = l.id AND s.id = $id;");
+         $qscn = "SELECT l.id as scn_id, l.definizione AS scn, s.scn_note FROM scheda s, lista_stato_conserv l WHERE s.scn_id = l.id AND s.id = ".$_GET['id'].";";
          $rscn = pg_query($connection, $qscn);
          $ascn = pg_fetch_array($rscn, 0, PGSQL_ASSOC);
          $rowscn = pg_num_rows($rscn);
@@ -855,7 +783,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
        </div>
 
        <?php
-         $qrif =  ("select count(id) as schede from altrif where scheda = $id;");
+         $qrif = "select count(id) as schede from altrif where scheda = ".$_GET['id'].";";
          $rrif = pg_query($connection, $qrif);
          $arif = pg_fetch_array($rrif, 0, PGSQL_ASSOC);
 
@@ -870,9 +798,19 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
              <td width="50%;">
              <?php if($rif == 0) {echo "<label>Non ci sono schede correlate</label>";}?>
              <?php
-
-              foreach(array( 6=>array('ARCHEOLOGICHE','archeologica'), 8=>array('ARCHITETTONICHE','architettonica'), 9=>array('STORICO-ARTISTICHE','stoart'), 2=>array('MATERIALI','materiale'), 4=>array('ARCHIVISTICHE','archivistica'), 1=>array('ORALI','orale'), 7=>array('FOTOGRAFICHE','fotografica'), 5=>array('BIBLIOGRAFICHE','bibliografica'), 10=>array('CARTOGRAFICHE','cartografica')) as $idforeach=>$nomeforeach){
-                 $qrif6 = ("select a.id, a.scheda_altrif, a.numsch_altrif, b.dgn_dnogg from altrif a, scheda b where a.scheda_altrif=b.id and scheda = $id and tpsch_altrif = $idforeach");
+              foreach(
+                array(
+                  6=>array('ARCHEOLOGICHE','archeologica'),
+                  8=>array('ARCHITETTONICHE','architettonica'),
+                  9=>array('STORICO-ARTISTICHE','stoart'),
+                  2=>array('MATERIALI','materiale'),
+                  4=>array('ARCHIVISTICHE','archivistica'),
+                  1=>array('ORALI','orale'),
+                  7=>array('FOTOGRAFICHE','fotografica'),
+                  5=>array('BIBLIOGRAFICHE','bibliografica'),
+                  10=>array('CARTOGRAFICHE','cartografica')
+                ) as $idforeach=>$nomeforeach){
+                 $qrif6 = "select a.id, a.scheda_altrif, a.numsch_altrif, b.dgn_dnogg from altrif a, scheda b where a.scheda_altrif=b.id and scheda = ".$_GET['id']." and tpsch_altrif = ".$idforeach.";";
                  $rrif6 = pg_query($connection, $qrif6);
                  $rowrif6 = pg_num_rows($rrif6);
                  if($rowrif6 > 0) {
@@ -1048,7 +986,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
     <div class="inner check" style="width:32%; float:left; margin-right:10px;">
         <label>SCHEDE DI PRIMO LIVELLO</label><br />
         <?php
-            $q1 = ("SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg FROM scheda s, altrif_parenti a WHERE a.id_parente = s.id AND a.id_scheda = $id and s.livello = 1 order by dgn_numsch asc ;");
+            $q1 = "SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg FROM scheda s, altrif_parenti a WHERE a.id_parente = s.id AND a.id_scheda = ".$_GET['id']." and s.livello = 1 order by dgn_numsch asc ;";
             $r1 = pg_query($connection, $q1);
             $righe1 = pg_num_rows($r1);
 
@@ -1071,9 +1009,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
     <div class="inner check" style="width:32%; float:left; margin-right:10px;">
      <label>SCHEDE DI SECONDO LIVELLO</label><br />
      <?php
-      $q2 = ("SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg
-              FROM scheda s, altrif_parenti a
-              WHERE a.id_parente = s.id AND a.id_scheda = $id and s.livello = 2 order by dgn_numsch asc ;");
+      $q2 = "SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg FROM scheda s, altrif_parenti a WHERE a.id_parente = s.id AND a.id_scheda = ".$_GET['id']." and s.livello = 2 order by dgn_numsch asc ;";
       $r2 = pg_query($connection, $q2);
       $righe2 = pg_num_rows($r2);
 
@@ -1094,9 +1030,7 @@ WHERE aree_scheda.id_scheda = $id AND area.tipo = 2;
     <div class="inner check" style="width:33%; float:left;">
       <label>SCHEDE DI TERZO LIVELLO</label><br />
      <?php
-      $q3 = ("SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg
-              FROM scheda s, altrif_parenti a
-              WHERE a.id_parente = s.id AND a.id_scheda = $id and s.livello = 3 order by dgn_numsch asc ;");
+      $q3 = "SELECT a.id, a.id_parente, s.dgn_numsch, s.dgn_dnogg FROM scheda s, altrif_parenti a WHERE a.id_parente = s.id AND a.id_scheda = ".$_GET['id']." and s.livello = 3 order by dgn_numsch asc ;";
       $r3 = pg_query($connection, $q3);
       $righe3 = pg_num_rows($r3);
 

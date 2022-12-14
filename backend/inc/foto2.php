@@ -1,28 +1,28 @@
 <?php
 $nd = '-';
-$q2 =  ("SELECT 
+$q2 =  "SELECT
   foto2.id as id_foto2,
-  foto2.fot_collocazione as collocazione, 
-  foto2.sog_titolo as titolo, 
-  foto2.sog_autore as autore, 
-  foto2.sog_sogg as soggetto, 
-  foto2.sog_noteaut as note_autore, 
-  foto2.sog_note as note, 
+  foto2.fot_collocazione as collocazione,
+  foto2.sog_titolo as titolo,
+  foto2.sog_autore as autore,
+  foto2.sog_sogg as soggetto,
+  foto2.sog_noteaut as note_autore,
+  foto2.sog_note as note,
   foto2.sog_notestor as note_storiche,
   foto2.sog_notstooss as oss_storiche,
-  foto2.dtc_mattec as materia, 
-  foto2.dtc_icol as colore, 
-  foto2.dtc_misst as misura, 
-  foto2.dtc_ffile as formato, 
-  foto2.dtc_misfd as dimensione, 
-  foto2.dtc_note as note2, 
-  foto2.dtc_presneg as negativi, 
-  foto2.dtc_tpapp as apparecchio, 
+  foto2.dtc_mattec as materia,
+  foto2.dtc_icol as colore,
+  foto2.dtc_misst as misura,
+  foto2.dtc_ffile as formato,
+  foto2.dtc_misfd as dimensione,
+  foto2.dtc_note as note2,
+  foto2.dtc_presneg as negativi,
+  foto2.dtc_tpapp as apparecchio,
   foto2.alt_note as note3
-FROM 
+FROM
   foto2
-WHERE 
-  foto2.id_scheda = $id;");
+WHERE
+  foto2.id_scheda = ".$_GET['id'].";";
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);
@@ -114,7 +114,7 @@ $note3			=stripslashes($a2['note3']); if($note3 == '') {$note3=$nd;}
     <?php require("inc/form_update/foto2_descr.php"); ?>
    </div>
   </div>
-        
+
   <div class="toggle check">
    <div class="sezioni"><h2>NOTIZIE STORICHE</h2></div>
         <div class="slide">
@@ -142,7 +142,7 @@ $note3			=stripslashes($a2['note3']); if($note3 == '') {$note3=$nd;}
         </div>
         </div>
    </div>
-   
+
    <div class="toggle check bassa">
         <div class="sezioni"><h2>DATI TECNICI</h2></div>
         <div class="slide">
@@ -153,7 +153,7 @@ $note3			=stripslashes($a2['note3']); if($note3 == '') {$note3=$nd;}
                 <?php
                  $hub==2? $dt1= "ACQUISIZIONE":$dt1= "MATERIA E TECNICA";
                  echo $dt1;
-                ?> 
+                ?>
                </label>
                <div class="valori"><?php echo($materia); ?></div>
              </td>

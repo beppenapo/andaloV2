@@ -22,7 +22,7 @@ FROM
 WHERE
   materiali1.dgn_numsch1 = scheda.dgn_numsch AND
   materiali1.dsc_tipo_raccolta = lista_tipo_raccolta.id AND
-  scheda.id =  $id;");
+  scheda.id =  $_GET['id'];");
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);
