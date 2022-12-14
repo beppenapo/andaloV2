@@ -1,9 +1,9 @@
 <div id="dati_principali_form">
-<input type="hidden" id="id_scheda" name="id_scheda" value="<?php echo($id_scheda); ?>" />
+<input type="hidden" id="id_scheda" name="id_scheda" value="<?php echo $_GET['id']; ?>" />
 
      <label>NUMERO SCHEDA</label>
      <textarea id="num_sch_update" class="form"><?php echo($numSch); ?></textarea>
-     
+
       <label>TIPO SCHEDA</label>
       <select id="tpsch_update" name="tpsch_update" class="form">
        <option value="<?php echo($tpsch); ?>"><?php echo($a['tipo_scheda']); ?></option>
@@ -44,7 +44,7 @@
 
       <label>NOTE</label>
       <textarea id="schnote_update" class="form noteform"><?php echo($note1); ?></textarea>
-      
+
       <div class="login2" id="dati_principali_update" style="margin-top:20px;">Salva modifiche</div>
       <div class="chiudiForm login2">Annulla modifiche</div>
 </div>

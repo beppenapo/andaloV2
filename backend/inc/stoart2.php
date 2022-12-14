@@ -1,6 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$qbiblio = ("
+$qbiblio = "
 SELECT
   beni_stoart2.dgn_numsch2,
   beni_stoart2.dtc_mattec,
@@ -30,7 +30,7 @@ SELECT
   beni_stoart2.id
 FROM
   public.beni_stoart2, scheda
-where beni_stoart2.dgn_numsch2 = scheda.dgn_numsch and scheda.id =$_GET['id'];");
+where beni_stoart2.dgn_numsch2 = scheda.dgn_numsch and scheda.id =".$_GET['id'].";";
 $rq = pg_query($connection, $qbiblio);
 $aq = pg_fetch_array($rq, 0, PGSQL_ASSOC);
 $rowqbiblio = pg_num_rows($rq);

@@ -1,6 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$qbiblio2 = ("
+$qbiblio2 = "
 SELECT
   scheda.id AS id_scheda,
   biblio2.id_biblio2,
@@ -24,7 +24,7 @@ FROM
 WHERE
   biblio2.dgn_numsch2 = scheda.dgn_numsch AND
   biblio2.bib_livbib = lista_bib_livbib.id and
-  scheda.id = $_GET['id'];");
+  scheda.id = ".$_GET['id'].";";
 $rq2 = pg_query($connection, $qbiblio2);
 $aq2 = pg_fetch_array($rq2, 0, PGSQL_ASSOC);
 $rowqbiblio2 = pg_num_rows($rq2);

@@ -1,6 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT
+$q2 =  "SELECT
   fonti_orali3.id,
   fonti_orali3.dsc_conten3,
   fonti_orali3.dsc_catgen3,
@@ -13,7 +13,7 @@ FROM
   public.fonti_orali3
 WHERE
   fonti_orali3.dgn_numsch3 = scheda.dgn_numsch AND
-  scheda.id = $_GET['id'];");
+  scheda.id = ".$_GET['id'].";";
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);

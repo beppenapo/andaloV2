@@ -3,16 +3,7 @@
  <label>LOCALITA' / Indirizzo</label>
    <select id="localita_update" name="localita_update" class="form">
     <?php
-     $query =  ("
-      SELECT distinct aree.id, comune.comune, localita.localita
-      FROM aree, localita,comune
-      WHERE 
-        localita.comune = comune.id AND
-        aree.id_comune = comune.id AND
-        aree.id_localita = localita.id AND
-        aree.tipo = 1
-        order by comune asc, localita asc;
-      ");
+     $query = "SELECT distinct aree.id, comune.comune, localita.localita FROM area, aree, localita,comune WHERE area.id = aree.nome_area and localita.comune = comune.id AND aree.id_comune = comune.id AND aree.id_localita = localita.id AND area.tipo = 1 order by comune asc, localita asc;";
       $result = pg_query($connection, $query);
       $righe = pg_num_rows($result);
       $i=0;

@@ -1,24 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT  fonti_orali1.id
-               , fonti_orali1.dsc_tipoarch
-               , fonti_orali1.dsc_numint
-               , fonti_orali1.dsc_numinf
-               , fonti_orali1.dsc_cararch
-               , fonti_orali1.dsc_sched
-               , fonti_orali1.dsc_trascr
-               , fonti_orali1.dsc_indic
-               , fonti_orali1.dsc_matint
-               , fonti_orali1.dsc_oss
-               , fonti_orali1.dsc_critord
-               , fonti_orali1.nsc_vicarch
-               , fonti_orali1.nsc_oss
-FROM
-  public.scheda,
-  public.fonti_orali1
-WHERE
-  fonti_orali1.dgn_numsch1 = scheda.dgn_numsch AND
-  scheda.id = $_GET['id'];");
+$q2 =  "SELECT  fonti_orali1.id, fonti_orali1.dsc_tipoarch, fonti_orali1.dsc_numint, fonti_orali1.dsc_numinf, fonti_orali1.dsc_cararch, fonti_orali1.dsc_sched, fonti_orali1.dsc_trascr, fonti_orali1.dsc_indic, fonti_orali1.dsc_matint, fonti_orali1.dsc_oss, fonti_orali1.dsc_critord, fonti_orali1.nsc_vicarch, fonti_orali1.nsc_oss FROM public.scheda, public.fonti_orali1 WHERE fonti_orali1.dgn_numsch1 = scheda.dgn_numsch AND scheda.id = ".$_GET['id'].";";
 
 
 $r2 = pg_query($connection, $q2);

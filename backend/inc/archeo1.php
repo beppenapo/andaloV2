@@ -1,6 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT
+$q2 = "SELECT
   archeo.id_archeo,
   archeo.id_scheda,
   archeo.ind_data,
@@ -27,7 +27,7 @@ WHERE
   archeo.ind_met = lista_ind_met.id AND
   archeo.ain_tipo = lista_ain_tipo.id AND
   archeo.ain_enresp = anagrafica.id AND
-  archeo.id_scheda = $_GET['id'];");
+  archeo.id_scheda = ".$_GET['id'].";";
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);

@@ -1,6 +1,6 @@
 <?php
 $nd = 'Dato non presente';
-$q2 =  ("SELECT
+$q2 =  "SELECT
   scheda.id,
   materiali3.id as id_mater3,
   materiali3.dgn_numsch3,
@@ -57,7 +57,7 @@ WHERE
   materiali3.dog_catgen = lista_dog_catgen.id AND
   materiali3.dog_catspec = lista_dog_catspec.id AND
   materiali3.cst_commfnt = lista_cro_motiv.id AND
-  scheda.id = $_GET['id'];");
+  scheda.id = ".$_GET['id'].";";
 $r2 = pg_query($connection, $q2);
 $a2 = pg_fetch_array($r2, 0, PGSQL_ASSOC);
 $rC2 = pg_num_rows($r2);

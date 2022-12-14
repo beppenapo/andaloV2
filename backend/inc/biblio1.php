@@ -1,10 +1,10 @@
 <?php
 $nd = 'Dato non presente';
-$qbiblio1 = ("
+$qbiblio1 = "
 SELECT
 biblio1.id as id_biblio1,
 scheda.id, biblio1.dsc_tipo as biblio1_tipo_biblio, biblio1.dsc_dsc as biblio1_tipo_biblio_desc, biblio1.dsc_notsto as biblio1_not_sto, biblio1.nst_ossbiblio as biblio1_ossbiblio FROM public.biblio1, public.scheda WHERE biblio1.dgn_numsch1 = scheda.dgn_numsch AND
-  scheda.id = $_GET['id'];");
+  scheda.id = ".$_GET['id'].";";
 $rq1 = pg_query($connection, $qbiblio1);
 $aq1 = pg_fetch_array($rq1, 0, PGSQL_ASSOC);
 $rowqbiblio1 = pg_num_rows($rq1);
