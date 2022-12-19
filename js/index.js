@@ -9,3 +9,10 @@ $(document).ready(function(){
 window.addEventListener("orientationchange", function() {
   window.setTimeout(function() { wrapImgWidth() }, 200);
 }, false);
+
+$(".closePanel").on('click', function(){
+  $(".panel-content").animate({marginRight:"-=50%"},500, function(){
+    $("#panel").hide()
+    $(".imgGallery").html('')
+  });
+})

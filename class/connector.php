@@ -8,6 +8,7 @@ if(isset($funzione) && function_exists($funzione)) {
 }
 ## index function ##
 function imgWall($class){return json_encode($class->imgWall($_POST['dati']));}
+function getMarker($class){return json_encode($class->getMarker());}
 function geotag($class){return json_encode($class->geotag());}
 function lazyLoad($class){return json_encode($class->lazyLoad());}
 function getIdByNumsch($class){return json_encode($class->getIdByNumsch($_POST['dati']));}
