@@ -24,17 +24,26 @@
 -- order by foto desc
 -- limit 10;
 
-SELECT
-  scheda.id,
-  scheda.dgn_dnogg,
-  scheda.dgn_numsch,
-  file.path
-FROM
-  aree_scheda,
-  file,
-  scheda
-WHERE
-  aree_scheda.id_scheda = scheda.id AND
-  file.id_scheda = scheda.id and
-  aree_scheda.id_area = 1747
-group by scheda.id, scheda.dgn_dnogg,scheda.dgn_numsch, file.path;
+-- SELECT
+--   scheda.id,
+--   scheda.dgn_dnogg,
+--   scheda.dgn_numsch,
+--   file.path
+-- FROM
+--   aree_scheda,
+--   file,
+--   scheda
+-- WHERE
+--   aree_scheda.id_scheda = scheda.id AND
+--   file.id_scheda = scheda.id and
+--   aree_scheda.id_area = 1747
+-- group by scheda.id, scheda.dgn_dnogg,scheda.dgn_numsch, file.path;
+
+select t.id_localita, t.top_nomai localita, array_agg(f.id_scheda||'|'||f.path) foto, st_X(st_transform(ST_SetSRID(t.geom, 32632), 4326)) lon, st_Y(st_transform(ST_SetSRID(t.geom, 32632), 4326)) lat
+from topo_mappa t
+INNER JOIN aree on t.id_localita = aree.id_localita
+INNER JOIN aree_scheda on aree.nome_area = aree_scheda.id_area
+INNER JOIN scheda on aree_scheda.id_scheda = scheda.id
+INNER JOIN file f on f.id_scheda = scheda.id
+where t.id_localita = 91
+group by t.id_localita, t.top_nomai, t.geom;

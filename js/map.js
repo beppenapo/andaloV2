@@ -1,11 +1,26 @@
-var center,zoom,minZoom,map,resetMap,base,osm,thunderF,cluster,fonti,data={};
+var center,zoom,map,resetMap,base,osm,thunderF,cluster,fonti,data={};
 initMap()
 function initMap(){
   center = [46.1662,11.0037];
   zoom = 10;
-  // minZoom = 5;
   $("#loader").show();
-  cluster = L.markerClusterGroup();
+  cluster = L.markerClusterGroup({
+    maxClusterRadius:50,
+    iconCreateFunction: function(cluster) {
+      var mark = cluster.getAllChildMarkers()
+      var sum = 0
+      var digit = 0
+      mark.forEach(function(v,i){
+        sum += v.options.foto.length
+        digit = (sum+'').length
+      })
+      return new L.DivIcon({
+        html: sum,
+        className: 'cluster digit-'+digit,
+        iconSize: null
+      })
+    }
+  });
   map = L.map('map')
   map.on('load', function (event) {
     $("#loader").hide()
@@ -29,62 +44,28 @@ function initMap(){
   });
   data['oop']={file:'global.class.php',classe:'General',func:'getMarker'}
 
-  $.ajax({
-    url: connector
-    , type: type
-    , dataType: dataType
-    , data: data
-  })
+  $.ajax({url: connector, type: type, dataType: dataType, data: data})
   .done(function(data) {
-    // console.log(data);
     data.forEach(function(m,i){
-      let marker = L.marker([m.lat,m.lon],{
-        gid:m.gid
-        ,id:m.id
-        ,area:m.area
-        ,foto:m.foto
-        , icon:ico
-      });
+      let fotoList = m.foto.replace('{','').replace('}','').split(',');
       let pop = "<div class='text-center mapPopUp'>";
-      pop += "<h5>"+m.area+"</h5>";
+      pop += "<h6>"+m.localita+"</h6>";
+      pop += "<p class='m-0'>foto presenti: "+fotoList.length+"</p>";
       pop += "</div>";
-      // marker.bindPopup(pop);
+      let marker = L.marker([m.lat,m.lon],{
+        localita:m.localita
+        ,foto: fotoList
+        ,icon: ico
+      }).bindTooltip(pop, {
+        opacity: 0.7,
+        direction: 'top',
+        offset: L.point({x:2, y:-50})
+      }).openTooltip();
       marker.on('click',bindPopUp)
       cluster.addLayer(marker);
     })
   });
   cluster.addTo(map);
-  // $.getJSON("json/markerList.php", function(data) {
-  //   console.log(data);
-  //   if (!data.features) {
-  //     console.log('no data');
-  //   }else {
-  //     fonti = L.geoJson(data,{
-  //       pointToLayer: function (feature, latlng) {
-  //         label = String(feature.properties.area)
-  //         return L.marker(latlng, {icon: ico}).bindTooltip(label, {
-  //           permanent: true,
-  //           opacity: 0.7,
-  //           direction: 'bottom',
-  //           offset: L.point({x:0, y:0})
-  //         }).openTooltip();
-  //       }
-  //     });
-  //     cluster.addLayer(fonti);
-  //     map.addLayer(cluster);
-  //     map.fitBounds(cluster.getBounds());
-  //     fonti.on('click',bindPopUp)
-  //     const tooltipThreshold = 17;
-  //     map.on('zoomend', function() {
-  //       var z = map.getZoom();
-  //       if (z < tooltipThreshold ) {
-  //         $(".leaflet-tooltip").css("display","none")
-  //       } else {
-  //         $(".leaflet-tooltip").css("display","block")
-  //       }
-  //     })
-  //   }
-  // });
 
   resetMap = L.Control.extend({
     options: { position: 'topleft'},
@@ -94,7 +75,6 @@ function initMap(){
       $("<i/>",{class:'fas fa-home'}).appendTo(btn)
       btn.on('click', function (e) {
         e.preventDefault()
-        // map.fitBounds(cluster.getBounds());
         map.setView(center,zoom);
       });
       return container;
@@ -118,11 +98,9 @@ function initMap(){
 }
 function bindPopUp(e) {
   prop = e.sourceTarget.options;
-  console.log(prop);
-  $("#nome-area").text(prop.area)
-
-  $.getJSON("json/imgMapList.php",{area:prop.id})
-  .done(function(data){ buildImgList(data) })
+  $("#nome-area").text(prop.localita)
+  $.getJSON("json/imgMapList.php",{scheda:prop.foto})
+  .done(function(data){ buildImgList(data)})
   .fail(function( jqxhr, textStatus, error ) { console.log( "Request Failed: " + textStatus + ", " + error ); })
 
   $("#panel").show().promise().done(function(){
@@ -136,16 +114,15 @@ function bindPopUp(e) {
 
 function buildImgList(data){
   var imgArr = []
-  var imgItem;
-  $.each(data,function(i,img){
-    imgItem = "<div id='imgMap"+i+"' data-id='"+img.id+"' class='col-12 col-md-6 p-0 imgMapDiv'>"
-    imgItem += "<div class='imgContent animation lozad' data-background-image='foto_medium/"+img.path+"'></div>"
+  data.forEach((item, i) => {
+    let imgItem = "<div id='imgMap"+i+"' data-id='"+item[0].id+"' class='col-12 col-md-6 p-0 imgMapDiv'>";
+    imgItem += "<div class='imgContent animation lozad' data-background-image='foto_medium/"+item[0].path+"'></div>";
     imgItem += "<div class='animation imgTxt d-none d-md-block'>"
-    imgItem += "<p class='animation'>"+img.dgn_dnogg+"</p>"
+    imgItem += "<p class='animation'>"+item[0].dgn_dnogg+"</p>"
     imgItem += "</div>"
     imgItem += "</div>"
     imgArr.push(imgItem)
-  })
+  });
   $(".imgGallery").html(imgArr.join(''))
   $(".imgMapDiv").height($("#imgMap0").width()).on('click',function(){ linkScheda($(this).data('id')) });
   observer.observe();
