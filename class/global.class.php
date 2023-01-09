@@ -20,11 +20,55 @@ class General extends Db{
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
   public function imgWall($limit=array(), $filter=null){
-    $sql="select * from viewscheda ".$filter." order by random() ";
+    // $sql="select * from viewscheda ".$filter." order by random() ";
+    $sql=" SELECT
+    s.id,
+    s.dgn_dnogg,
+    c.cro_spec,
+    s.dgn_numsch,
+    f.sog_titolo,
+    f.dtc_icol,
+    f.dtc_mattec,
+    f.dtc_ffile,
+    f.dtc_misfd,
+    f.sog_sogg,
+    f.sog_autore,
+    f.sog_note,
+    f.sog_notestor,
+    f.alt_note,
+    p.path,
+    t.tags,
+    s.pubblica
+   FROM scheda s
+   JOIN foto2 f ON f.id_scheda = s.id
+   LEFT JOIN tags t ON t.scheda = s.id
+   LEFT JOIN file p ON p.id_scheda = s.id
+   LEFT JOIN cronologia c ON c.id_scheda = s.id
+   left JOIN aree_scheda ON aree_scheda.id_scheda = f.id_scheda
+   left JOIN area ON aree_scheda.id_area = area.id
+   left JOIN aree ON aree.nome_area = area.id
+   left JOIN comune ON comune.id = aree.id_comune
+   where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by random() ";
     if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
     return $this->simple($sql);
+    // return $sql;
   }
 
+  public function initGallery($dati = array()){
+    $out=[];
+    $filter = [" s.pubblica = true and s.fine = ".$dati['statoScheda']];
+
+    if($dati['filtro'] == 'tag'){ array_push($filter, "'".$dati['tag']."' in (select(unnest(tags))) ");}
+
+    if($dati['filtro'] == 'geotag'){ array_push($filter, " comune.id = ".$dati['val']);}
+
+    if($dati['filtro'] == 'titolo'){
+      $keyArr = explode(" ",$dati['tag']);
+      $keywords = implode(" & ", substr_replace($keyArr, ':*', -1));
+      array_push($filter, "to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."')");
+    }
+    return $this->imgWall([],$filter);
+  }
 
   public function lazyLoad($filtro=null,$tag=null,$val=null){
     $out=array();

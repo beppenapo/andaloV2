@@ -2,17 +2,7 @@
 session_start();
 require("class/global.class.php");
 $list=new General;
-// if (!empty($_GET)) {
-//   $tag=$_GET['filtro'];
-//   $val = $tag == 'geotag' ? $_GET['val'] : $_GET['tag'];
-//   $filter=' immagini che hanno come '.$_GET['filtro'].' "'.$_GET['tag'].'"';
-// }else {
-//   $tag=null;
-//   $val=null;
-//   $filter=' immagini totali';
-// }
 $img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
-// $filterTxt = count($img).$filter;
 ?>
 <!doctype html>
 <html lang="it">
@@ -21,6 +11,9 @@ $img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
     <?php require('inc/css.php'); ?>
   </head>
   <body class="bg-light" id="top">
+    <input type="hidden" name="filtro" value="<?php echo $_GET['filtro']; ?>">
+    <input type="hidden" name="tag" value="<?php echo $_GET['tag']; ?>">
+    <input type="hidden" name="val" value="<?php echo $_GET['val']; ?>">
     <?php require('inc/header.php'); ?>
     <div class="topBtn animation">
       <div class="rounded-circle scroll-gallery" data-id="top">
@@ -39,34 +32,34 @@ $img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
 
     <div class="mainScope">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <p class="h3 text-center statfilter"><?php echo $img['title']; ?></p>
+        <div class="row mb-3">
+          <div class="col text-center">
+            <div class="btn-group btn-group-sm btn-group-toggle mb-3" data-toggle="buttons">
+              <label class="btn btn-outline-secondary active">
+                <input type="radio" name="statoScheda" value="2" autocomplete="off" checked> schede chiuse
+              </label>
+              <label class="btn btn-outline-secondary">
+                <input type="radio" name="statoScheda" value="1" autocomplete="off"> schede in lavorazione
+              </label>
+              <button type="button" class="btn btn-outline-secondary" name="button" data-toggle="collapse" data-target="#galleryTip">?</button>
+            </div>
+            <div class="collapse" id="galleryTip">
+              <div class="card card-body">Le "schede chiuse" rappresentano tutti i record che sono controllati e convalidati e che, quindi, risultano "completi", mentre per "schede in lavorazione" si intendono tutti quei record ancora in fase di elaborazione o in attesa di convalida, i cui dati seppur incompleti possono tuttavia risultare di rilevante interesse scientifico</div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
+            <p class="h3 text-center statfilter"></p>
           </div>
         </div>
-        <div class="row wrapImg mb-3">
-          <?php
-            foreach ($img['img'] as $key => $val) {
-              if (isset($val['dgn_dnogg'])) {
-                $titolo=$val['dgn_dnogg'];
-              }elseif (!isset($val['dgn_dnogg']) && isset($val['sog_titolo'])) {
-                $titolo=$val['sog_titolo'];
-              }else {
-                $titolo=substr($val['path'],0,-4);
-              }
-              echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
-                echo "<div class='imgContent animation lozad' data-background-image='foto_medium/".$val['path']."'></div>";
-                echo "<div class='animation imgTxt d-none d-md-block'>";
-                  echo "<p class='animation'>".$titolo."</p>";
-                echo "</div>";
-              echo "</div>";
-            }
-          ?>
+        <div class="row loading">
+          <div class="col text-center">
+            <h1>Loading gallery ...</h1>
+            <h6>L'elevato numero di foto da mostrare potrebbe richiedere ancora qualche secondo</h6>
+          </div>
         </div>
+        <div class="row wrapImg mb-3"></div>
       </div>
     </div>
     <?php require('inc/footer.php'); ?>

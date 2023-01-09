@@ -20,7 +20,7 @@ a:hover{text-decoration: none;}
 #logo{vertical-align:middle;}
 
 #mainSection{min-height:800px;margin-top:60px;}
-.mainScope{padding: 0;}
+.mainScope{padding: 0; min-height:60vh;}
 .imgDiv {overflow: hidden; display: inline-block; cursor: pointer;}
 .imgContent {position:absolute;top:0;left:0; height: 100%; width: 100%; background-size: contain; background-repeat: no-repeat; background-position: top center; z-index:999;}
 .imgContent>i{margin-top:30%;}
