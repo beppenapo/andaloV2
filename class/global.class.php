@@ -20,6 +20,7 @@ class General extends Db{
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
   public function imgWall($limit=array(), $filter=null){
+    // return [$limit,$filter];
     // $sql="select * from viewscheda ".$filter." order by random() ";
     $sql=" SELECT
     s.id,
@@ -49,7 +50,7 @@ class General extends Db{
    left JOIN aree ON aree.nome_area = area.id
    left JOIN comune ON comune.id = aree.id_comune
    where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by random() ";
-    if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
+    if(!empty($limit)){$sql .= " limit ".$limit.";";}
     return $this->simple($sql);
     // return $sql;
   }

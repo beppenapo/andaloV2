@@ -43,7 +43,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         <div class="row">
           <div class="col-xs-12 col-md-7 mb-5">
             <div class="imgWrap text-center mb-2">
-              <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
+              <img src="https://www.bibliopaganella.org/foto/<?php echo $path; ?>" class="img-fluid" alt="">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
             </div>
             <div id="smallMap"></div>
@@ -146,17 +146,16 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             <button type="button" class="btn btn-light" name="closeModal" title="chiudi immagine"><i class="fas fa-times"></i> chiudi</button>
           </div>
         </div>
-        <div class="imgModalDiv" style="background-image:url('foto/<?php echo $path; ?>')"></div>
+        <div class="imgModalDiv" style="background-image:url('https://www.bibliopaganella.org/foto/<?php echo $path; ?>')"></div>
       </div>
     </div>
-    <input type="text" name="item" value="<?php echo $_GET['scheda']; ?>">
+    <input type="hidden" name="item" value="<?php echo $_GET['scheda']; ?>">
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
     <script src="js/leaflet-bing-layer.js"></script>
-    <script src="js/gallery.js"></script>
     <script src="js/scheda.js"></script>
   </body>
 </html>

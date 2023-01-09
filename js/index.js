@@ -1,7 +1,6 @@
 $(document).ready(function(){
-  limit = screen.width < 768 ? 12 : 20
+  limit = screen.width < 768 ? 12 : 24
   imgWall(limit)
-  echo.init({ callback: function (el, op) { $(el).html(''); } });
 
 })
 

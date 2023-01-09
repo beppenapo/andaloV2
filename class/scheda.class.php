@@ -44,7 +44,12 @@ class Scheda extends Db{
     $tag['geo']=$this->geoTag($comune);
     $tag['tag']=$this->tag();
     $marker=$this->marker();
-    return array("sql"=>$sql, "list"=>$list, "tag"=>$tag, "marker"=>$marker);
+    return array("sql"=>$query, "list"=>$list, "tag"=>$tag, "marker"=>$marker);
+  }
+
+  private function getImg(){
+    $sql = "select path from file where tipo = 1 and id_scheda = ".$this->scheda;
+    return $this->simple($sql);
   }
 
   private function geoTag($id=array()){

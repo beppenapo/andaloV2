@@ -34,6 +34,20 @@ function initMap(){
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     opacity:0.7
   }).addTo(map)
+
+  let comunita = new L.geoJson();
+  comunita.addTo(map);
+
+  $.ajax({
+  dataType: "json",
+  url: "json/comunita_di_valle.geojson",
+  success: function(data) {
+      $(data.features).each(function(key, data) {comunita.addData(data); });
+  }
+});
+
+
+
   var ico = L.icon({
     iconUrl: 'img/mapIco/marker_pieno.png',
     shadowUrl: 'img/mapIco/marker_ombra.png',
