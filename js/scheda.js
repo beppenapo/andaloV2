@@ -16,6 +16,7 @@ $(document).ready(function() {
       $('body').removeClass('modal-open');
     });
   });
+  $(".imgDiv").on('click', function() {linkScheda($(this).data('id'));});
   $("button.sendFeedback").on('click',function(e){
     form = $("[name=feedbackForm]");
     isvalidate = form[0].checkValidity();
