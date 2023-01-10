@@ -15,6 +15,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a class="dropdown-item animation scroll mf" href="index.php#immagini">IMMAGINI</a>
                 <a class="dropdown-item animation scroll mf" href="index.php#luoghi">LUOGHI</a>
                 <a class="dropdown-item animation scroll mf" href="index.php#parole">PAROLE</a>
+                <a class="dropdown-item animation scroll mf" href="index.php#autori">AUTORI</a>
                 <a class="dropdown-item animation scroll mf" href="index.php#aboutus">ABOUT US</a>
                 <a class="dropdown-item animation scroll mf" href="index.php#download">DOWNLOAD</a>
                 <a class="dropdown-item animation scroll mf" href="index.php#credits">CREDITS</a>

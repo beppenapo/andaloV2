@@ -29,19 +29,24 @@ $tagList = $tags->tagList();
     <div class="mainScope pt-5 border-top border-bottom">
       <div class="container">
         <div class="row">
-          <div class="col-4">
+          <div class="col-3">
             <div class="text-center">
               <p class="ancora animation">IMMAGINI</p>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="text-center">
               <p class="ancora animation">LUOGHI</p>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="text-center">
               <p class="ancora animation">PAROLE</p>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="text-center">
+              <p class="ancora animation">AUTORI</p>
             </div>
           </div>
         </div>
@@ -163,6 +168,37 @@ $tagList = $tags->tagList();
               <?php
                 foreach ($tagList['tag'] as $tag) {
                   echo "<label class='tag textag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='tag' data-tag='".$tag['tag']."'>".$tag['tag']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
+                }
+              ?>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-5" id="autori">
+        <div class="my-2 border-bottom">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h2 class="py-2">
+                  <i class="fas fa-users pr-2"></i>
+                  AUTORI
+                  <a href="#home" class="text-dark float-right scroll" data-id="home">
+                    <i class="fas fa-angle-double-up"></i>
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-2 mb-5">
+        <div class="row">
+          <div class="col text-center">
+            <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
+              <?php
+                foreach ($tagList['autori'] as $tag) {
+                  echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='autore' data-tag='".$tag['autore']."'>".$tag['autore']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
                 }
               ?>
             </form>

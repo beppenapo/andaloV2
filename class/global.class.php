@@ -20,8 +20,6 @@ class General extends Db{
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
   public function imgWall($limit=array(), $filter=null){
-    // return [$limit,$filter];
-    // $sql="select * from viewscheda ".$filter." order by random() ";
     $sql=" SELECT
     s.id,
     s.dgn_dnogg,
@@ -40,19 +38,18 @@ class General extends Db{
     p.path,
     t.tags,
     s.pubblica
-   FROM scheda s
-   JOIN foto2 f ON f.id_scheda = s.id
-   LEFT JOIN tags t ON t.scheda = s.id
-   LEFT JOIN file p ON p.id_scheda = s.id
-   LEFT JOIN cronologia c ON c.id_scheda = s.id
-   left JOIN aree_scheda ON aree_scheda.id_scheda = f.id_scheda
-   left JOIN area ON aree_scheda.id_area = area.id
-   left JOIN aree ON aree.nome_area = area.id
-   left JOIN comune ON comune.id = aree.id_comune
-   where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by random() ";
+    FROM scheda s
+    JOIN foto2 f ON f.id_scheda = s.id
+    LEFT JOIN tags t ON t.scheda = s.id
+    LEFT JOIN file p ON p.id_scheda = s.id
+    LEFT JOIN cronologia c ON c.id_scheda = s.id
+    left JOIN aree_scheda ON aree_scheda.id_scheda = f.id_scheda
+    left JOIN area ON aree_scheda.id_area = area.id
+    left JOIN aree ON aree.nome_area = area.id
+    left JOIN comune ON comune.id = aree.id_comune
+    where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by random() ";
     if(!empty($limit)){$sql .= " limit ".$limit.";";}
     return $this->simple($sql);
-    // return $sql;
   }
 
   public function initGallery($dati = array()){
@@ -62,6 +59,8 @@ class General extends Db{
     if($dati['filtro'] == 'tag'){ array_push($filter, "'".$dati['tag']."' in (select(unnest(tags))) ");}
 
     if($dati['filtro'] == 'geotag'){ array_push($filter, " comune.id = ".$dati['val']);}
+
+    if($dati['filtro'] == 'autore'){ array_push($filter, " f.sog_autore ilike '".$dati['tag']."'");}
 
     if($dati['filtro'] == 'titolo'){
       $keyArr = explode(" ",$dati['tag']);
@@ -121,17 +120,24 @@ class General extends Db{
     $out = array();
     $out['geotag']=$this->geotag();
     $out['tag']=$this->tag();
+    $out['autori']=$this->autori();
     return $out;
   }
 
   private function geotag(){
-    $sql = "SELECT id_comune id,comune tag,count(*) schede from gallery where comune != '-' group by id_comune,comune order by comune asc;";
+    $sql = "select id_comune id,comune tag,count(*) schede from gallery where fine = 2 and comune != '-' group by id_comune, comune order by comune asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
 
   private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from viewscheda group by tag having count(*) > 10 order by tag asc;";
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from viewscheda where fine = 2 group by tag having count(*) > 10 order by tag asc;";
+    $arr =  $this->simple($sql);
+    return $this->cluster($arr);
+  }
+
+  private function autori(){
+    $sql="select row_number() over() id, sog_autore as autore, count(*) as schede from viewscheda where fine = 2 and sog_autore !='-' and length(sog_autore) < 50 group by sog_autore having count( * ) > 10  order by sog_autore asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
@@ -158,6 +164,7 @@ class General extends Db{
       $out[$k]['id']=$v['id'];
       $out[$k]['tag']=$v['tag'];
       $out[$k]['schede']=$v['schede'];
+      $out[$k]['autore']=$v['autore'];
       $out[$k]['size']=$font;
     }
     return $out;

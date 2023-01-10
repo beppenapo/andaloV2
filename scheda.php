@@ -6,6 +6,7 @@ $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
 $drop = array('path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
+$fotoApi = 'https://www.bibliopaganella.org/foto_small/';
 ?>
 <!doctype html>
 <html lang="it">
@@ -69,6 +70,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         </div>
         <div class="row">
           <div class="col">
+
             <?php if(!empty($getInfo['tag']['geo'])){?>
             <p class="border-bottom py-2">
               Altre foto di <?php echo $getInfo['tag']['geo'][0]['comune']; ?> che potrebbero interessarti
@@ -77,8 +79,8 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
               foreach ($getInfo['tag']['geo'] as $key => $val) {
                 if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
                 echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
-                  echo "<div class='imgContent animation lozad' data-background-image='foto_small/".$val['path']."'></div>";
-                  echo "<div class='animation imgTxt d-none'>";
+                  echo "<div class='imgContent animation lozad' data-background-image='".$fotoApi.$val['path']."'></div>";
+                  echo "<div class='animation imgTxt d-none d-md-block'>";
                     echo "<p class='animation'>".$titolo."</p>";
                   echo "</div>";
                 echo "</div>";
