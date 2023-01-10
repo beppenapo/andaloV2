@@ -112,13 +112,17 @@ $tagList = $tags->tagList();
               <div id="map" class="bg-white">
                 <div id='loader' class="flex-center w-100 h-100"><i class="fas fa-spinner fa-spin fa-7x"></i></div>
                 <div class="mySwitch">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-1">
                     <input type="radio" name="baseLayer" value="thunderF" id="thunderF" class="mr-1" checked>
                     <label for="thunderF" class="m-0">Thunderforest</label>
                   </div>
-                  <div class="input-group">
+                  <div class="input-group mb-1">
                     <input type="radio" name="baseLayer" value="osm" id="osm" class="mr-1">
                     <label for="osm" class="m-0">OpenStreetMap</label>
+                  </div>
+                  <div class="input-group">
+                    <input type="checkbox" name="comunita" value="comunitaJson" id="comunitaJson" class="mr-1" checked>
+                    <label for="comunitaJson" class="m-0">Comunità di Valle</label>
                   </div>
                 </div>
               </div>
@@ -266,6 +270,7 @@ $tagList = $tags->tagList();
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" charset="utf-8"></script>
     <script src="lib/L.Control.MousePosition.js"></script>
+    <script src="json/comunita.js"></script>
     <script src="js/map.js"></script>
   </body>
 </html>

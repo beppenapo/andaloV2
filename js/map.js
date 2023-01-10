@@ -2,7 +2,7 @@ var center,zoom,map,resetMap,base,osm,thunderF,cluster,fonti,data={};
 initMap()
 function initMap(){
   center = [46.1662,11.0037];
-  zoom = 10;
+  zoom = 12;
   $("#loader").show();
   cluster = L.markerClusterGroup({
     maxClusterRadius:50,
@@ -26,7 +26,7 @@ function initMap(){
     $("#loader").hide()
     $(".leaflet-tooltip").css("display","none")
   });
-  map.setView(center,zoom);
+
   thunderF = L.tileLayer('https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=f1151206891e4ca7b1f6eda1e0852b2e',{
     opacity:0.7
   })
@@ -35,18 +35,15 @@ function initMap(){
     opacity:0.7
   }).addTo(map)
 
-  let comunita = new L.geoJson();
-  comunita.addTo(map);
-
-  $.ajax({
-  dataType: "json",
-  url: "json/comunita_di_valle.geojson",
-  success: function(data) {
-      $(data.features).each(function(key, data) {comunita.addData(data); });
+  let comunitaStyle = {
+    fillColor: '#969696',
+    color: '#969696',
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.4
   }
-});
-
-
+  let comunitaJson = new L.geoJson(comunita,{style:comunitaStyle}).addTo(map);
+  map.fitBounds(comunitaJson.getBounds());
 
   var ico = L.icon({
     iconUrl: 'img/mapIco/marker_pieno.png',
@@ -89,7 +86,7 @@ function initMap(){
       $("<i/>",{class:'fas fa-home'}).appendTo(btn)
       btn.on('click', function (e) {
         e.preventDefault()
-        map.setView(center,zoom);
+        map.fitBounds(comunitaJson.getBounds());
       });
       return container;
     }
@@ -108,6 +105,10 @@ function initMap(){
       map.addLayer(thunderF)
 
     }
+  })
+
+  $("[name=comunita]").on('change',function(){
+    $(this).is(":checked") ? map.addLayer(comunitaJson) : map.removeLayer(comunitaJson)
   })
 }
 function bindPopUp(e) {
