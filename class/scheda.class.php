@@ -4,7 +4,7 @@ class Scheda extends Db{
   public $scheda;
   function __construct($scheda){ $this->scheda = $scheda; }
   public function getScheda(){
-    $sql="select * from viewscheda where id = ".$this->scheda.";";
+    $sql="select v.*, s.note from viewscheda v inner join scheda s on v.id = s.id where s.id = ".$this->scheda.";";
     $query=$this->simple($sql);
     $info = array_filter(array_diff($query[0], ["-"]));
     $list['dgn_numsch']="<strong>".$info['dgn_numsch']."</strong>";
@@ -35,10 +35,18 @@ class Scheda extends Db{
     if(isset($info['sog_note'])){$sogg .= " (".$info['sog_note'].")";}
     $list['sog_autore'] = "<span class='txt12'>".$sogg."</span>";
     $list['sog_sogg']="<span class='txt14'>".$info['sog_sogg']."</span>";
-    if(isset($info['sog_notestor'])){$list['notestor']= "<span class='txt14'>Note storiche: ".$info['sog_notestor']."</span>";}
+
+    if(isset($info['sog_notestor'])){
+      $list['notestor']= "<span class='txt14'>Note storiche: ".$info['sog_notestor']."</span>";
+    }
+    if (isset($info['note']) || isset($info['alt_note'])) {
+      $list['noteTitle'] = "<hr /><span class='txt14'>note:</span>";
+    }
+    if(isset($info['note'])){
+      $list['note_scheda']= "<span class='txt14'>".$this->regexp($info['note'])."</span>";
+    }
     if(isset($info['alt_note'])){
-      // $list['note']= "<span class='txt14'>".$info['alt_note']."</span>";
-      $list['note']= $this->regexp($info['alt_note']);
+      $list['note']= "<span class='txt14'>".$this->regexp($info['alt_note'])."</span>";
     }
     $comune=$this->simple("select id_comune from gallery where id = ".$this->scheda.";");
     $tag['geo']=$this->geoTag($comune);
@@ -97,8 +105,8 @@ class Scheda extends Db{
   }
 
   private function regexp($txt){
-    $pattern="/(FOTO[A-Z]+-I{1,3}-\w{4})/";
-    return preg_replace($pattern, "<a href='#$1' class='txt14 text-dark animation hyperLink' title='visualizza la scheda $1'>$1</a>", $txt);
+    $pattern="/(FOTO[A-Z]+-I{1,3}-\w{4,5})/";
+    return preg_replace($pattern, "<a href='#$1' class='text-dark animation hyperLink' title='visualizza la scheda $1'>$1</a>", $txt);
   }
 }
 
