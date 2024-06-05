@@ -8,7 +8,7 @@ class General extends Db{
   function __construct(){}
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
-  public function imgWall($limit=array(), $filter=null){
+  public function imgWall(array $limit, $filter=null){
     $sql="select * from viewscheda ".$filter." order by random() ";
     if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
     return $this->simple($sql);
@@ -35,7 +35,7 @@ class General extends Db{
         $txt2 = 'che contengono le parole "'.$tag.'"';
       break;
       case null:
-        $out['img'] =  $this->imgWall();
+        $out['img'] =  $this->imgWall([]);
         $txt2 = 'totali';
         break;
     }

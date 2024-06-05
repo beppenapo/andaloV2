@@ -385,7 +385,7 @@ $rst_note= stripslashes($a2['rst_note']); if($rst_note == '') {$rst_note=$nd;}
                    FROM mater_infrastrutture, scheda, lista_dgn_tpsch
                    WHERE mater_infrastrutture.collegata = scheda.id AND
                          scheda.dgn_tpsch = lista_dgn_tpsch.id AND
-                         mater_infrastrutture.scheda = $_GET['id'] AND
+                         mater_infrastrutture.scheda = ".$_GET['id']." AND
                          mater_infrastrutture.rapporto = $nomefor[0];
                 ");
 
