@@ -1,7 +1,6 @@
 $(document).ready(function(){
   limit = screen.width < 768 ? 12 : 24
-  imgWall(limit)
-
+  imgWall([limit])
 })
 
 //quando un device viene ruotato ricalcolo l'altezza delle immagini

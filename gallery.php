@@ -1,8 +1,5 @@
 <?php
 session_start();
-require("class/global.class.php");
-$list=new General;
-$img = $list->lazyLoad($_GET['filtro'],$_GET['tag'],$_GET['val']);
 ?>
 <!doctype html>
 <html lang="it">

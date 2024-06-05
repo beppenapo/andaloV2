@@ -53,7 +53,7 @@ function wrapImgWidth(){$(".imgDiv").height($("#img0").width())}
 function imgWall(limit){
   data={}
   data['oop']={file:'global.class.php',classe:'General',func:'imgWall'}
-  data['dati']={limit:limit, statoScheda:2}
+  data['dati']={limit:limit}
   $.ajax({url: connector, type: type, dataType: dataType, data: data}).done(setGallery);
 }
 function lazyImg(){
@@ -112,6 +112,7 @@ function initGallery(statoScheda){
     });
 }
 function setGallery(data){
+  console.log(data);
   data.forEach((img,idx) => {
     let titolo;
     if (img.dgn_dnogg && img.dgn_dnogg !== '-' && img.dgn_dnogg !== '') {

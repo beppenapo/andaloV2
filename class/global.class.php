@@ -19,8 +19,8 @@ class General extends Db{
   }
 
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
-  public function imgWall($limit=array(), $filter=array()){
-    $orderBy = count($filter) > 1 ? ' s.dgn_numsch asc ' : ' random() ';
+  public function imgWall(array $limit, array $filter){
+    $orderBy = !empty($filter) > 1 ? ' s.dgn_numsch asc ' : ' random() ';
     $sql=" SELECT
     s.id,
     s.dgn_dnogg,
@@ -49,13 +49,12 @@ class General extends Db{
     left JOIN aree ON aree.nome_area = area.id
     left JOIN comune ON comune.id = aree.id_comune
     where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by ".$orderBy;
-    if(!empty($limit)){$sql .= " limit ".$limit.";";}
+    if(!empty($limit)){$sql .= " limit ".$limit[0].";";}
     return $this->simple($sql);
   }
 
-  public function initGallery($dati = array()){
-    $out=[];
-    $filter = [" s.pubblica = true and s.fine = ".$dati['statoScheda']];
+  public function initGallery(array $dati){
+    $filter = [" s.pubblica = true", "s.fine = ".$dati['statoScheda']];
 
     if($dati['filtro'] == 'tag'){ array_push($filter, "'".$dati['tag']."' in (select(unnest(tags))) ");}
 
@@ -72,10 +71,11 @@ class General extends Db{
   }
 
   public function lazyLoad($filtro=null,$tag=null,$val=null){
+    return [$filtro,$tag,$val];
     $out=array();
     switch ($filtro) {
       case 'tag':
-        $filter = "where '".$tag."' in(select(unnest(tags))) ";
+        $filter = ["'".$tag."' in(select(unnest(tags))) "];
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'a cui è associata la tag "'.$tag.'"';
       break;
@@ -86,12 +86,12 @@ class General extends Db{
       break;
       case 'titolo':
         $keywords = str_replace(' ', ' & ', $tag);
-        $filter = "WHERE to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."') ";
+        $filter = ["to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."')"];
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'che contengono le parole "'.$tag.'"';
       break;
       case null:
-        $out['img'] =  $this->imgWall([]);
+        $out['img'] =  $this->imgWall([],[]);
         $txt2 = 'totali';
         break;
     }

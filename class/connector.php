@@ -7,7 +7,7 @@ if(isset($funzione) && function_exists($funzione)) {
   echo $trigger;
 }
 ## index function ##
-function imgWall($class){return json_encode($class->imgWall($_POST['dati']['limit'], [" s.pubblica = true and s.fine = 2"]));}
+function imgWall($class){return json_encode($class->imgWall($_POST['dati']['limit'], [" s.pubblica = true","s.fine = 2"]));}
 function initGallery($class){return json_encode($class->initGallery($_POST['dati']));}
 function getMarker($class){return json_encode($class->getMarker());}
 function geotag($class){return json_encode($class->geotag());}
