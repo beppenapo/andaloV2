@@ -7,95 +7,47 @@ require ('mailer/autoload.php');
 class General extends Db{
   function __construct(){}
 
-  public function getMarker(){
-    $sql = "select t.id_localita, t.top_nomai localita, array_agg(scheda.id) foto, st_X(st_transform(ST_SetSRID(t.geom, 32632), 4326)) lon, st_Y(st_transform(ST_SetSRID(t.geom, 32632), 4326)) lat
-    from topo_mappa t
-    INNER JOIN aree on t.id_localita = aree.id_localita
-    INNER JOIN aree_scheda on aree.nome_area = aree_scheda.id_area
-    INNER JOIN scheda on aree_scheda.id_scheda = scheda.id
-    INNER JOIN file f on f.id_scheda = scheda.id
-    group by t.id_localita, t.top_nomai, t.geom;";
-    return $this->simple($sql);
-  }
-
   ###NOTE: FUNZIONI PER LISTE IMMAGINI
-  public function imgWall($limit=array(), $filter=array()){
-    $orderBy = count($filter) > 1 ? ' s.dgn_numsch asc ' : ' random() ';
-    $sql=" SELECT
-    s.id,
-    s.dgn_dnogg,
-    c.cro_spec,
-    s.dgn_numsch,
-    f.sog_titolo,
-    f.dtc_icol,
-    f.dtc_mattec, 
-    f.dtc_ffile,
-    f.dtc_misfd,
-    f.sog_sogg,
-    f.sog_autore,
-    f.sog_note,
-    f.sog_notestor,
-    f.alt_note,
-    p.path,
-    t.tags,
-    s.pubblica
-    FROM scheda s
-    JOIN foto2 f ON f.id_scheda = s.id
-    LEFT JOIN tags t ON t.scheda = s.id
-    LEFT JOIN file p ON p.id_scheda = s.id
-    LEFT JOIN cronologia c ON c.id_scheda = s.id
-    left JOIN aree_scheda ON aree_scheda.id_scheda = f.id_scheda
-    left JOIN area ON aree_scheda.id_area = area.id
-    left JOIN aree ON aree.nome_area = area.id
-    left JOIN comune ON comune.id = aree.id_comune
-    where ".join(" and ",$filter)." group by s.id, s.dgn_dnogg, c.cro_spec, s.dgn_numsch, f.sog_titolo, f.dtc_icol, f.dtc_mattec, f.dtc_ffile, f.dtc_misfd, f.sog_sogg, f.sog_autore,  f.sog_note, f.sog_notestor, f.alt_note, p.path, t.tags, s.pubblica order by ".$orderBy;
-    if(!empty($limit)){$sql .= " limit ".$limit.";";}
+  public function imgWall($limit=array(), $filter=null){
+    $sql="select * from viewscheda1 ".$filter." order by random() ";
+    if(!empty($limit)){$sql .= " limit ".$limit['limit'].";";}
     return $this->simple($sql);
   }
 
-  public function initGallery($dati = array()){
-    $out=[];
-    $filter = [" s.pubblica = true and s.fine = ".$dati['statoScheda']];
 
-    if($dati['filtro'] == 'tag'){ array_push($filter, "'".$dati['tag']."' in (select(unnest(tags))) ");}
-
-    if($dati['filtro'] == 'geotag'){ array_push($filter, " comune.id = ".$dati['val']);}
-
-    if($dati['filtro'] == 'autore'){ array_push($filter, " f.sog_autore ilike '".$dati['tag']."'");}
-
-    if($dati['filtro'] == 'titolo'){
-      $keyArr = explode(" ",$dati['tag']);
-      $keywords = implode(" & ", substr_replace($keyArr, ':*', -1));
-      array_push($filter, "to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."')");
-    }
-    return $this->imgWall([],$filter);
-  }
-
-  public function lazyLoad($filtro=null,$tag=null,$val=null){
+  public function lazyLoad($filtro=null,$tag=null,$val=null, $fine =2){
     $out=array();
+
     switch ($filtro) {
       case 'tag':
-        $filter = "where '".$tag."' in(select(unnest(tags))) ";
+        $filter = "where '".$tag."' in(select(unnest(tags))) AND fine = $fine  ";
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'a cui è associata la tag "'.$tag.'"';
       break;
       case 'geotag':
-        $sql="select * from gallery where id_comune = ".$val." order by random();";
+        $sql="select * from gallery1 where id_comune = ".$val." AND fine = $fine  order by random();";
         $out['img'] = $this->simple($sql);
         $txt2 = 'scattata nel Comune di "'.$tag.'"';
       break;
+      case 'users':
+        $filter = "where '".$tag."' = sog_autore AND fine = $fine  ";
+        $out['img'] = $this->imgWall(array(),$filter);
+        $txt2 = 'a cui è associato l\'autore "'.$tag.'"';
+      break;	  
       case 'titolo':
         $keywords = str_replace(' ', ' & ', $tag);
-        $filter = "WHERE to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."') ";
+        $filter = "WHERE to_tsvector(concat_ws(' ',sog_titolo,dgn_numsch,dgn_dnogg,cro_spec,sog_sogg,sog_note,sog_notestor,alt_note)) @@ to_tsquery('".$keywords."') AND fine = $fine ";
         $out['img'] = $this->imgWall(array(),$filter);
         $txt2 = 'che contengono le parole "'.$tag.'"';
       break;
       case null:
-        $out['img'] =  $this->imgWall([]);
+        $filter = "WHERE fine = $fine ";
+        $out['img'] =  $this->imgWall([], $filter);
         $txt2 = 'totali';
         break;
     }
     $tot = count($out['img']);
+
     if ($tot == 0) {
       $out['title'] = 'Nessuna immagine corrispondente al tuo criterio di ricerca!';
     }else {
@@ -117,31 +69,32 @@ class General extends Db{
 
 
   ###NOTE: FUNZIONI PER LISTE TAGS
-  public function tagList(){
+  public function tagList($fine = 2){
     $out = array();
-    $out['geotag']=$this->geotag();
-    $out['tag']=$this->tag();
-    $out['autori']=$this->autori();
+    $out['geotag']=$this->geotag($fine);
+    $out['tag']=$this->tag($fine);
+	$out['users'] = $this->users($fine);
     return $out;
   }
 
-  private function geotag(){
-    $sql = "select id_comune id,comune tag,count(*) schede from gallery where fine = 2 and comune != '-' group by id_comune, comune order by comune asc;";
+  private function geotag($fine){
+    $sql = "SELECT id_comune id,comune tag,count(*) schede from gallery1 where comune != '-'   AND fine = $fine  group by id_comune,comune order by comune asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
 
-  private function tag(){
-    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from viewscheda where fine = 2 group by tag having count(*) > 10 order by tag asc;";
+  private function tag($fine){
+    $sql="select row_number() over() id,unnest(tags) as tag, count(*) as schede from viewscheda1 WHERE fine = $fine group by tag having count(*) > 10 order by tag asc;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
   }
+  
 
-  private function autori(){
-    $sql="select row_number() over() id, sog_autore as autore, count(*) as schede from viewscheda where fine = 2 and sog_autore !='-' and length(sog_autore) < 50 group by sog_autore having count( * ) > 10  order by sog_autore asc;";
+  private function users($fine){
+    $sql="SELECT ROW_NUMBER() OVER() ID, sog_autore AS users, COUNT (*) AS schede FROM viewscheda1 WHERE sog_autore !='-' AND fine = $fine  AND LENGTH(sog_autore) < 50 GROUP BY sog_autore HAVING COUNT ( * ) > 10  ORDER BY sog_autore ASC;";
     $arr =  $this->simple($sql);
     return $this->cluster($arr);
-  }
+  }  
 
   private function cluster($arr = array()){
     $max = max(array_column($arr, 'schede'));
@@ -165,14 +118,14 @@ class General extends Db{
       $out[$k]['id']=$v['id'];
       $out[$k]['tag']=$v['tag'];
       $out[$k]['schede']=$v['schede'];
-      $out[$k]['autore']=$v['autore'];
+      $out[$k]['users']=$v['users'];
       $out[$k]['size']=$font;
     }
     return $out;
   }
 
   public function getIdByNumsch($sk){
-    return $this->simple("select id from viewscheda where dgn_numsch = '".$sk['numsch']."';");
+    return $this->simple("select id from viewscheda1 where dgn_numsch = '".$sk['numsch']."';");
   }
 
 

@@ -1,5 +1,5 @@
 <?php
-require("class/global.class.php");
+require("class/global.class2.php");
 $tags=new General;
 $tagList = $tags->tagList();
 ?>
@@ -8,20 +8,16 @@ $tagList = $tags->tagList();
   <head>
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="css/L.Control.MousePosition.css">
   </head>
   <body>
-    <?php require('inc/header.php'); ?>
+    <?php require('inc/header2.php'); ?>
     <div class="maintitle pt-5" id="home">
       <div class="container">
         <div class="row">
           <div class="col">
             <h1 class="text-dark">PROGETTO MEMORIA</h1>
             <h6 class="text-dark">FOTOTECA DOCUMENTARIA DELL'ALTOPIANO DELLA PAGANELLA</h6>
-            <img src="img/headerBg.jpg" class="img-fluid mt-3" alt="Coscritti 1914">
+            <img src="img/headerBg2023.jpg" class="img-fluid mt-3" alt="Coscritti 1923">
           </div>
         </div>
       </div>
@@ -29,24 +25,19 @@ $tagList = $tags->tagList();
     <div class="mainScope pt-5 border-top border-bottom">
       <div class="container">
         <div class="row">
-          <div class="col-3">
+          <div class="col-4">
             <div class="text-center">
               <p class="ancora animation">IMMAGINI</p>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <div class="text-center">
               <p class="ancora animation">LUOGHI</p>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-4">
             <div class="text-center">
               <p class="ancora animation">PAROLE</p>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="text-center">
-              <p class="ancora animation">AUTORI</p>
             </div>
           </div>
         </div>
@@ -111,36 +102,6 @@ $tagList = $tags->tagList();
             </form>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <div id="mapContent" class="bg-white">
-              <div id="map" class="bg-white">
-                <div id='loader' class="flex-center w-100 h-100"><i class="fas fa-spinner fa-spin fa-7x"></i></div>
-                <div class="mySwitch">
-                  <div class="input-group mb-1">
-                    <input type="radio" name="baseLayer" value="thunderF" id="thunderF" class="mr-1" checked>
-                    <label for="thunderF" class="m-0">Thunderforest</label>
-                  </div>
-                  <div class="input-group mb-1">
-                    <input type="radio" name="baseLayer" value="osm" id="osm" class="mr-1">
-                    <label for="osm" class="m-0">OpenStreetMap</label>
-                  </div>
-                  <div class="input-group">
-                    <input type="checkbox" name="comunita" value="comunitaJson" id="comunitaJson" class="mr-1" checked>
-                    <label for="comunitaJson" class="m-0">Comunità di Valle</label>
-                  </div>
-                </div>
-              </div>
-              <div id="panel" class="">
-                <div class="panel-content">
-                  <header id="nome-area" class="border-bottom h5"></header>
-                  <section class="imgGallery"></section>
-                  <footer class="border-top pointer closePanel">chiudi pannello <i class="fas fa-arrow-right"></i> </footer>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="pt-5" id="parole">
@@ -174,7 +135,7 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
-
+	  
       <div class="pt-5" id="autori">
         <div class="my-2 border-bottom">
           <div class="container">
@@ -192,19 +153,21 @@ $tagList = $tags->tagList();
           </div>
         </div>
       </div>
+
       <div class="container mt-2 mb-5">
         <div class="row">
           <div class="col text-center">
             <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
               <?php
-                foreach ($tagList['autori'] as $tag) {
-                  echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='autore' data-tag='".$tag['autore']."'>".$tag['autore']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
+                foreach ($tagList['users'] as $tag) {
+                  echo "<label class='tag geotag animation rounded' style='font-size:".$tag['size']."px' data-id='".$tag['id']."' data-filtro='users' data-tag='".$tag['users']."'>".$tag['users']."<span class='d-none d-lg-inline-block'>".$tag['schede']."</span></label>";
                 }
               ?>
             </form>
           </div>
         </div>
       </div>
+	  
 
       <div class="pt-5" id="aboutus">
         <div class="my-2 border-bottom">
@@ -303,10 +266,5 @@ $tagList = $tags->tagList();
     <?php require('inc/lib.php'); ?>
     <script src="lib/echo.js"></script>
     <script src="js/index.js"></script>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" charset="utf-8"></script>
-    <script src="lib/L.Control.MousePosition.js"></script>
-    <script src="json/comunita.js"></script>
-    <script src="js/map.js"></script>
   </body>
 </html>

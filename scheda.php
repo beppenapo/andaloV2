@@ -6,6 +6,7 @@ $getInfo = $scheda->getScheda();
 $path=$getInfo['list']['path'];
 $drop = array('path');
 foreach ($drop as $x) { unset($getInfo['list'][$x]); }
+$fotoApi = 'https://www.bibliopaganella.org/foto_small/';
 ?>
 <!doctype html>
 <html lang="it">
@@ -43,7 +44,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         <div class="row">
           <div class="col-xs-12 col-md-7 mb-5">
             <div class="imgWrap text-center mb-2">
-              <img src="foto/<?php echo $path; ?>" class="img-fluid" alt="">
+              <img src="https://www.bibliopaganella.org/foto/<?php echo $path; ?>" class="img-fluid" alt="">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
             </div>
             <div id="smallMap"></div>
@@ -69,6 +70,7 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
         </div>
         <div class="row">
           <div class="col">
+
             <?php if(!empty($getInfo['tag']['geo'])){?>
             <p class="border-bottom py-2">
               Altre foto di <?php echo $getInfo['tag']['geo'][0]['comune']; ?> che potrebbero interessarti
@@ -77,8 +79,8 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
               foreach ($getInfo['tag']['geo'] as $key => $val) {
                 if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
                 echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
-                  echo "<div class='imgContent animation lozad' data-background-image='foto_small/".$val['path']."'></div>";
-                  echo "<div class='animation imgTxt d-none'>";
+                  echo "<div class='imgContent animation lozad' data-background-image='".$fotoApi.$val['path']."'></div>";
+                  echo "<div class='animation imgTxt d-none d-md-block'>";
                     echo "<p class='animation'>".$titolo."</p>";
                   echo "</div>";
                 echo "</div>";
@@ -146,17 +148,16 @@ foreach ($drop as $x) { unset($getInfo['list'][$x]); }
             <button type="button" class="btn btn-light" name="closeModal" title="chiudi immagine"><i class="fas fa-times"></i> chiudi</button>
           </div>
         </div>
-        <div class="imgModalDiv" style="background-image:url('foto/<?php echo $path; ?>')"></div>
+        <div class="imgModalDiv" style="background-image:url('https://www.bibliopaganella.org/foto/<?php echo $path; ?>')"></div>
       </div>
     </div>
-    <input type="text" name="item" value="<?php echo $_GET['scheda']; ?>">
+    <input type="hidden" name="item" value="<?php echo $_GET['scheda']; ?>">
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
     <script src="js/leaflet-bing-layer.js"></script>
-    <script src="js/gallery.js"></script>
     <script src="js/scheda.js"></script>
   </body>
 </html>

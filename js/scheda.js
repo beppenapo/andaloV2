@@ -1,6 +1,8 @@
 const BING_KEY = 'Arsp1cEoX9gu-KKFYZWbJgdPEa8JkRIUkxcPr8HBVSReztJ6b0MOz3FEgmNRd4nM';
 let item = $("[name=item]").val();
 let marker;
+wrapImgWidth();
+observer.observe();
 initSmallMap();
 $(document).ready(function() {
   $(".feedbackMsg, #smallMap").hide()
@@ -14,6 +16,7 @@ $(document).ready(function() {
       $('body').removeClass('modal-open');
     });
   });
+  $(".imgDiv").on('click', function() {linkScheda($(this).data('id'));});
   $("button.sendFeedback").on('click',function(e){
     form = $("[name=feedbackForm]");
     isvalidate = form[0].checkValidity();
