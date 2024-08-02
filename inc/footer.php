@@ -32,10 +32,19 @@
       </div>
       <div class="col-md-2 offset-md-2">
         <ul class="menuFooter">
-          <!-- <li><a href="index.php" class="animation">ABOUT US</a></li>
-          <li><a href="gallery.php" class="animation">GALLERY</a></li>
-          <li><a href="#" class="animation">DOWNLOAD</a></li>
-          <li><a href="#" class="animation">CREDITS</a></li> -->
+          <li><a class="scroll animation" href="index.php">HOME</a></li>
+          <li><a class="scroll animation" href="index.php#immagini">IMMAGINI</a></li>
+          <li><a class="scroll animation" href="index.php#luoghi">LUOGHI</a></li>
+          <li><a class="scroll animation" href="index.php#parole">PAROLE</a></li>
+          <li><a class="scroll animation" href="index.php#autori">AUTORI</a></li>
+          <li><a class="scroll animation" href="index.php#aboutus">ABOUT US</a></li>
+          <li><a class="scroll animation" href="index.php#download">DOWNLOAD</a></li>
+          <li><a class="scroll animation" href="index.php#credits">CREDITS</a></li>
+          <?php if(isset($_SESSION['id_user'])){ ?>
+            <li><a href="logout.php" class="scroll animation border-top py-2 d-block">LOGOUT</a></li>
+          <?php }else{ ?>
+            <li><a href="login.php" class="scroll animation border-top py-2 d-block">LOGIN</a></li>
+          <?php } ?>
         </ul>
       </div>
     </div>

@@ -1,1 +1,5 @@
-andalo/vendor/
+api/vendor/
+*~
+foto/
+.*
+api/config/

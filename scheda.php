@@ -1,39 +1,33 @@
 <?php
 session_start();
-require("class/scheda.class.php");
-$scheda = new Scheda(intval($_GET['scheda']));
-$getInfo = $scheda->getScheda();
-$path=$getInfo['list']['path'];
-$drop = array('path');
-foreach ($drop as $x) { unset($getInfo['list'][$x]); }
-$fotoApi = 'https://www.bibliopaganella.org/foto_small/';
+// require("class/scheda.class.php");
+// $scheda = new Scheda(intval($_GET['scheda']));
+// $getInfo = $scheda->getScheda();
+// $path=$getInfo['list']['path'];
+// $drop = array('path');
+// foreach ($drop as $x) { unset($getInfo['list'][$x]); }
+// $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
 ?>
 <!doctype html>
 <html lang="it">
   <head>
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
-    <style media="screen">
-      .imgWrap{position: relative; z-index: 10;}
-      .imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); opacity:0; z-index: 20;font-size: 5em; color: #fff;}
-      .imgOverlay:hover{opacity: 1;}
-      .imgOverlay>i{position: absolute; top: 50%; left: 50%;transform: translate(-50%, -50%);}
-      .feedBackLink{color:#d39e00;}
-      .feedBackLink:hover{color:#987200;}
-      .sendFeedback{font-weight: bold; background: #d39e00; color: #fff; box-shadow: 0 5px 10px rgba(0,0,0,.6);}
-      .sendFeedback:hover{box-shadow: none;color: #fff;}
-      #smallMap {width: 100%; height: 350px; background: #fff;}
-    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="css/scheda.css">
+    <link rel="stylesheet" href="css/gallery.css">
   </head>
   <body class="bg-light">
-    <?php require('inc/header.php'); ?>
+    <input type="hidden" name="item" value="<?php echo $_GET['scheda']; ?>">
+    <?php 
+      require('inc/header.php'); 
+      require('inc/loader.html'); 
+    ?>
     <div class="maintitle bg-white">
       <div class="container">
         <div class="row">
           <div class="col">
-            <p class="text-dark titleScheda m-0"><?php echo $getInfo['list']['titolo']; ?></p>
+            <p class="text-dark titleScheda m-0" id="titolo"></p>
           </div>
         </div>
       </div>
@@ -44,51 +38,24 @@ $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
         <div class="row">
           <div class="col-xs-12 col-md-7 mb-5">
             <div class="imgWrap text-center mb-2">
-              <img src="https://www.bibliopaganella.org/foto/<?php echo $path; ?>" class="img-fluid" alt="">
+              <img src="" class="img-fluid" alt="" id="fotoPath">
               <div class="imgOverlay animation pointer"><i class="fas fa-expand"></i></div>
             </div>
             <div id="smallMap"></div>
-            <div>
-              <p class="border-bottom py-2"><i class="fas fa-tags"></i> Tag</p>
-              <form class="form geoTagContent" action="gallery.php" method="get" name="geoTagForm">
-              <?php
-              foreach ($getInfo['tag']['tag'] as $k => $val) {
-                echo "<button class='btn btn-info btn-sm mr-1 mb-1 tag' type='button' name='tagBtn' data-filtro='tag' data-id='".$k."' data-tag='".$val['tag']."'>".$val['tag']."</button>";
-              }
-              ?>
-              </form>
-            </div>
+            <div id="tagDiv" class="my-3 py-2 border-bottom"></div>
+            <div id="geoTagDiv" class="my-3 py-2 border-bottom"></div>
           </div>
           <div class="col-xs-12 col-md-5">
-            <ul id="testregex">
-              <?php foreach ($getInfo['list'] as $el) {?>
-                <li class="mb-2"><?php echo $el; ?></li>
-              <?php } ?>
-            </ul>
+            <ul id="testregex"></ul>
             <small><a href="#feedback" class="p-2 animation rounded pointer border-0 sendFeedback">inviaci un commento su questa foto</a></small>
           </div>
         </div>
-        <div class="row">
+        <div class="row" id="fotoWrap">
           <div class="col">
-
-            <?php if(!empty($getInfo['tag']['geo'])){?>
-            <p class="border-bottom py-2">
-              Altre foto di <?php echo $getInfo['tag']['geo'][0]['comune']; ?> che potrebbero interessarti
-            </p>
-            <?php
-              foreach ($getInfo['tag']['geo'] as $key => $val) {
-                if (!isset($val['sog_titolo']) || $val['sog_titolo'] == '-' || $val['sog_titolo'] == '') {$titolo = substr($val['path'],0,-4); }else {$titolo = $val['sog_titolo'];}
-                echo "<div id='img".$key."' data-id='".$val['id']."' class='col-4 col-md-3 col-xl-2 p-0 imgDiv'>";
-                  echo "<div class='imgContent animation lozad' data-background-image='".$fotoApi.$val['path']."'></div>";
-                  echo "<div class='animation imgTxt d-none d-md-block'>";
-                    echo "<p class='animation'>".$titolo."</p>";
-                  echo "</div>";
-                echo "</div>";
-              }
-            }//if
-            ?>
+            <p class="border-bottom py-2">Altre foto simili che potrebbero interessarti</p>
           </div>
         </div>
+        <div class="row wrapImg mb-3" id="wrapImg"></div>
         <div class="row" id="feedback">
           <div class="col">
             <p class="border-bottom py-2 mt-5 font-weight-bold">Ci piacerebbe sapere cosa ne pensi di questa foto</p>
@@ -102,7 +69,7 @@ $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
             <form class="form" name="feedbackForm">
               <input type="hidden" name="scheda" class="form-control" value="<?php echo $_GET['scheda']; ?>">
               <small>Tutti i campi sono obbligatori</small>
-              <div class="form-row">
+              <div class="row">
                 <div class="col-6">
                   <input type="text" name="nome" value="" class="form-control form-control-sm" placeholder="Nome" required>
                 </div>
@@ -110,12 +77,12 @@ $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
                   <input type="email" name="email" value="" class="form-control form-control-sm" placeholder="Email">
                 </div>
               </div>
-              <div class="form-row mt-2">
+              <div class="row mt-2">
                 <div class="col">
                   <textarea name="commento" rows="8" cols="40" class="form-control form-control-sm" placeholder="Messaggio" value="" required></textarea>
                 </div>
               </div>
-              <div class="form-row mt-2">
+              <div class="row mt-2">
                 <div class="col">
                   <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="privacy" value="1" required>
@@ -123,13 +90,13 @@ $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
                   </div>
                 </div>
               </div>
-              <div class="form-row mt-2">
+              <div class="row mt-2">
                 <div class="col-xs-12 col-md-4 mb-3">
-                  <button type="submit" class="btn-sm w-100 p-2 animation rounded pointer border-0 sendFeedback">Invia</button>
+                  <button type="submit" class="btn-sm w-100 p-2 animation rounded pointer border-0 sendFeedback">Invia <i id="feedbackLoader" class="fa-solid fa-spinner fa-spin-pulse"></i></button>
                 </div>
                 <div class="col-xs-12 col-md-8">
-                  <div class="feedbackMsg alert alert-success py-1"><small>Il tuo commento è stato inviato, grazie per la tua collaborazione!</small></div>
-                  <div class="feedbackMsg alert alert-danger py-1"><small>Abbiamo riscontrato problemi nell'invio del tuo messaggio! Riprova o manda una mail ad andalo@biblio.tn.it</small></div>
+                  <div class="feedbackMsg alert alert-success py-1" id="sendOk"></div>
+                  <div class="feedbackMsg alert alert-danger py-1" id="sendError"></div>
                 </div>
               </div>
             </form>
@@ -138,25 +105,19 @@ $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
       </div>
     </div>
 
-    <div class="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModal" aria-hidden="true">
-      <div class="modalWrap">
-        <div class="btnWrap text-center clearfix">
-          <div class="btn-group btn-group-sm px-2" role="group" aria-label="modalBtn">
-            <button type="button" name="dgnNumschBtn" class="btn btn-dark" disabled><strong><?php echo preg_replace('/<strong[^>]*?>([\\s\\S]*?)<\/strong>/','\\1', $getInfo['list']['dgn_numsch']); ?></strong></button>
-            <button type="button" name="dtcBtn" class="btn btn-dark d-none d-lg-inline-block" disabled><strong><?php echo preg_replace('/<span[^>]*?>([\\s\\S]*?)<\/span>/','\\1', $getInfo['list']['dtc']); ?></strong></button>
-            <a href="foto/<?php echo $path; ?>" class="btn btn-light" title="scarica immagine" download><i class="fas fa-download"></i> scarica</a>
-            <button type="button" class="btn btn-light" name="closeModal" title="chiudi immagine"><i class="fas fa-times"></i> chiudi</button>
-          </div>
+    <div class="" id="imgModal">
+      <div id="modalContent">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" id="modalImgDescription" class="btn btn-dark" disabled></button>
+          <a href="" class="btn btn-light" id="downloadImg" title="scarica immagine" download><i class="fas fa-download"></i> scarica</a>
+          <button type="button" id="closeModal" class="btn btn-light" title="chiudi immagine"><i class="fas fa-times"></i> chiudi</button>
         </div>
-        <div class="imgModalDiv" style="background-image:url('https://www.bibliopaganella.org/foto/<?php echo $path; ?>')"></div>
+        <div id="imgModalContainer"></div>
       </div>
-    </div>
-    <input type="hidden" name="item" value="<?php echo $_GET['scheda']; ?>">
+    </div>   
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="js/leaflet-bing-layer.js"></script>
     <script src="js/scheda.js"></script>
   </body>

@@ -1,0 +1,56 @@
+.imgWrap{position: relative; z-index: 10;}
+.imgOverlay{position: absolute;top: 0;left: 0;bottom: 0;right: 0;background: rgba(0,0,0,.5); opacity:0; z-index: 20;font-size: 5em; color: #fff;}
+.imgOverlay:hover{opacity: 1;}
+.imgOverlay>i{position: absolute; top: 50%; left: 50%;transform: translate(-50%, -50%);}
+.feedBackLink{color:#d39e00;}
+.feedBackLink:hover{color:#987200;}
+.sendFeedback{font-weight: bold; background: #d39e00; color: #fff; box-shadow: 0 5px 10px rgba(0,0,0,.6);}
+.sendFeedback:hover{box-shadow: none;color: #fff;}
+#smallMap {width: 100%; height: 350px; background: #fff;}
+
+#imgModal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.5);
+  z-index: 2000;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+#imgModal > #modalContent{
+  width: 95%;
+  height: 98%;
+  margin: 0 auto;
+  text-align: center;
+}
+#imgModal > #modalContent > #imgModalContainer{
+  width:100%;
+  height:95%;
+  margin-top: 10px;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media (max-width: 575px) {
+}
+@media (min-width: 576px) and (max-width: 767px) {
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .titleScheda {font-size: 1.5em;}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .titleScheda {font-size: 1.5em;}
+}
+
+@media (min-width: 1200px) {
+  .titleScheda {font-size: 2.5em;}
+}

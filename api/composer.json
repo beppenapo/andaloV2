@@ -1,0 +1,21 @@
+{
+    "name": "biblio/api",
+    "description": "Piattaforma informatica per la raccolta e la condivisione di archivi fotografici storici",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "license": "GNU AFFERO GPL 3.0",
+    "autoload": {
+        "psr-4": {
+            "Biblio\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Giuseppe Naponiello",
+            "email": "beppenapo@gmail.com"
+        }
+    ]
+}

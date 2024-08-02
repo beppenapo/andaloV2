@@ -30,6 +30,7 @@ class Scheda extends Db{
     if(isset($info['dtc_misfd'])){$dtc[2]=strtolower($info['dtc_misfd']);}
     $dtc = implode(", ",$dtc);
     $list['dtc']="<span class='txt12'>".$dtc."</span>";
+    
     $sogg = $info['cro_spec']." ";
     if(isset($info['sog_autore'])){$sogg .= "autore: ".$info['sog_autore'];}
     if(isset($info['sog_note'])){$sogg .= " (".$info['sog_note'].")";}

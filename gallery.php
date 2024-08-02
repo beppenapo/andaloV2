@@ -6,17 +6,21 @@ session_start();
   <head>
     <?php require('inc/meta.php'); ?>
     <?php require('inc/css.php'); ?>
+    <link rel="stylesheet" href="css/gallery.css">
   </head>
   <body class="bg-light" id="top">
-    <input type="hidden" name="filtro" value="<?php echo $_GET['filtro']; ?>">
-    <input type="hidden" name="tag" value="<?php echo $_GET['tag']; ?>">
-    <input type="hidden" name="val" value="<?php echo $_GET['val']; ?>">
-    <?php require('inc/header.php'); ?>
+    <?php 
+      require('inc/header.php'); 
+      require('inc/loader.html'); 
+      if (isset($_GET['filtro'])) { echo "<input type='hidden' name='getFiltro' value='".$_GET['filtro']."'/>"; }
+      if (isset($_GET['tag'])) { echo "<input type='hidden' name='getTag' value='".$_GET['tag']."'/>"; } 
+      if (isset($_GET['val'])) { echo "<input type='hidden' name='getVal' value='".$_GET['val']."'/>"; } 
+    ?>
     <div class="topBtn animation">
       <div class="rounded-circle scroll-gallery" data-id="top">
         <i class="fas fa-angle-double-up fa-3x pointer"></i></div>
       </div>
-    <div class="maintitle" id="home">
+    <div class="maintitle text-center" id="home">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -31,34 +35,34 @@ session_start();
       <div class="container-fluid">
         <div class="row mb-3">
           <div class="col text-center">
-            <div class="btn-group btn-group-sm btn-group-toggle mb-3" data-toggle="buttons">
-              <label class="btn btn-outline-secondary active">
-                <input type="radio" name="statoScheda" value="2" autocomplete="off" checked> schede chiuse
-              </label>
-              <label class="btn btn-outline-secondary">
-                <input type="radio" name="statoScheda" value="1" autocomplete="off"> schede in lavorazione
-              </label>
-              <button type="button" class="btn btn-outline-secondary" name="button" data-toggle="collapse" data-target="#galleryTip">?</button>
+            <div class="btn-group btn-group-sm" role="group">
+              <input type="radio" class="btn-check" name="statoScheda" id="chiuse" value="2" autocomplete="off" checked>
+              <label class="btn btn-outline-secondary" for="chiuse">schede complete</label>
+              
+              <input type="radio" class="btn-check" name="statoScheda" id="aperte" value="1" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="aperte">schede in lavorazione</label>
+
+              <?php if(isset($_SESSION['id_user'])){?>
+              <input type="radio" class="btn-check" name="statoScheda" id="nascoste" value="false" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="nascoste">schede non pubblicate</label>
+              <?php } ?>
+              <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#galleryTip" aria-expanded="false" aria-controls="galleryTip">?</button>
             </div>
-            <div class="collapse" id="galleryTip">
-              <div class="card card-body">Le "schede chiuse" rappresentano tutti i record che sono controllati e convalidati e che, quindi, risultano "completi", mentre per "schede in lavorazione" si intendono tutti quei record ancora in fase di elaborazione o in attesa di convalida, i cui dati seppur incompleti possono tuttavia risultare di rilevante interesse scientifico</div>
+            <div class="collapse mt-3" id="galleryTip">
+              <div class="card card-body">Le "schede complete" rappresentano tutti i record che sono controllati e convalidati e che, quindi, risultano "completi",le "schede in lavorazione" sono tutti quei record ancora in fase di elaborazione o in attesa di convalida, i cui dati seppur incompleti possono tuttavia risultare di rilevante interesse scientifico. Le schede "non pubblicate", a differenza delle altre, sono visibili solo ai compilatori.</div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <p class="h3 text-center statfilter"></p>
+            <p class="h3 text-center" id="statfilter"></p>
           </div>
         </div>
-        <div class="row loading">
-          <div class="col text-center">
-            <h1>Loading gallery ...</h1>
-            <h6>L'elevato numero di foto da mostrare potrebbe richiedere ancora qualche secondo</h6>
-          </div>
-        </div>
-        <div class="row wrapImg mb-3"></div>
+        <div class="row wrapImg mb-3" id="wrapImg"></div>
+        <div class="row mb-3" id="loadingAlert"><h3></h3></div>
       </div>
     </div>
+    <div id="scrollAnchor"></div>
     <?php require('inc/footer.php'); ?>
     <?php require('inc/lib.php'); ?>
     <script src="js/gallery.js"></script>
