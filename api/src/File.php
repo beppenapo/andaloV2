@@ -12,7 +12,7 @@ class File extends Connection{
 
   function __construct()  {
     $isLocal = ($_SERVER['SERVER_NAME'] === 'localhost');
-    $uploadDir = $isLocal ? '/bibliopaganella/foto/' : '/bibliopaganella.org/foto/';
+    $uploadDir = $isLocal ? '/bibliopaganella/foto/' : 'foto/';
     $this->folder = $_SERVER['DOCUMENT_ROOT'] . $uploadDir;
   }
 
