@@ -58,6 +58,7 @@ async function initScheda() {
       body: JSON.stringify(dati),
     });
     const data = await response.json();
+    console.log(data);
 
     if (data.geom && data.geom !== null) {
       initSmallMap(data.geom);
@@ -127,9 +128,9 @@ async function initScheda() {
       }
     }
 
-    if (data.tags && data.tags !== null) {
+    if (scheda.tags && scheda.tags !== null) {
       $("<span/>", { class: 'me-3 d-inline-block' }).html('<i class="fa-solid fa-tags"></i> Tag:').appendTo("#tagDiv");
-      let rawTags = data.tags;
+      let rawTags = scheda.tags;
       rawTags = rawTags.replace(/{|}/g, '').trim();
       let tagsArray = rawTags.split(',').map(tag => tag.trim().replace(/^"|"$/g, ''));
       tagsArray.forEach(tag => {
@@ -140,13 +141,18 @@ async function initScheda() {
     } else {
       $("#tagDiv").remove();
     }
-
-    if (data.geotag && data.geotag !== null) {
+    
+    if (data.geotag && data.geotag !== null && data.geotag.length > 0) {
       $("<span/>", { class: 'me-3 d-inline-block' }).html('<i class="fa-solid fa-location-dot"></i> geoTag:').appendTo("#geoTagDiv");
       data.geotag.forEach(tag => {
         let url = "gallery.php?filtro=geotag&val=" + tag.id_comune + "&tag=" + tag.tag;
         $("<a/>", { class: 'btn btn-warning btn-sm text-white me-1 mb-1 tag', href: url, title: 'cerca immagini associate alla località: ' + tag.tag }).text(tag.tag).appendTo("#geoTagDiv").tooltip();
-      });
+      });    
+    } else {
+      $("#geoTagDiv").remove();
+    }
+
+    if(data.foto && data.foto !== null && data.foto.length > 0){
       data.foto.forEach((img, idx) => {
         let titolo;
         if (!img.titolo || img.titolo == '-' || img.titolo == '') {
@@ -160,8 +166,7 @@ async function initScheda() {
         $("<p/>", { class: 'animation' }).html(titolo.replace(/\/+$/, '')).appendTo(imgTxt);
         wrapImgWidth();
       });
-    } else {
-      $("#tagDiv").remove();
+    }else{
       $("#fotoWrap").remove();
     }
 

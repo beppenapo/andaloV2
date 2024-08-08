@@ -11,17 +11,23 @@ class Scheda extends Connection{
   function __construct(){ $this->file = new File(); }
 
   public function viewscheda(int $id): array{
+    $conditions=[];
     $out=[];
     $out['scheda'] = $this->simple("select * from viewscheda where id = ".$id.";")[0];
     $out['geotag'] = $this->simple("select g.* from geotag g inner join viewscheda v on g.id =v.id where g.id = ".$id.";");
     $out['geom'] = $this->geom($id);
 
+    if(count($this->tags($id)) > 0){
+      $conditions[]=" v.tags && '".$out['scheda']['tags']."'::varchar[] ";
+    }
+
     if(count($out['geotag']) > 0){
       $ids = array_column($out['geotag'], 'id_comune');
-      $conditions = array_map(function($id) { return "g.id_comune = $id"; }, $ids);
-      $queryString = implode(" or ", $conditions);
-      $out['foto'] = $this->simple('select v.id, trim(v.sog_titolo) titolo, v.path from viewscheda v inner join geotag g on g.id = v.id where '.$queryString. ' order by random() limit 12;');
+      $geoConditions = array_map(function($id) { return "g.id_comune = $id"; }, $ids);
+      $conditions = array_merge($conditions,$geoConditions);
     }
+    $queryString = implode(" or ", $conditions);
+    $out['foto'] = $this->simple('select v.id, trim(v.sog_titolo) titolo, v.path from viewscheda v inner join geotag g on g.id = v.id where '.$queryString. ' order by random() limit 12;');
     return $out;
   }
 
@@ -36,6 +42,48 @@ class Scheda extends Connection{
 
   private function tags(int $id){ 
     return $this->simple("select unnest(tags) tag from tags where scheda = ".$id." order by tag asc;");
+  }
+
+  public function addTag(array $dati){
+    try {
+      $this->begin();
+      $check = $this->simple("select count(*) from tags where scheda = ".$dati['scheda'].";")[0];
+      if($check['count']==0){
+        $sql = "insert into tags (scheda, tags) values (:scheda, :tag);";
+        $dati['tag'] = '{' . $dati['tag'] . '}';
+      }else{
+        $sql = "update tags set tags = array_append(tags,:tag) where scheda = :scheda;";
+      }
+      $this->prepared($sql,$dati);
+      $this->commit();
+      return ["error"=>0, "output"=>'Ok, la parola chiave è stata associata al record'];
+    } catch (\Throwable $e) {
+      $this->rollback();
+      return ["error"=>1, "output"=>$e->getMessage()];
+    }
+  }
+  
+  public function removeTag(array $dati){
+    try {
+      $this->begin();
+      $sql = "update tags set tags = array_remove(tags,:tag) where scheda = :scheda;";
+      $this->prepared($sql,$dati);
+      $count = $this->countTag($dati['scheda']);
+      if($count['tot'] == 0){
+        $sql = "delete from tags where scheda = :scheda;";
+        $this->prepared($sql,["scheda"=>$dati['scheda']]);
+      }
+      $this->commit();
+      return ["error"=>0, "output"=>'Ok, la parola chiave non è più associata al record'];
+    } catch (\Throwable $e) {
+      $this->rollback();
+      return ["error"=>1, "output"=>$e->getMessage()];
+    }
+  }
+
+  private function countTag(int $scheda){
+    $sql = "select cardinality(tags) tot from tags where scheda = ".$scheda.";";
+    return $this->simple($sql)[0];
   }
 
   public function salvaScheda(array $dati){
@@ -93,21 +141,42 @@ class Scheda extends Connection{
   }
 
   public function updateScheda(array $dati){
-    $scheda = $dati['scheda']['id'];
-    unset($dati['scheda']['id']);
-    $schedaSql = $this->buildUpdate('scheda',['id'=>$scheda],$dati['scheda']);
-    $cronologiaSql = $this->buildUpdate('cronologia',['id_scheda'=>$scheda],$dati['cronologia']);
-    $fotoSql = $this->buildUpdate('foto2',['id_scheda'=>$scheda],$dati['foto2']);
     try {
-      $this->pdo()->beginTransaction();
-      $this->prepared($schedaSql,$dati['scheda']);
-      $this->prepared($cronologiaSql,$dati['cronologia']);
-      $this->prepared($fotoSql,$dati['foto2']);
-      $this->pdo()->commit();
-      return ["res"=> 1, "output"=>'Ok, la scheda è stata modificata'];
-    } catch (\Exception $e) {
-      $this->pdo()->rollBack();
-      return ["res"=>0, "output"=>$e->getMessage()];
+      $this->begin();
+      $schedaKeys = ["id","dgn_dnogg","dgn_numsch","fine","note","pubblica"];
+      $cronologiaKeys = ["id_scheda","cro_spec"];
+      $fotoKeys = ["id_scheda","alt_note","dtc_icol", "dtc_ffile","dtc_mattec","dtc_misfd","sog_autore", "sog_note","sog_notestor","sog_sogg","sog_titolo"];
+      $scheda = [];
+      $foto = [];
+      $cronologia = [];
+      $fileArr = [];
+
+      foreach ($schedaKeys as $key) {if (isset($dati[$key])) {$scheda[$key] = $dati[$key];}}
+      foreach ($cronologiaKeys as $key) {if (isset($dati[$key])) {$cronologia[$key] = $dati[$key];}}
+      foreach ($fotoKeys as $key) {if (isset($dati[$key])) {$foto[$key] = $dati[$key];}}
+
+      $schedaSql = $this->buildUpdate('scheda',['id'=>$dati['scheda']],$scheda);
+      $cronologiaSql = $this->buildUpdate('cronologia',['id_scheda'=>$dati['scheda']],$cronologia);
+      $fotoSql = $this->buildUpdate('foto2',['id_scheda'=>$dati['scheda']],$foto);
+
+      $this->prepared($schedaSql,$scheda);
+      $this->prepared($cronologiaSql,$cronologia);
+      $this->prepared($fotoSql,$foto);
+      
+      if(isset($dati['files'])){
+        $file = $dati['files']['file'];
+        $fileExt = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileName = strtoupper($dati['dgn_numsch']).".".$fileExt;
+        $fileArr = ["id_scheda"=>$dati['scheda'], "path"=>$fileName];
+        $fileSql = $this->buildUpdate('file',['id_scheda'=>$dati['scheda']],$fileArr);
+        $this->prepared($fileSql,$fileArr);
+        $this->file->upload($file,$fileName);
+      }
+      $this->commit();
+      return ["error"=> 0, "output"=>'Ok, la scheda è stata aggiornata'];
+    } catch (\Throwable $e) {
+      $this->rollback();
+      return ["error"=>1, "output"=>$e->getMessage()];
     }
   }
 
@@ -123,9 +192,10 @@ class Scheda extends Connection{
 
   public function liste(){
     $liste = array();
-    $liste['dtc_icol'] = $this->dtc_icol();
-    $liste['dtc_mattec'] = $this->dtc_mattec();
-    $liste['dtc_ffile'] = $this->dtc_ffile();
+    $liste['dtc_icol'] = $this->simple("select * from lista_dtc_icol order by definizione asc;");
+    $liste['dtc_mattec'] = $this->simple("select * from lista_dtc_mattec order by definizione asc;");
+    $liste['dtc_ffile'] = $this->simple("select * from lista_dtc_ffile order by definizione asc;");
+    $liste['tags'] = $this->simple("select * from tag order by tag asc;");
     return $liste;
   }
 
@@ -135,19 +205,6 @@ class Scheda extends Connection{
 
   public function checkFileExists(string $name){
     return $this->file->checkFileExistsByName($name);
-  }
-
-  private function dtc_icol(){
-    $sql = "select * from lista_dtc_icol order by definizione asc;";
-    return $this->simple($sql);
-  }
-  private function dtc_mattec(){
-    $sql = "select * from lista_dtc_mattec order by definizione asc;";
-    return $this->simple($sql);
-  }
-  private function dtc_ffile(){
-    $sql = "select * from lista_dtc_ffile order by definizione asc;";
-    return $this->simple($sql);
   }
 
   private function geom(int $id){

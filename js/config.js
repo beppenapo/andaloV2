@@ -6,6 +6,8 @@ const page = window.location.pathname.split('/').pop().split('.')[0]
 const foto = 'foto/';
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+const toastElementList = [].slice.call(document.querySelectorAll('.toast'));
+const toastList = toastElementList.map(function (toastEl) { return new bootstrap.Toast(toastEl, { delay: 3000 }); });
 const logged = localStorage.getItem('logged');
 
 //gallery

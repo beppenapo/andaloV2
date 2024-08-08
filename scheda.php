@@ -35,6 +35,14 @@ session_start();
 
     <div class="mainScope border-top border-bottom py-5">
       <div class="container">
+      <?php if(isset($_SESSION['id_user'])){ ?>
+        <div class="row mb-4">
+          <div class="col">
+            <a href="updateRecord.php?item=<?php echo $_GET['scheda']; ?>" class="btn btn-sm btn-secondary">modifica</a>
+            <button type="button" name="delScheda" class="btn btn-sm btn-danger">elimina</button>
+          </div>
+        </div>
+        <?php } ?>
         <div class="row">
           <div class="col-xs-12 col-md-7 mb-5">
             <div class="imgWrap text-center mb-2">

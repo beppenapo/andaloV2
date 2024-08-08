@@ -22,11 +22,10 @@ function handleScheda(el){
       let val = $(this).val();
       if(val){fd.append(field,val);}
     });
-    // for (const [key, value] of fd.entries()) { console.log(`${key}: ${value}`); }
     $("#loading").fadeIn('fast')
     fetch('api/endpoint_scheda.php', {
       method: ajaxType,
-      // se passo anche un file non devo usare un header json ma multipart/form, che viene riconosciuto automaticamente dal server, quindi vasta il metodo e il body con i dati del FormData()
+      // se passo anche un file non devo usare un header json ma multipart/form, che viene riconosciuto automaticamente dal server, quindi basta il metodo e il body con i dati del FormData()
       // headers: headerJson,
       body: fd,
     })
@@ -97,24 +96,6 @@ function getListe(){
   .finally(() => {});
 }
 
-function checkFileExists(file){
-  fetch('api/endpoint_scheda.php', {
-    method: ajaxType,
-    headers: headerJson,
-    body: JSON.stringify({trigger:'checkFileExists', file:file}),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    if(data.length > 0){
-      $("#imgInfo > div").addClass('alert-danger').html('Attenzione, esiste già una foto con lo stesso nome.<a class="d-block" href="scheda.php?scheda='+data[0].id_scheda+'" target="_blank">visualizza scheda</a>');
-      return;
-    }
-  })
-  .catch(error => console.error('Errore nel controllo file:', error))
-  .finally(() => {});
-}
-
 fotoInput.addEventListener('change', event => {
   if(fotoInput.files.length > 0){
     const fileReader = new FileReader();
@@ -169,14 +150,3 @@ fotoInput.addEventListener('change', event => {
     fileReader.readAsDataURL(fotoInput.files[0]);
   }
 })
-
-function convertSize(bytes) {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const index = Math.floor(Math.log(bytes) / Math.log(1024));
-  return (bytes / Math.pow(1024, index)).toFixed(2) + ' ' + sizes[index];
-}
-
-function checkSize(bytes){
-  let mb = bytes / Math.pow(1024, 2).toFixed(2)
-  return mb;
-}

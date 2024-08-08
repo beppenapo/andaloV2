@@ -42,9 +42,12 @@ function checkNum($class, $data){return json_encode($class->checkNum($data['sche
 function checkFileExists($class, $data){return json_encode($class->checkFileExists($data['file']));}
 
 function salvaScheda($class, $data){return json_encode($class->salvaScheda($data));}
-function updateScheda($class, $data){return json_encode($class->updateScheda($data['dati']));}
+function updateScheda($class, $data){return json_encode($class->updateScheda($data));}
 function delScheda($class, $data){return json_encode($class->delScheda($data['dati']));}
 function getIdByNumsch($class, $data){return json_encode($class->getIdByNumsch($data['numsch']));}
 function feedback($class, $data){return json_encode($class->feedback($data));}
+
+function addTag($class, $data){return json_encode($class->addTag($data));}
+function removeTag($class, $data){return json_encode($class->removeTag($data));}
 
 ?>

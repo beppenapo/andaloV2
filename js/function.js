@@ -59,6 +59,113 @@ function countdown(sec,page){
 function wrapImgWidth(){ $(".imgDiv").height($("#img0").width()) }
 function linkScheda(id){window.location.href="scheda.php?scheda="+id;}
 
+async function previewFoto(fotoInput){
+  const fileReader = new FileReader();
+  const px = document.getElementById('imgPlaceholder').offsetWidth;
+  const logoPreview = document.getElementById('imgPreview');
+
+  fileReader.onload = async function handleLoad() {
+    $("#imgInfo > div").removeClass(function(index, className) {
+      return (className.match(/(^|\s)alert-\S+/g) || []).join(' ');
+    }).text('');
+    
+    $("#fileType").text(fotoInput.files[0].type);
+    $("#fileSize").text(convertSize(fotoInput.files[0].size));
+
+    // Controlla se il file esiste già
+    let checkFile;
+    try {
+      checkFile = await checkFileExists(fotoInput.files[0].name);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    
+    if (checkFile.length > 0) {
+      $("#imgInfo > div").addClass('alert-danger').html(
+        'Attenzione, esiste già una foto con lo stesso nome.<a class="d-block" href="scheda.php?scheda=' +
+        checkFile[0].id_scheda + '" target="_blank">visualizza scheda</a>'
+      );
+      fotoInput.value=''
+      return;
+    }
+
+    if (!fotoInput.files[0].type.includes('image/')) {
+      $("#imgInfo > div").addClass('alert-danger').text('Attenzione, il file non è di tipo immagine e pertanto non può essere caricato');
+      fotoInput.value=''
+      return;
+    }
+
+    if (checkSize(fotoInput.files[0].size) > 50) {
+      $("#imgInfo > div").addClass('alert-danger').text('Attenzione, la foto supera le dimensioni consentite e pertanto non può essere caricata');
+      fotoInput.value=''
+      return;
+    }
+
+    $("#imgInfo > div").addClass('alert-success').text('Ok, la foto può essere caricata');
+
+    let img = new Image();
+    img.src = fileReader.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const originalWidth = img.naturalWidth;
+      const originalHeight = img.naturalHeight;
+      let newWidth, newHeight, aspectRatio;
+
+      if (originalWidth > originalHeight) {
+        aspectRatio = originalWidth / originalHeight;
+        newWidth = px;
+        newHeight = newWidth / aspectRatio;
+      } else if (originalHeight > originalWidth) {
+        aspectRatio = originalHeight / originalWidth;
+        newHeight = px;
+        newWidth = newHeight / aspectRatio;
+      } else {
+        newWidth = px;
+        newHeight = px;
+      }
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      logoPreview.src = canvas.toDataURL('image/png');
+      $("#placeholder").remove();
+    };
+  };
+
+  fileReader.readAsDataURL(fotoInput.files[0]);
+}
+function convertSize(bytes) {
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const index = Math.floor(Math.log(bytes) / Math.log(1024));
+  return (bytes / Math.pow(1024, index)).toFixed(2) + ' ' + sizes[index];
+}
+
+function checkSize(bytes){
+  let mb = bytes / Math.pow(1024, 2).toFixed(2)
+  return mb;
+}
+
+function checkFileExists(file){
+  return fetch('api/endpoint_scheda.php', {
+    method: ajaxType,
+    headers: headerJson,
+    body: JSON.stringify({trigger:'checkFileExists', file:file}),
+  })
+  .then(response => response.json())
+  // .then(data => {
+  //   console.log(data);
+  //   if(data.length > 0){
+  //     $("#imgInfo > div").addClass('alert-danger').html('Attenzione, esiste già una foto con lo stesso nome.<a class="d-block" href="scheda.php?scheda='+data[0].id_scheda+'" target="_blank">visualizza scheda</a>');
+  //     return;
+  //   }
+  // })
+  .catch(error => console.error('Errore nel controllo file:', error))
+  .finally(() => {});
+}
+
 
 
 
