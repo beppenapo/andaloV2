@@ -45,8 +45,6 @@ $(document).ready(function() {
             });
         });
       }
-      console.log(data.scheda);
-      
       data.scheda.forEach(item => {
         $("#title").text(item.dgn_dnogg);
         $("#imgPreview").attr("src","foto/"+item.path)
@@ -61,6 +59,7 @@ $(document).ready(function() {
         $("[name=sog_notestor]").val(item.sog_notestor);
         $("[name=alt_note]").val(item.alt_note);
         $("[name=dtc_misfd]").val(item.dtc_misfd);
+        $("[name=fot_collocazione]").val(item.fot_collocazione);
         let statoTxt = item.fine == 1 ? 'in lavorazione' : 'chiusa';
         $("#statoSchedaText > span").text(statoTxt);
         $("[name=fine]").each(function() { if ($(this).val() == item.fine) { $(this).prop('checked', true); } });
@@ -117,6 +116,8 @@ $(document).ready(function() {
         fd.append("file", fotoInput.files[0], fotoInput.files[0].name);
       }
       buildData(fd)
+      // for (const pair of fd.entries()) { console.log(pair[0], pair[1]); }
+      
       $("#loading").fadeIn('fast');
       fetch('api/endpoint_scheda.php', {
         method: ajaxType, 

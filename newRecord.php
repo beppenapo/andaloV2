@@ -27,7 +27,6 @@ if(!isset($_SESSION['id_user'])){ header("Location: login.php");}
           <div class="col">
             <h1 class="text-dark">PROGETTO MEMORIA</h1>
             <h6 class="text-dark">FOTOTECA DOCUMENTARIA DELL'ALTOPIANO DELLA PAGANELLA</h6>
-            <?php echo  "<p>".$_SERVER['DOCUMENT_ROOT']."foto/</p>"; ?>
           </div>
         </div>
       </div>
@@ -127,13 +126,19 @@ if(!isset($_SESSION['id_user'])){ header("Location: login.php");}
           </div>
         </div>
         <div class="row mb-3">
+          <div class="col-12">
+            <label for="fot_collocazione" class="form-label">Collocazione:</label>
+            <input type="text" class="form-control" name="fot_collocazione" id="fot_collocazione" data-table="foto2">
+          </div>
+        </div>
+        <div class="row mb-3">
           <div class="col-4">
-            <label>Compilatore</label>
+            <label class="form-label">Compilatore:</label>
             <input type="text" class="form-control" value="<?php echo $_SESSION['utente']; ?>" readonly>
             <input type="hidden" name="compilatore" id="compilatore" class="form-control" data-table="scheda" value="<?php echo $_SESSION['id_user']; ?>">
           </div>
           <div class="col-3">
-            <label>Data compilazione</label>
+            <label class="form-label">Data compilazione:</label>
             <input type="text"  name="data_compilazione" id="data_compilazione" class="form-control" data-table="scheda" value="<?php echo date('Y-m-d'); ?>" readonly>
           </div>
         </div>

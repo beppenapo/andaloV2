@@ -55,6 +55,10 @@ session_start();
           </div>
           <div class="col-xs-12 col-md-5">
             <ul id="testregex"></ul>
+            <?php if(isset($_SESSION['id_user'])){ ?>
+            <p class="mb-0">Collocazione:</p>
+            <p id="fot_collocazione"></p>
+            <?php } ?>
             <small><a href="#feedback" class="p-2 animation rounded pointer border-0 sendFeedback">inviaci un commento su questa foto</a></small>
           </div>
         </div>

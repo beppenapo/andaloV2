@@ -120,6 +120,12 @@ if(!isset($_SESSION['id_user'])){ header("Location: login.php");}
             <textarea class="form-control" name="alt_note" id="alt_note" rows="10" data-table="foto2"></textarea>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <label for="fot_collocazione" class="form-label">Collocazione:</label>
+            <input type="text" class="form-control" name="fot_collocazione" id="fot_collocazione" data-table="foto2">
+          </div>
+        </div>
         <div class="row my-4" id="tagDiv">
           <div class="col mb-3">
             <label for="tagList">Aggiungi tag</label>

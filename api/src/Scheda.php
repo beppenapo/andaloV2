@@ -110,6 +110,7 @@ class Scheda extends Connection{
         "sog_note" => $dati['sog_note'],
         "sog_notestor" => $dati['sog_notestor'],
         "alt_note" => $dati['alt_note'],
+        "fot_collocazione" => $dati['fot_collocazione'],
       ];
       $schedaSql = $this->buildInsert('scheda',$schedaArr);
       $schedaSql = rtrim($schedaSql, ";") . " returning id;";
@@ -145,7 +146,7 @@ class Scheda extends Connection{
       $this->begin();
       $schedaKeys = ["id","dgn_dnogg","dgn_numsch","fine","note","pubblica"];
       $cronologiaKeys = ["id_scheda","cro_spec"];
-      $fotoKeys = ["id_scheda","alt_note","dtc_icol", "dtc_ffile","dtc_mattec","dtc_misfd","sog_autore", "sog_note","sog_notestor","sog_sogg","sog_titolo"];
+      $fotoKeys = ["id_scheda","alt_note","dtc_icol", "dtc_ffile","dtc_mattec","dtc_misfd","sog_autore", "sog_note","sog_notestor","sog_sogg","sog_titolo", "fot_collocazione"];
       $scheda = [];
       $foto = [];
       $cronologia = [];

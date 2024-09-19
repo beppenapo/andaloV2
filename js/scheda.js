@@ -128,6 +128,8 @@ async function initScheda() {
       }
     }
 
+    // $("<li/>", { class: 'mb-2' }).html("<span class='txt14'>Collocazione:<br/>" + scheda.fot_collocazione + "</span>").appendTo("#testregex");
+    $("#fot_collocazione").text(scheda.fot_collocazione)
     if (scheda.tags && scheda.tags !== null) {
       $("<span/>", { class: 'me-3 d-inline-block' }).html('<i class="fa-solid fa-tags"></i> Tag:').appendTo("#tagDiv");
       let rawTags = scheda.tags;

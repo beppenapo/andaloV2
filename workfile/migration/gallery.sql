@@ -18,6 +18,7 @@ select
   , foto2.sog_note
   , foto2.sog_notestor
   , foto2.alt_note
+  , foto2.fot_collocazione
   , cronologia.cro_spec
   , tags.tags
   , file.path
@@ -43,6 +44,7 @@ group by scheda.id
   , foto2.sog_note
   , foto2.sog_notestor
   , foto2.alt_note
+  , foto2.fot_collocazione
   , cronologia.cro_spec
   , tags.tags
   , file.path
