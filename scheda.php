@@ -1,12 +1,5 @@
 <?php
 session_start();
-// require("class/scheda.class.php");
-// $scheda = new Scheda(intval($_GET['scheda']));
-// $getInfo = $scheda->getScheda();
-// $path=$getInfo['list']['path'];
-// $drop = array('path');
-// foreach ($drop as $x) { unset($getInfo['list'][$x]); }
-// $fotoApi = 'https://www.bibliopaganella.org/foto_small/';
 ?>
 <!doctype html>
 <html lang="it">

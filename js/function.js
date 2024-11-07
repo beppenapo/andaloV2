@@ -155,13 +155,13 @@ function checkFileExists(file){
     body: JSON.stringify({trigger:'checkFileExists', file:file}),
   })
   .then(response => response.json())
-  // .then(data => {
-  //   console.log(data);
-  //   if(data.length > 0){
-  //     $("#imgInfo > div").addClass('alert-danger').html('Attenzione, esiste già una foto con lo stesso nome.<a class="d-block" href="scheda.php?scheda='+data[0].id_scheda+'" target="_blank">visualizza scheda</a>');
-  //     return;
-  //   }
-  // })
+  .then(data => {
+    console.log(data);
+    if(data.length > 0){
+      $("#imgInfo > div").addClass('alert-danger').html('Attenzione, esiste già una foto con lo stesso nome.<a class="d-block" href="scheda.php?scheda='+data[0].id_scheda+'" target="_blank">visualizza scheda</a>');
+      return;
+    }
+  })
   .catch(error => console.error('Errore nel controllo file:', error))
   .finally(() => {});
 }

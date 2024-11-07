@@ -2,6 +2,8 @@ const SCHEDA = $("[name=item").val()
 const isLocal = window.location.hostname === 'localhost';
 const fotoDir = isLocal ? './foto/' : 'https://www.bibliopaganella.org/foto/';
 
+let pathFoto;
+
 initScheda()
 
 $(".feedbackMsg,#feedbackLoader, #imgModal").hide()
@@ -40,11 +42,12 @@ $("button.sendFeedback").on('click',function(e){
   }
 })
 
-$('.imgOverlay').on('click', function() {
-  $("#imgModal").fadeIn('fast');
-});
-$("#closeModal").on('click', function(){
-  $("#imgModal").fadeOut('fast');
+$('.imgOverlay').on('click', function() { $("#imgModal").fadeIn('fast'); });
+$("#closeModal").on('click', function(){ $("#imgModal").fadeOut('fast'); })
+$("[name=delScheda").on('click', ()=>{
+  console.log([SCHEDA,pathFoto]);
+  
+  if(confirm("stai per eliminare una scheda e tutti i file collegati, se confermi i dati non potranno più essere recuperati")){ delScheda() }
 })
 
 async function initScheda() {
@@ -67,6 +70,7 @@ async function initScheda() {
     }
 
     const scheda = data.scheda;
+    pathFoto = scheda.path;
     let titolo;
     if (scheda.dgn_dnogg && scheda.dgn_dnogg !== '') {
       titolo = scheda.dgn_dnogg;
@@ -253,3 +257,19 @@ async function fetchIdForMatch(match) {
     const data = await response.json();
     return data.id;
 }
+
+function delScheda(){
+  fetch('api/endpoint_scheda.php', {
+    method: ajaxType,
+    headers: headerJson,
+    body: JSON.stringify({trigger:'delScheda', dati:{id:SCHEDA, path:pathFoto}}),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    alert(data.output);
+    window.location.href='index.php';
+  })
+  .catch(error => console.error('Errore nel caricamento della scheda:', error))
+  .finally(() => {});
+} 
