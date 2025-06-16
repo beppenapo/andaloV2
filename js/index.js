@@ -27,6 +27,7 @@ function loadImages() {
   dati.trigger='loadGallery';
   dati.offset = offset;
   dati.limit= limit;
+  dati.page = 'index';
   
   fetch('api/endpoint_gallery.php', {
     method: ajaxType,

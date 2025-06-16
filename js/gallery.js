@@ -49,6 +49,7 @@ function loadImages() {
   dati.trigger='loadGallery';
   dati.offset = offset;
   dati.limit= limit;
+  dati.page = 'gallery';
   
   loader.show();
   fetch('api/endpoint_gallery.php', {
@@ -58,6 +59,8 @@ function loadImages() {
   })
   .then(response => response.json())
   .then(data => {
+    console.log(data);
+    
     $("#statfilter").text(data.title);
     if (data.img.length === 0) {
       allImagesLoaded = true;

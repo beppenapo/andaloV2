@@ -16,9 +16,11 @@ class Gallery extends Connection{
   public function imgWall(array $dati, string $join=null){
     $where = '';
     $geotag = '';
+    $orderBy = $dati['orderBy'] == 'index' ? 'random()' : 'data_compilazione desc, id desc';
     if(isset($dati['filters']) && count($dati['filters'])>0){ $where = " where ".join(" AND ", $dati['filters']); }
     if($join !== null){ $geotag = " inner join geotag on geotag.id = viewscheda.id "; }
-    $sql="select * from viewscheda ".$geotag.$where." order by random() limit ".$dati['limit']." offset ".$dati['offset']." ;";
+    $sql="select * from viewscheda ".$geotag.$where." order by ".$orderBy." limit ".$dati['limit']." offset ".$dati['offset']." ;";
+    error_log($sql);
     return $this->simple($sql);
   }
 
@@ -58,16 +60,51 @@ class Gallery extends Connection{
           $geotag = 'geotag';
           break;
         case 'titolo':
-          $keywords = str_replace(' ', ' & ', $req['tag']);
-          $filter[] = "to_tsvector(concat_ws(' ',viewscheda.sog_titolo,viewscheda.dgn_numsch,viewscheda.dgn_dnogg,viewscheda.cro_spec,viewscheda.sog_sogg,viewscheda.sog_note,viewscheda.sog_notestor,viewscheda.alt_note)) @@ to_tsquery('".$keywords."')";
-          break;
+  $search = strtolower($req['tag']);
+  $words = preg_split("/[\s']+/", trim($search));
+  $words = array_filter($words, fn($w) => $w !== '');
+
+  if (count($words) > 1) {
+    $pattern = preg_quote(array_shift($words), "'");
+    foreach ($words as $word) {
+      $pattern .= '\s+.*?' . preg_quote($word, "'");
+    }
+  } elseif (count($words) === 1) {
+    $pattern = preg_quote($words[0], "'");
+  } else {
+    $pattern = '';
+  }
+
+  error_log("REGEX: $pattern");
+
+  $fields = [
+    'viewscheda.sog_titolo',
+    'viewscheda.dgn_numsch',
+    'viewscheda.dgn_dnogg',
+    'viewscheda.cro_spec',
+    'viewscheda.sog_sogg',
+    'viewscheda.sog_note',
+    'viewscheda.sog_notestor',
+    'viewscheda.alt_note'
+  ];
+
+  if ($pattern !== '') {
+    $fieldRegexFilters = [];
+    foreach ($fields as $field) {
+      $fieldRegexFilters[] = "$field ~* '$pattern'";
+    }
+    $filter[] = '(' . implode(' OR ', $fieldRegexFilters) . ')';
+  }
+  break;
         case 'autore':
           $key = (string)$req['tag'];
           $filter[] = "viewscheda.sog_autore = '".$key."'";
           break;
       }
     }
-    $dati = ["limit" => $req['limit'], "offset"=> $req['offset'],"filters"=>$filter];
+
+
+    $dati = ["limit" => $req['limit'], "offset"=> $req['offset'],"filters"=>$filter, "orderBy" => $req['page']];
     $out['img'] =  $this->imgWall($dati,$geotag);
     $tot = $this->countFiltered($geotag,["filters"=>$filter])['tot'];
     if($tot == 0){
