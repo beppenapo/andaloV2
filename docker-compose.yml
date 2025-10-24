@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web:
     build: .
@@ -10,6 +8,7 @@ services:
       - /var/www/html/api/vendor
       - /var/www/html/backend/vendor
     environment:
+      - DOCKER_ENV=development
       - APACHE_DOCUMENT_ROOT=/var/www/html
     restart: unless-stopped
     networks:
