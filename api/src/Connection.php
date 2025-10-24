@@ -20,24 +20,27 @@ class Connection{
     $user = $_ENV['DB_USER'];
     $password = $_ENV['DB_PASSWORD'];
 
-    // ✅ Aggiungi parametri JIT direttamente nella stringa di connessione
-    $options = "";
-    if (getenv('DOCKER_ENV') === 'development') {
-      $options = "options='-c jit=off -c jit_above_cost=-1 -c jit_inline_above_cost=-1 -c jit_optimize_above_cost=-1'";
-    }
-
     $conStr = sprintf(
-      "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s;%s",
+      "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
       $host,
       $port,
       $dbname,
       $user,
-      $password,
-      $options
+      $password
     );
 
     $this->conn = new \PDO($conStr);
     $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    
+    // ✅ Disabilita JIT sempre per compatibilità con PostgreSQL 13
+    try {
+      $this->conn->exec("SET jit = off;");
+      $this->conn->exec("SET jit_above_cost = -1;");
+      $this->conn->exec("SET jit_inline_above_cost = -1;");
+      $this->conn->exec("SET jit_optimize_above_cost = -1;");
+    } catch (\Exception $e) {
+      // Ignora errori se il comando non è supportato
+    }
   }
 
   public function pdo(){
@@ -47,31 +50,15 @@ class Connection{
 
   public function simple($sql){
     $pdo = $this->pdo();
-    
-    // ✅ Disabilita JIT prima di ogni query se siamo in Docker
-    if (getenv('DOCKER_ENV') === 'development') {
-      try {
-        $pdo->exec("SET jit = off;");
-        $pdo->exec("SET jit_above_cost = -1;");
-        $pdo->exec("SET jit_inline_above_cost = -1;");
-        $pdo->exec("SET jit_optimize_above_cost = -1;");
-      } catch (\Exception $e) {
-        // Ignora errori JIT
-      }
-    }
-    
     $exec = $pdo->prepare($sql);
     
     try {
       $execute = $exec->execute();
     } catch (\PDOException $e) {
-      // Se è un errore JIT, riprova con parametri più restrittivi
-      if (strpos($e->getMessage(), 'llvmjit.so') !== false && getenv('DOCKER_ENV') === 'development') {
+      // Se è errore JIT, riprova con parametri più restrittivi
+      if (strpos($e->getMessage(), 'llvmjit.so') !== false) {
         try {
-          $pdo->exec("SET jit = off;");
           $pdo->exec("SET jit_above_cost = 0;");
-          $pdo->exec("SET jit_inline_above_cost = 0;");
-          $pdo->exec("SET jit_optimize_above_cost = 0;");
           $pdo->exec("SET jit_tuple_deforming = off;");
           $pdo->exec("SET jit_expressions = off;");
           $execute = $exec->execute();
