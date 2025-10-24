@@ -1,0 +1,12 @@
+.git
+.gitignore
+README.md
+SETUP.md
+.env
+.env.example
+node_modules
+.vscode
+.idea
+*.log
+docker-compose.yml.bak
+Dockerfile.bak

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html:cached
+      - /var/www/html/api/vendor
+      - /var/www/html/backend/vendor
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    restart: unless-stopped
+    networks:
+      - bibliopaganella-network
+
+networks:
+  bibliopaganella-network:
+    driver: bridge
